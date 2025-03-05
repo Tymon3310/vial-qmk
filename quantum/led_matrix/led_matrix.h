@@ -35,7 +35,7 @@
 #endif
 
 #ifndef LED_MATRIX_VAL_STEP
-#    define LED_MATRIX_VAL_STEP 8
+#    define LED_MATRIX_VAL_STEP 16
 #endif
 
 #ifndef LED_MATRIX_SPD_STEP
@@ -89,6 +89,8 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter);
 #define LED_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
 
+#define LED_MATRIX_TIMEOUT_INFINITE (UINT32_MAX)
+
 enum led_matrix_effects {
     LED_MATRIX_NONE = 0,
 
@@ -135,6 +137,9 @@ void led_matrix_set_value_all(uint8_t value);
 void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
 
 void led_matrix_task(void);
+
+void led_matrix_none_indicators_kb(void);
+void led_matrix_none_indicators_user(void);
 
 // This runs after another backlight effect and replaces
 // values already set
@@ -183,6 +188,21 @@ void        led_matrix_decrease_speed_noeeprom(void);
 led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 void        led_matrix_set_flags_noeeprom(led_flags_t flags);
+
+#ifdef LED_MATRIX_TIMEOUT
+#    if LED_MATRIX_TIMEOUT > 0
+void led_matrix_disable_timeout_set(uint32_t timeout);
+void led_matrix_disable_time_reset(void);
+bool led_matrix_timeouted(void);
+#    endif
+#endif
+
+#ifdef LED_MATRIX_DRIVER_SHUTDOWN_ENABLE
+void led_matrix_driver_shutdown(void);
+void led_matrix_driver_exit_shutdown(void);
+bool led_matrix_is_driver_shutdown(void);
+bool led_matrix_driver_allow_shutdown(void);
+#endif
 
 static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(LED_MATRIX_SPLIT)

@@ -23,6 +23,10 @@
 #include "keycode.h"
 #include "action.h"
 #include "wait.h"
+#ifdef LK_WIRELESS_ENABLE
+#include "wireless.h"
+#endif
+
 
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
 #    include "audio.h"
@@ -180,11 +184,27 @@ void send_string_with_delay_impl(char (*getter)(void *), void *arg, uint8_t inte
                     ascii_code = getter(arg);
                 }
 
-                wait_ms(ms);
+                while (ms--) {
+#ifdef LK_WIRELESS_ENABLE
+                    send_string_task();
+#endif
+                    wait_ms(1);
+                }
+
             }
 
-            wait_ms(interval);
-
+            if (interval) {
+                uint8_t ms = interval;
+                while (ms--) {
+#ifdef LK_WIRELESS_ENABLE
+                    send_string_task();
+#endif
+                    wait_ms(1);
+                }
+            }
+#ifdef LK_WIRELESS_ENABLE
+            send_string_task();
+#endif
             // if we had a delay that terminated with a null, we're done
             if (ascii_code == 0) break;
         } else {
@@ -228,29 +248,48 @@ void send_char_with_delay(char ascii_code, uint8_t interval) {
 
     if (is_shifted) {
         register_code(KC_LEFT_SHIFT);
+#ifdef LK_WIRELESS_ENABLE
+        if (interval) send_string_task();
+#endif
         wait_ms(interval);
     }
 
     if (is_altgred) {
         register_code(KC_RIGHT_ALT);
+#ifdef LK_WIRELESS_ENABLE
+        if (interval) send_string_task();
+#endif
         wait_ms(interval);
     }
 
     tap_code_delay(keycode, interval);
+#ifdef LK_WIRELESS_ENABLE
+     if (interval) send_string_task();
+#endif
+
     wait_ms(interval);
 
     if (is_altgred) {
         unregister_code(KC_RIGHT_ALT);
+#ifdef LK_WIRELESS_ENABLE
+        if (interval) send_string_task();
+#endif
         wait_ms(interval);
     }
 
     if (is_shifted) {
         unregister_code(KC_LEFT_SHIFT);
+#ifdef LK_WIRELESS_ENABLE
+        if (interval) send_string_task();
+#endif
         wait_ms(interval);
     }
 
     if (is_dead) {
         tap_code(KC_SPACE);
+#ifdef LK_WIRELESS_ENABLE
+        if (interval) send_string_task();
+#endif
         wait_ms(interval);
     }
 }

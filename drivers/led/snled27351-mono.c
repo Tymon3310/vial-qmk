@@ -205,6 +205,15 @@ void snled27351_set_led_control_register(uint8_t index, bool value) {
     driver_buffers[led.driver].led_control_buffer_dirty = true;
 }
 
+float snled27351_get_load_ratio(void) {
+    uint32_t totalBuf = 0;
+     for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++)
+        for (uint8_t j = 0; j < SNLED27351_PWM_REGISTER_COUNT; j++)
+            totalBuf += driver_buffers[i].pwm_buffer[j];
+
+    return (float)totalBuf/(0xFF * 3 * SNLED27351_LED_COUNT);
+}
+
 void snled27351_update_pwm_buffers(uint8_t index) {
     if (driver_buffers[index].pwm_buffer_dirty) {
         snled27351_select_page(index, SNLED27351_COMMAND_PWM);
@@ -231,6 +240,24 @@ void snled27351_flush(void) {
     for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++) {
         snled27351_update_pwm_buffers(i);
     }
+}
+
+void snled27351_shutdown(void) {
+#    if defined(SN27351_SDB_PIN)
+    gpio_write_pin_low(SN27351_SDB_PIN);
+#    else
+    for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++)
+        snled27351_sw_shutdown(i);
+#    endif
+}
+
+void snled27351_exit_shutdown(void) {
+#    if defined(SN27351_SDB_PIN)
+    gpio_write_pin_high(SN27351_SDB_PIN);
+#    else
+    for (uint8_t i = 0; i < SNLED27351_DRIVER_COUNT; i++)
+        snled27351_sw_return_normal(i);
+#    endif
 }
 
 void snled27351_sw_return_normal(uint8_t index) {

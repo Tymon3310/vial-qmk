@@ -36,6 +36,7 @@ __attribute__((weak)) uint8_t encoder_quadrature_read_pin(uint8_t index, bool pa
 
 static pin_t encoders_pad_a[NUM_ENCODERS_MAX_PER_SIDE] = ENCODER_A_PINS;
 static pin_t encoders_pad_b[NUM_ENCODERS_MAX_PER_SIDE] = ENCODER_B_PINS;
+static bool  encoder_interrupt_update[NUM_ENCODERS]    = {false};
 
 __attribute__((weak)) void encoder_wait_pullup_charge(void) {
     wait_us(100);
@@ -199,11 +200,19 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
 
 void encoder_quadrature_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state) {
     uint8_t state = pin_a_state | (pin_b_state << 1);
-    if ((encoder_state[index] & 0x3) != state) {
+    if ((encoder_state[index] & 0x3) != state || encoder_interrupt_update[index]) {
         encoder_state[index] <<= 2;
         encoder_state[index] |= state;
         encoder_handle_state_change(index, encoder_state[index]);
+        encoder_interrupt_update[index] = false;
     }
+}
+
+void encoder_quadrature_handle_inerrupt_read(uint8_t index) {
+    encoder_state[index] <<= 2;
+    encoder_state[index] |= (encoder_quadrature_read_pin(index, false) << 0) | (encoder_quadrature_read_pin(index, true) << 1);
+    encoder_pulses[index] += encoder_LUT[encoder_state[index] & 0xF];
+    encoder_interrupt_update[index] = true;
 }
 
 __attribute__((weak)) void encoder_driver_task(void) {

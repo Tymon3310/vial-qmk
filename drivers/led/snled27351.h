@@ -134,6 +134,8 @@ void snled27351_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
 void snled27351_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
+float snled27351_get_load_ratio(void);
+
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
@@ -142,7 +144,8 @@ void snled27351_update_pwm_buffers(uint8_t index);
 void snled27351_update_led_control_registers(uint8_t index);
 
 void snled27351_flush(void);
-
+void snled27351_shutdown(void);
+void snled27351_exit_shutdown(void);
 void snled27351_sw_return_normal(uint8_t index);
 void snled27351_sw_shutdown(uint8_t index);
 
