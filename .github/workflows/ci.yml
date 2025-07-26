@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: (actions) Checkout Vial repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         persist-credentials: false
 
@@ -28,13 +28,13 @@ jobs:
   build-default:
     name: Build default keymaps for Vial
     runs-on: ubuntu-latest
-    container: ghcr.io/qmk/qmk_cli
+    container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07 
     env:
       KEYMAP: default
 
     steps:
     - name: (actions) Checkout Vial repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         persist-credentials: false
         submodules: recursive
@@ -66,13 +66,13 @@ jobs:
   build-vial:
     name: Build Vial keymaps
     runs-on: ubuntu-latest
-    container: ghcr.io/qmk/qmk_cli
+    container: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07 
     env:
       KEYMAP: vial
 
     steps:
     - name: (actions) Checkout Vial repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         persist-credentials: false
         submodules: recursive

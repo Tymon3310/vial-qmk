@@ -215,6 +215,42 @@
 #define FN_MO13 TL_LOWR
 #define FN_MO23 TL_UPPR
 
+#define MAGIC_SWAP_CONTROL_CAPSLOCK      QK_MAGIC_SWAP_CONTROL_CAPS_LOCK
+#define MAGIC_UNSWAP_CONTROL_CAPSLOCK    QK_MAGIC_UNSWAP_CONTROL_CAPS_LOCK
+#define MAGIC_TOGGLE_CONTROL_CAPSLOCK    QK_MAGIC_TOGGLE_CONTROL_CAPS_LOCK
+#define MAGIC_UNCAPSLOCK_TO_CONTROL      QK_MAGIC_CAPS_LOCK_AS_CONTROL_OFF
+#define MAGIC_CAPSLOCK_TO_CONTROL        QK_MAGIC_CAPS_LOCK_AS_CONTROL_ON
+#define MAGIC_SWAP_LALT_LGUI             QK_MAGIC_SWAP_LALT_LGUI
+#define MAGIC_UNSWAP_LALT_LGUI           QK_MAGIC_UNSWAP_LALT_LGUI
+#define MAGIC_SWAP_RALT_RGUI             QK_MAGIC_SWAP_RALT_RGUI
+#define MAGIC_UNSWAP_RALT_RGUI           QK_MAGIC_UNSWAP_RALT_RGUI
+#define MAGIC_UNNO_GUI                   QK_MAGIC_GUI_ON
+#define MAGIC_NO_GUI                     QK_MAGIC_GUI_OFF
+#define MAGIC_TOGGLE_GUI                 QK_MAGIC_TOGGLE_GUI
+#define MAGIC_SWAP_GRAVE_ESC             QK_MAGIC_SWAP_GRAVE_ESC
+#define MAGIC_UNSWAP_GRAVE_ESC           QK_MAGIC_UNSWAP_GRAVE_ESC
+#define MAGIC_SWAP_BACKSLASH_BACKSPACE   QK_MAGIC_SWAP_BACKSLASH_BACKSPACE
+#define MAGIC_UNSWAP_BACKSLASH_BACKSPACE QK_MAGIC_UNSWAP_BACKSLASH_BACKSPACE
+#define MAGIC_TOGGLE_BACKSLASH_BACKSPACE QK_MAGIC_TOGGLE_BACKSLASH_BACKSPACE
+#define MAGIC_HOST_NKRO                  QK_MAGIC_NKRO_ON
+#define MAGIC_UNHOST_NKRO                QK_MAGIC_NKRO_OFF
+#define MAGIC_TOGGLE_NKRO                QK_MAGIC_TOGGLE_NKRO
+#define MAGIC_SWAP_ALT_GUI               QK_MAGIC_SWAP_ALT_GUI
+#define MAGIC_UNSWAP_ALT_GUI             QK_MAGIC_UNSWAP_ALT_GUI
+#define MAGIC_TOGGLE_ALT_GUI             QK_MAGIC_TOGGLE_ALT_GUI
+#define MAGIC_SWAP_LCTL_LGUI             QK_MAGIC_SWAP_LCTL_LGUI
+#define MAGIC_UNSWAP_LCTL_LGUI           QK_MAGIC_UNSWAP_LCTL_LGUI
+#define MAGIC_SWAP_RCTL_RGUI             QK_MAGIC_SWAP_RCTL_RGUI
+#define MAGIC_UNSWAP_RCTL_RGUI           QK_MAGIC_UNSWAP_RCTL_RGUI
+#define MAGIC_SWAP_CTL_GUI               QK_MAGIC_SWAP_CTL_GUI
+#define MAGIC_UNSWAP_CTL_GUI             QK_MAGIC_UNSWAP_CTL_GUI
+#define MAGIC_TOGGLE_CTL_GUI             QK_MAGIC_TOGGLE_CTL_GUI
+#define MAGIC_EE_HANDS_LEFT              QK_MAGIC_EE_HANDS_LEFT
+#define MAGIC_EE_HANDS_RIGHT             QK_MAGIC_EE_HANDS_RIGHT
+#define MAGIC_SWAP_ESCAPE_CAPSLOCK       QK_MAGIC_SWAP_ESCAPE_CAPS_LOCK
+#define MAGIC_UNSWAP_ESCAPE_CAPSLOCK     QK_MAGIC_UNSWAP_ESCAPE_CAPS_LOCK
+#define MAGIC_TOGGLE_ESCAPE_CAPSLOCK     QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK
+
 #define kc 0
 
 
@@ -316,6 +352,7 @@ _Static_assert(MO(1) == 0x5221, "");
 _Static_assert(DF(1) == 0x5241, "");
 _Static_assert(TG(1) == 0x5261, "");
 _Static_assert(OSL(1) == 0x5281, "");
+_Static_assert(PDF(1) == 0x52E1, "");
 _Static_assert(LM(1, KC_A) == 0x5024, "");
 _Static_assert(OSM(MOD_RSFT) == 0x52B2, "");
 _Static_assert(TT(1) == 0x52C1, "");
@@ -774,13 +811,31 @@ _Static_assert(MI_BENDU == 0x718F, "");
 
 _Static_assert(RESET == 0x7C00, "");
 
+_Static_assert(QK_CAPS_WORD_TOGGLE == 0x7C73, "");
+
 _Static_assert(FN_MO13 == 0x7C77, "");
 _Static_assert(FN_MO23 == 0x7C78, "");
+_Static_assert(QK_REPEAT_KEY == 0x7C79, "");
+_Static_assert(QK_ALT_REPEAT_KEY == 0x7C7A, "");
+_Static_assert(QK_LAYER_LOCK == 0x7C7B, "");
 
 /* Ensure that we have 64 USERxx keycodes */
 _Static_assert(QK_KB == 0x7E00, "");
 _Static_assert(QK_KB_MAX == 0x7E3F, "");
 
+_Static_assert(RM_ON == 0x7840, "");
+_Static_assert(RM_OFF == 0x7841, "");
+_Static_assert(RM_TOGG == 0x7842, "");
+_Static_assert(RM_NEXT == 0x7843, "");
+_Static_assert(RM_PREV == 0x7844, "");
+_Static_assert(RM_HUEU == 0x7845, "");
+_Static_assert(RM_HUED == 0x7846, "");
+_Static_assert(RM_SATU == 0x7847, "");
+_Static_assert(RM_SATD == 0x7848, "");
+_Static_assert(RM_VALU == 0x7849, "");
+_Static_assert(RM_VALD == 0x784A, "");
+_Static_assert(RM_SPDU == 0x784B, "");
+_Static_assert(RM_SPDD == 0x784C, "");
 
 #undef C_S
 #undef LCG_T
