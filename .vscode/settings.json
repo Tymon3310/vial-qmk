@@ -10,6 +10,8 @@
         "**/*.uf2": true
     },
     "files.associations": {
+        "*.dbclient-js": "javascript",
+        "*.json": "jsonc",
         "*.h": "c",
         "*.c": "c",
         "*.inc": "c",
@@ -18,7 +20,9 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "compare": "c",
+        "cstdint": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,

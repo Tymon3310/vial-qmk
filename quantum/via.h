@@ -61,6 +61,9 @@
 // so VIA Configurator can detect compatible firmware.
 #define VIA_PROTOCOL_VERSION 0x0009
 
+// VERY UNSTABLE VIA/VIAL AT ONCE
+// #define VIA_PROTOCOL_VERSION 0x000B
+
 // This is a version number for the firmware for the keyboard.
 // It can be used to ensure the VIA keyboard definition and the firmware
 // have the same version, especially if there are changes to custom values.
