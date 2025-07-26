@@ -58,9 +58,9 @@ extern keymap_config_t keymap_config;
 extern usb_endpoint_in_t  usb_endpoints_in[USB_ENDPOINT_IN_COUNT];
 extern usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT];
 
-static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
-static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
-static bool __attribute__((__unused__)) receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size);
+bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
+void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
+bool __attribute__((__unused__)) receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size);
 
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
@@ -359,6 +359,8 @@ void init_usb_driver(USBDriver *usbp) {
 }
 
 __attribute__((weak)) void usb_start(USBDriver *usbp) {
+}
+
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
     usbDisconnectBus(usbp);
     usbStop(usbp);
@@ -419,7 +421,7 @@ bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size) {
  * @return true Success
  * @return false Failure
  */
-static bool send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size) {
+bool send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size) {
     return usb_endpoint_in_send(&usb_endpoints_in[endpoint], (uint8_t *)report, size, TIME_MS2I(100), true);
 }
 
@@ -430,7 +432,7 @@ static bool send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, s
  * @param endpoint USB IN endpoint to flush the reports from
  * @param padded Pad the buffered report with zeros up to the endpoints maximum size
  */
-static void flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded) {
+void flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded) {
     usb_endpoint_in_flush(&usb_endpoints_in[endpoint], padded);
 }
 
@@ -443,7 +445,7 @@ static void flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded) {
  * @return true Success
  * @return false Failure
  */
-static bool receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size) {
+bool receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size) {
     return usb_endpoint_out_receive(&usb_endpoints_out[endpoint], (uint8_t *)report, size, TIME_IMMEDIATE);
 }
 

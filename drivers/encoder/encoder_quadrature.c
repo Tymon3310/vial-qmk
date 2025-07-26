@@ -21,6 +21,9 @@
 #    define ENCODER_RESOLUTION 4
 #endif
 
+// Declaration for the encoder interrupt update flag array
+static bool encoder_interrupt_update[NUM_ENCODERS_MAX_PER_SIDE] = {false};
+
 #undef ENCODER_DEFAULT_PIN_API_IMPL
 #if defined(ENCODER_A_PINS) && defined(ENCODER_B_PINS)
 // Inform the quadrature driver that it needs to implement pin init/read functions

@@ -1,11 +1,18 @@
 {
+    "name": "Keychron V5 Max ANSI Encoder",
+    "maintainer": "Keychron",
+    "manufacturer": "Keychron",
+    "url": "https://www.keychron.com",
+    "folder": "keychron/v5_max/ansi_encoder",
     "usb": {
+        "vid": "0x3434",
         "pid": "0x0950",
         "device_version": "1.0.0"
     },
     "features": {
         "encoder": true,
-        "encoder_map": true
+        "encoder_map": true,
+        "rgb_matrix": true
     },
     "layouts": {
         "LAYOUT_ansi_98": {
@@ -115,5 +122,20 @@
                 {"matrix": [5, 17], "x": 17.5, "y": 5.25}
             ]
         }
-    }
+    },
+    "matrix_pins": {
+        "cols": ["B10", "B2", "A9", "A8", "B15", "B14", "B13", "B12", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "F1", "F0"],
+        "rows": ["B3", "B4", "B5", "B7", "B8", "B9"]
+    },
+    "rgb_matrix": {
+        "driver": "snled27351_spi",
+        "max_brightness": 255
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B15", "pin_b": "B14", "resolution": 4}
+        ]
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu"
 }

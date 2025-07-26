@@ -109,7 +109,8 @@ static inline void factory_timer_check(void) {
             clear_keyboard(); // Avoid key being pressed after NKRO state changed
             layer_state_t default_layer_tmp = default_layer_state;
             eeconfig_init();
-            keymap_config.raw = eeconfig_read_keymap();
+            // Updated for new Vial: eeconfig_read_keymap now takes a pointer
+            eeconfig_read_keymap(&keymap_config);
             default_layer_set(default_layer_tmp);
 #ifdef LED_MATRIX_ENABLE
             if (!led_matrix_is_enabled()) led_matrix_enable();

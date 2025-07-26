@@ -17,12 +17,23 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 #include "tap_dance.h" // Include tap dance definitions
+#include "modules/socd_cleaner/socd_cleaner.h" // Include SOCD Cleaner module
+
+// Function prototype for our SOCD cleaner implementation
+bool process_record_socd_cleaner(uint16_t keycode, keyrecord_t *record);
 
 enum layers {
     MAC_BASE,
     MAC_FN,
     WIN_BASE,
     WIN_FN,
+};
+
+// SOCD Cleaner keycodes - must come after keychron_common.h which defines its own SAFE_RANGE
+enum socd_keycodes {
+    SOCDON = NEW_SAFE_RANGE,  // Turn SOCD Cleaner on
+    SOCDOFF,                  // Turn SOCD Cleaner off
+    SOCDTOG                   // Toggle SOCD Cleaner
 };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -67,10 +78,132 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 // clang-format on
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Process SOCD (Simultaneous Opposite Cardinal Directions) cleaner first
+    if (!process_record_socd_cleaner(keycode, record)) {
+        return false;
+    }
+    
+    // Then process Keychron common features
     if (!process_record_keychron_common(keycode, record)) {
         return false;
     }
+    
+    return true;
+}
 
-    // We'll implement the advanced features once the basic build is working
+// Define handedness of the keyboard layout for Chordal Hold
+// This keyboard has a split-hand layout where left keys are on the left hand
+// and right keys are on the right hand
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', '*', '*', '*', '*', '*', '*', '*', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+};
+
+// Define SOCD Cleaner opposing pairs
+// We're setting up WASD keys with last input priority (recommended for gaming)
+// and arrow keys as an additional set
+// Define SOCD Cleaner opposing pairs for WASD and arrow keys
+socd_cleaner_t socd_opposing_pairs[] = {
+    {{KC_W, KC_S}, SOCD_CLEANER_LAST, {false, false}},  // Up/Down with last input priority 
+    {{KC_A, KC_D}, SOCD_CLEANER_LAST, {false, false}},  // Left/Right with last input priority
+    {{KC_UP, KC_DOWN}, SOCD_CLEANER_LAST, {false, false}},  // Up/Down arrows
+    {{KC_LEFT, KC_RIGHT}, SOCD_CLEANER_LAST, {false, false}}  // Left/Right arrows
+};
+
+// Global variable for enabling/disabling SOCD cleaner
+bool socd_cleaner_enabled = true;
+
+// Implementation of SOCD cleaner key handling
+bool process_record_socd_cleaner(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case SOCDON:  // Turn SOCD Cleaner on
+            if (record->event.pressed) {
+                socd_cleaner_enabled = true;
+            }
+            return false;
+        case SOCDOFF:  // Turn SOCD Cleaner off
+            if (record->event.pressed) {
+                socd_cleaner_enabled = false;
+            }
+            return false;
+        case SOCDTOG:  // Toggle SOCD Cleaner
+            if (record->event.pressed) {
+                socd_cleaner_enabled = !socd_cleaner_enabled;
+            }
+            return false;
+    }
+    
+    // Skip SOCD processing if disabled
+    if (!socd_cleaner_enabled) {
+        return true;
+    }
+    
+    // Process each opposing pair
+    for (int i = 0; i < sizeof(socd_opposing_pairs) / sizeof(socd_opposing_pairs[0]); ++i) {
+        socd_cleaner_t* state = &socd_opposing_pairs[i];
+        
+        // Check if this keycode is part of this opposing pair
+        if (keycode != state->keys[0] && keycode != state->keys[1]) {
+            continue;  // Not relevant for this pair
+        }
+        
+        // The current event corresponds to index `i`, 0 or 1, in the SOCD key pair
+        const uint8_t idx = (keycode == state->keys[1]) ? 1 : 0;
+        const uint8_t opposing = idx ^ 1;  // Index of the opposing key
+        
+        // Track which keys are physically held (vs. keys in the report)
+        state->held[idx] = record->event.pressed;
+        
+        // Perform SOCD resolution for events where the opposing key is held
+        if (state->held[opposing]) {
+            switch (state->resolution) {
+                case SOCD_CLEANER_LAST:  // Last input priority with reactivation
+                    // If the current event is a press, then release the opposing key
+                    // Otherwise if this is a release, then press the opposing key
+                    if (record->event.pressed) {
+                        del_key(state->keys[opposing]);
+                    } else {
+                        add_key(state->keys[opposing]);
+                    }
+                    break;
+                    
+                case SOCD_CLEANER_NEUTRAL:  // Neutral resolution
+                    // Same logic as SOCD_CLEANER_LAST, but skip default handling so that
+                    // the current key has no effect while the opposing key is held
+                    if (record->event.pressed) {
+                        del_key(state->keys[opposing]);
+                    } else {
+                        add_key(state->keys[opposing]);
+                    }
+                    // Send updated report (normally, default handling would do this)
+                    send_keyboard_report();
+                    return false;  // Skip default handling
+                    
+                case SOCD_CLEANER_0_WINS:  // Key 0 wins
+                case SOCD_CLEANER_1_WINS:  // Key 1 wins
+                    if (opposing == (state->resolution - SOCD_CLEANER_0_WINS)) {
+                        // The opposing key is the winner. The current key has no effect
+                        return false;  // Skip default handling
+                    } else {
+                        // The current key is the winner. Update logic is same as above
+                        if (record->event.pressed) {
+                            del_key(state->keys[opposing]);
+                        } else {
+                            add_key(state->keys[opposing]);
+                        }
+                    }
+                    break;
+            }
+        }
+        
+        // If we processed a relevant key, we're done
+        return true;
+    }
+    
+    // No relevant pairs found
     return true;
 }

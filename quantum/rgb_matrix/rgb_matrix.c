@@ -104,7 +104,12 @@ EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config);
 
 void rgb_matrix_increase_val_helper(bool write_to_eeprom);
 
-void eeconfig_update_rgb_matrix(void) {
+/* Function defined elsewhere
+void eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config) {
+    // This function is implemented elsewhere
+}
+*/
+
 void eeconfig_force_flush_rgb_matrix(void) {
     eeconfig_flush_rgb_matrix(true);
 }
@@ -140,7 +145,7 @@ void rgb_matrix_reload_from_eeprom(void) {
     }
 }
 
-__attribute__((weak)) uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
+uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {
     return 0;
 }
 
@@ -199,10 +204,10 @@ void rgb_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
     }
 
     if (last_hit_buffer.count + led_count > LED_HITS_TO_REMEMBER) {
-        memcpy(&last_hit_buffer.x[0], &last_hit_buffer.x[led_count], LED_HITS_TO_REMEMBER - led_count);
-        memcpy(&last_hit_buffer.y[0], &last_hit_buffer.y[led_count], LED_HITS_TO_REMEMBER - led_count);
-        memcpy(&last_hit_buffer.tick[0], &last_hit_buffer.tick[led_count], (LED_HITS_TO_REMEMBER - led_count) * 2); // 16 bit
-        memcpy(&last_hit_buffer.index[0], &last_hit_buffer.index[led_count], LED_HITS_TO_REMEMBER - led_count);
+        memmove(&last_hit_buffer.x[0], &last_hit_buffer.x[led_count], LED_HITS_TO_REMEMBER - led_count);
+        memmove(&last_hit_buffer.y[0], &last_hit_buffer.y[led_count], LED_HITS_TO_REMEMBER - led_count);
+        memmove(&last_hit_buffer.tick[0], &last_hit_buffer.tick[led_count], (LED_HITS_TO_REMEMBER - led_count) * 2); // 16 bit
+        memmove(&last_hit_buffer.index[0], &last_hit_buffer.index[led_count], LED_HITS_TO_REMEMBER - led_count);
         last_hit_buffer.count = LED_HITS_TO_REMEMBER - led_count;
     }
 
@@ -263,7 +268,7 @@ __attribute__((weak)) void rgb_matrix_none_indicators_kb(void) {}
 
 __attribute__((weak)) void rgb_matrix_none_indicators_user(void) {}
 
-static bool rgb_matrix_none(effect_params_t *params) {
+bool rgb_matrix_none(effect_params_t *params) {
     if (!params->init) {
         return false;
     }
@@ -273,7 +278,7 @@ static bool rgb_matrix_none(effect_params_t *params) {
     return false;
 }
 
-static void rgb_task_timers(void) {
+void rgb_task_timers(void) {
 #if defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(rgb_timer_buffer);
 #endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
@@ -292,13 +297,13 @@ static void rgb_task_timers(void) {
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 }
 
-static void rgb_task_sync(void) {
+void rgb_task_sync(void) {
     eeconfig_flush_rgb_matrix(false);
     // next task
     if (sync_timer_elapsed32(g_rgb_timer) >= RGB_MATRIX_LED_FLUSH_LIMIT) rgb_task_state = STARTING;
 }
 
-static void rgb_task_start(void) {
+void rgb_task_start(void) {
     // reset iter
     rgb_effect_params.iter = 0;
 
@@ -312,7 +317,7 @@ static void rgb_task_start(void) {
     rgb_task_state = RENDERING;
 }
 
-static void rgb_task_render(uint8_t effect) {
+void rgb_task_render(uint8_t effect) {
     bool rendering         = false;
     rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
     if (rgb_effect_params.flags != rgb_matrix_config.flags) {
@@ -381,7 +386,7 @@ static void rgb_task_render(uint8_t effect) {
     }
 }
 
-static void rgb_task_flush(uint8_t effect) {
+void rgb_task_flush(uint8_t effect) {
     // update last trackers after the first full render so we can init over several frames
     rgb_last_effect = effect;
     rgb_last_enable = rgb_matrix_config.enable;

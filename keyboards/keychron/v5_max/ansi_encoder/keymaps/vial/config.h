@@ -6,6 +6,9 @@
 
 // Explicitly define encoder pins in the keymap directory too
 // These are already defined in the main config.h, but defining them here ensures they're picked up
+// With the updated Vial, we need to undefine these before they get redefined in quantum/encoder.h
+#undef ENCODER_A_PINS
+#undef ENCODER_B_PINS
 // #define ENCODERS_PAD_A { B15 }
 // #define ENCODERS_PAD_B { B14 }
 // #define ENCODER_RESOLUTION 4
@@ -42,6 +45,26 @@
 #define QMK_SETTINGS_ENABLE
 // VIAL_INSECURE is already defined in rules.mk
 #define DYNAMIC_KEYMAP_MACRO_ENABLE
+
+// QMK Settings specific features
+#define TAPPING_TERM 200
+#define TAP_CODE_DELAY 10
+
+// Mouse Keys configuration
+#define MOUSEKEY_DELAY 10
+#define MOUSEKEY_INTERVAL 20
+#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MOUSEKEY_WHEEL_DELAY 10
+
+// Enable additional keycodes
+// #define DEFERRED_EXEC_ENABLE // Commented out due to linking error
+#define PDF_ENABLE
+// Configure Layer Lock
+#define LAYER_LOCK_IDLE_TIMEOUT 300000 // 5 minutes
+
+// SOCD Cleaner Configuration
+// Using default behavior - no need for additional configuration
 
 // Tap Dance Configuration
 #define TAPPING_TERM 200
