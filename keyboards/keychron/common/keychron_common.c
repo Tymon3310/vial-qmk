@@ -19,6 +19,10 @@
 #include "raw_hid.h"
 #include "version.h"
 
+#if defined(PROTOCOL_CHIBIOS)
+#    include "hal.h"
+#endif
+
 #ifdef FACTORY_TEST_ENABLE
 #    include "factory_test.h"
 #    include "keychron_common.h"
@@ -126,21 +130,28 @@ void keychron_common_task(void) {
 }
 
 #ifdef ENCODER_ENABLE
+#if defined(PROTOCOL_CHIBIOS) && defined(PAL_USE_CALLBACKS) && (PAL_USE_CALLBACKS == TRUE)
 static void encoders_pins_cb(void *param) {
     uint8_t index = (uint32_t)param;
     extern void encoder_quadrature_handle_inerrupt_read(uint8_t index);
     encoder_quadrature_handle_inerrupt_read(index);
 }
+#endif
 
 void encoder_cb_init(void) {
     pin_t encoders_pin_a[] = ENCODER_A_PINS;
     pin_t encoders_pin_b[] = ENCODER_B_PINS;
     for (uint32_t i=0; i<NUM_ENCODERS; i++)
     {
-        palEnableLineEvent(encoders_pin_a[i], PAL_EVENT_MODE_BOTH_EDGES);
-        palEnableLineEvent(encoders_pin_b[i], PAL_EVENT_MODE_BOTH_EDGES);
-        palSetLineCallback(encoders_pin_a[i], encoders_pins_cb, (void*)i);
-        palSetLineCallback(encoders_pin_b[i], encoders_pins_cb, (void*)i);
+#if defined(PROTOCOL_CHIBIOS) && defined(PAL_USE_CALLBACKS) && (PAL_USE_CALLBACKS == TRUE)
+    palEnableLineEvent(encoders_pin_a[i], PAL_EVENT_MODE_BOTH_EDGES);
+    palEnableLineEvent(encoders_pin_b[i], PAL_EVENT_MODE_BOTH_EDGES);
+    palSetLineCallback(encoders_pin_a[i], encoders_pins_cb, (void*)i);
+    palSetLineCallback(encoders_pin_b[i], encoders_pins_cb, (void*)i);
+#else
+    /* Non-ChibiOS platforms: callbacks not supported via pal API */
+    (void)encoders_pin_a; (void)encoders_pin_b; (void)i;
+#endif
     }
 }
 #endif
