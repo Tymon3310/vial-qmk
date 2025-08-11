@@ -142,12 +142,22 @@ static pin_t p24g_led_pin_list[P24G_HOST_DEVICES_COUNT] = P24G_HOST_LED_PIN_LIST
 #    define SET_LED_P24G(idx) rgb_matrix_set_color(idx, 0, 255, 0)
 #    define SET_LED_LOW_BAT(idx) rgb_matrix_set_color(idx, 255, 0, 0)
 #    define LED_DRIVER_IS_ENABLED rgb_matrix_is_enabled
-#    define LED_DRIVER_EECONFIG_RELOAD()                                                       \
-        /* Updated for new Vial API */ \
-        rgb_matrix_reload_from_eeprom(); \
-        if (!rgb_matrix_config.mode) {                                                         \
-            eeconfig_update_rgb_matrix_default();                                              \
-        }
+#    ifdef EECONFIG_RGB_MATRIX
+#        define LED_DRIVER_EECONFIG_RELOAD()                                                       \
+            eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); \
+            if (!rgb_matrix_config.mode) {                                                         \
+                eeconfig_update_rgb_matrix_default();                                              \
+            }
+#    else
+/* Fallback when EECONFIG_RGB_MATRIX symbol not available (legacy include path) */
+#        define LED_DRIVER_EECONFIG_RELOAD()                             \
+            do {                                                         \
+                eeconfig_read_rgb_matrix(&rgb_matrix_config);            \
+                if (!rgb_matrix_config.mode) {                           \
+                    eeconfig_update_rgb_matrix_default();                \
+                }                                                        \
+            } while (0)
+#    endif
 #    define LED_DRIVER_ALLOW_SHUTDOWN rgb_matrix_driver_allow_shutdown
 #    define LED_DRIVER_SHUTDOWN rgb_matrix_driver_shutdown
 #    define LED_DRIVER_EXIT_SHUTDOWN rgb_matrix_driver_exit_shutdown

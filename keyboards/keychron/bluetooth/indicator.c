@@ -119,11 +119,21 @@ static pin_t host_led_pin_list[HOST_DEVICES_COUNT] = HOST_LED_PIN_LIST;
 #    define SET_LED_BT(idx) rgb_matrix_set_color(idx, 0, 0, 255)
 #    define SET_LED_LOW_BAT(idx) rgb_matrix_set_color(idx, 255, 0, 0)
 #    define LED_DRIVER_IS_ENABLED rgb_matrix_is_enabled
-#    define LED_DRIVER_EECONFIG_RELOAD() \
-        eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); \
-        if (!rgb_matrix_config.mode) {  \
-            eeconfig_update_rgb_matrix_default();  \
-        }
+#    ifdef EECONFIG_RGB_MATRIX
+#        define LED_DRIVER_EECONFIG_RELOAD() \
+            eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config)); \
+            if (!rgb_matrix_config.mode) {  \
+                eeconfig_update_rgb_matrix_default();  \
+            }
+#    else
+#        define LED_DRIVER_EECONFIG_RELOAD()                             \
+            do {                                                         \
+                eeconfig_read_rgb_matrix(&rgb_matrix_config);            \
+                if (!rgb_matrix_config.mode) {                           \
+                    eeconfig_update_rgb_matrix_default();                \
+                }                                                        \
+            } while (0)
+#    endif
 #    define LED_DRIVER_ALLOW_SHUTDOWN rgb_matrix_driver_allow_shutdown
 #    define LED_DRIVER_ENABLE_NOEEPROM rgb_matrix_enable_noeeprom
 #    define LED_DRIVER_DISABLE_NOEEPROM rgb_matrix_disable_noeeprom

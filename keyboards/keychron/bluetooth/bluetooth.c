@@ -103,7 +103,7 @@ void bluetooth_init(void) {
     rtc_timer_init();
 
 #ifdef BLUETOOTH_NKRO_ENABLE
-    keymap_config.raw = eeconfig_read_keymap();
+    eeconfig_read_keymap(&keymap_config);
     nkro.bluetooth    = keymap_config.nkro;
 #endif
 }

@@ -21,9 +21,8 @@ COMBO_ENABLE = yes        # Key combos
 MOUSEKEY_ENABLE = yes     # Mouse keys
 AUTO_SHIFT_ENABLE = yes   # Auto Shift
 ONESHOT_ENABLE = yes      # One-shot keys
+SWAP_HANDS_ENABLE = yes   # Enable swap-hands feature
 
-# SOCD Cleaner module
-MODULES = socd_cleaner
 
 # Enable QMK Settings features
 QMK_SETTINGS = yes
@@ -46,3 +45,4 @@ DEBOUNCE_TYPE = sym_eager_pk
 
 # Disable features to save space if needed
 CONSOLE_ENABLE = no
+LTO_ENABLE = yes

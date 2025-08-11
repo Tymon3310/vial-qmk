@@ -5,6 +5,9 @@
   "matrix": {"rows": 6, "cols": 19},
   "lighting": "vialrgb",
   "vialLayers": 4,
+  "modules": [
+    "getreuer/socd_cleaner"
+  ],
   "customKeycodes": [
     {"name": "Mac Option Left", "title": "LOption", "shortName": "LOpt", "data": "QK_KB_0"},
     {"name": "Mac Option Right", "title": "ROption", "shortName": "ROpt", "data": "QK_KB_1"},
@@ -22,9 +25,11 @@
     {"name": "Bluetooth Host 3", "title": "BT 3", "shortName": "BT 3", "data": "QK_KB_13"},
     {"name": "Peer 2.4G", "title": "P2P4G", "shortName": "P2P4G", "data": "QK_KB_14"},
     {"name": "Battery Level", "title": "BAT LVL", "shortName": "BAT", "data": "QK_KB_15"},
-    {"name": "SOCD Cleaner On", "title": "SOCD On", "shortName": "SOCD+", "data": "SOCDON"},
-    {"name": "SOCD Cleaner Off", "title": "SOCD Off", "shortName": "SOCD-", "data": "SOCDOFF"},
-    {"name": "SOCD Cleaner Toggle", "title": "SOCD Toggle", "shortName": "SOCD~", "data": "SOCDTOG"}
+    {"name": "SOCD Cleaner On", "title": "SOCD On", "shortName": "SOCD+", "data": "QK_KB_16"},
+    {"name": "SOCD Cleaner Off", "title": "SOCD Off", "shortName": "SOCD-", "data": "QK_KB_17"},
+    {"name": "SOCD Cleaner Toggle", "title": "SOCD Toggle", "shortName": "SOCD\nTOGG", "data": "QK_KB_18"},
+    {"name": "WASD↔Arrows Toggle", "title": "WASD↔Arrows", "shortName": "WA↔AR\nTOGG", "data": "QK_KB_19"},
+    {"name": "Mouse Turbo Click", "title": "Turbo", "shortName": "Turbo", "data": "QK_KB_20"}
   ],
   "layouts": {
     "keymap": [

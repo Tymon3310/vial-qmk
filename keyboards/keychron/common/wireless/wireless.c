@@ -107,7 +107,6 @@ void wireless_init(void) {
     rtc_timer_init();
 #endif
 #ifdef NKRO_ENABLE
-    // Updated for new Vial: eeconfig_read_keymap now takes a pointer
     eeconfig_read_keymap(&keymap_config);
     nkro.usb          = keymap_config.nkro;
 #    ifdef WIRELESS_NKRO_ENABLE

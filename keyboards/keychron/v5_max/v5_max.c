@@ -33,7 +33,11 @@ static uint32_t power_on_indicator_timer;
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (index == 0) {
-        default_layer_set(1UL << (active ? 0 : 2));
+        if (active) { // Mac position
+            layer_on(0);
+        } else { // Win position
+            layer_on(2);
+        }
     }
     dip_switch_update_user(index, active);
 
@@ -59,6 +63,75 @@ void keyboard_post_init_kb(void) {
 
     keyboard_post_init_user();
 }
+
+#ifdef RGB_MATRIX_ENABLE
+#    include "caps_word.h"
+#    include "rgb_matrix.h"
+// Forward declaration from indicator.c to reuse its ephemeral refresh path
+bool led_update_kb(led_t led_state);
+// Ensure Caps Word state influences indicators even when RGB is toggled off.
+// We piggyback on the existing led_update_kb path by overriding the weak user hook here.
+bool rgb_matrix_indicators_user(void) {
+    // If Caps Word is active, ensure the Caps Lock indicator LED is lit.
+    if (is_caps_word_on()) {
+#    if defined(CAPS_LOCK_INDEX)
+        rgb_matrix_set_color(CAPS_LOCK_INDEX, 255, 255, 255);
+#    endif
+    }
+    return true; // allow other user-level indicators as well
+}
+
+// Override the weak os_state_indicate from indicator.c so we can also light Caps for Caps Word
+void os_state_indicate(void) {
+    // Mirror host lock LEDs and add Caps Word support
+    led_t host = host_keyboard_led_state();
+
+#    ifdef NUM_LOCK_INDEX
+    if (host.num_lock) {
+        rgb_matrix_set_color(NUM_LOCK_INDEX, 255, 255, 255);
+    }
+#    endif
+
+#    ifdef CAPS_LOCK_INDEX
+    if (host.caps_lock || is_caps_word_on()) {
+#        ifdef DIM_CAPS_LOCK
+        rgb_matrix_set_color(CAPS_LOCK_INDEX, 0, 0, 0);
+#        else
+        rgb_matrix_set_color(CAPS_LOCK_INDEX, 255, 255, 255);
+#        endif
+    } else {
+        // Explicitly clear when neither Caps Lock nor Caps Word is active to avoid stale LED when RGB is off
+        rgb_matrix_set_color(CAPS_LOCK_INDEX, 0, 0, 0);
+    }
+#    endif
+
+#    ifdef SCROLL_LOCK_INDEX
+    if (host.scroll_lock) {
+        rgb_matrix_set_color(SCROLL_LOCK_INDEX, 255, 255, 255);
+    }
+#    endif
+
+#    ifdef COMPOSE_LOCK_INDEX
+    if (host.compose) {
+        rgb_matrix_set_color(COMPOSE_LOCK_INDEX, 255, 255, 255);
+    }
+#    endif
+
+#    ifdef KANA_LOCK_INDEX
+    if (host.kana) {
+        rgb_matrix_set_color(KANA_LOCK_INDEX, 255, 255, 255);
+    }
+#    endif
+}
+
+// Ensure LED refresh on Caps Word state change, even when RGB is toggled off
+void caps_word_set_user(bool active) {
+    // Force an indicator refresh using the same path host LEDs use, which
+    // temporarily wakes the driver, paints, flushes, and re-shuts down if needed.
+    (void)active;
+    led_update_kb(host_keyboard_led_state());
+}
+#endif
 
 bool keychron_task_kb(void) {
     if (power_on_indicator_timer) {

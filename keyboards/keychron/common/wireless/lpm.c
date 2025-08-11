@@ -160,7 +160,7 @@ bool pre_enter_low_power_mode(pm_t mode) {
 #endif
     select_all_cols();
 
-#if (HAL_USE_SPI == TRUE) && defined(RGB_MATRIX_ENABLE)
+#if (HAL_USE_SPI == TRUE)
     palSetLineMode(SPI_SCK_PIN, PAL_MODE_INPUT_PULLDOWN);
     palSetLineMode(SPI_MISO_PIN, PAL_MODE_INPUT_PULLDOWN);
     palSetLineMode(SPI_MOSI_PIN, PAL_MODE_INPUT_PULLDOWN);
@@ -185,7 +185,7 @@ static inline void lpm_wakeup(void) {
     palSetLineMode(A11, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
     palSetLineMode(A12, PAL_STM32_OTYPE_PUSHPULL | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING | PAL_MODE_ALTERNATE(10U));
 
-#if (HAL_USE_SPI == TRUE) && defined(RGB_MATRIX_ENABLE)
+#if (HAL_USE_SPI == TRUE)
     palSetLineMode(SPI_SCK_PIN, PAL_MODE_ALTERNATE(5));
     palSetLineMode(SPI_MISO_PIN, PAL_MODE_ALTERNATE(5));
     palSetLineMode(SPI_MOSI_PIN, PAL_MODE_ALTERNATE(5));

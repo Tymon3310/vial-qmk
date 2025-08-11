@@ -136,6 +136,10 @@
             {"pin_a": "B15", "pin_b": "B14", "resolution": 4}
         ]
     },
+        "modules": [
+            "getreuer/socd_cleaner",
+            "getreuer/mouse_turbo_click"
+        ],
     "processor": "STM32L432",
     "bootloader": "stm32-dfu"
 }
