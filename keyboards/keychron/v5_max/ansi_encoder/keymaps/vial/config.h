@@ -70,3 +70,5 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix_effects_conf.h"
 #endif
+
+#define MOUSE_TURBO_CLICK_PERIOD 50

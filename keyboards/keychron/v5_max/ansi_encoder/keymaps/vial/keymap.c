@@ -189,6 +189,10 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 #    define ARROW_RIGHT_LED_INDEX 94
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    // If RGB Matrix is disabled or suspended, don't light indicators
+    if (!rgb_matrix_get_flags()) {
+        return false;
+    }
     const bool caps_hw   = host_keyboard_led_state().caps_lock;
     const bool caps_word = is_caps_word_on();
 
@@ -237,3 +241,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 #endif
+
+// Ensure no LEDs are left on when the host suspends/powers off USB
+void suspend_power_down_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_set_suspend_state(true);
+    rgb_matrix_set_color_all(0, 0, 0);
+#endif
+}
+
+void suspend_wakeup_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_set_suspend_state(false);
+#endif
+}
