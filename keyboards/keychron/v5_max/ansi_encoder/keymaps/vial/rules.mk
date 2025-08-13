@@ -30,6 +30,7 @@ CHORDING_ENABLE = yes  # Enable Chordal Hold
 FLOW_TAP_ENABLE = yes  # Enable Flow Tap
 
 # Enable Vial-specific features
+SNAP_CLICK_ENABLE = no
 VIAL_TAP_DANCE_ENABLE = yes
 VIAL_COMBO_ENABLE = yes
 VIAL_KEY_OVERRIDE_ENABLE = yes
