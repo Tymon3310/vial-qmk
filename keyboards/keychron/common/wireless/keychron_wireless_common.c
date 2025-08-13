@@ -35,28 +35,45 @@ static uint8_t  host_idx = 0;
 
 bool process_record_keychron_wireless(uint16_t keycode, keyrecord_t *record) {
     static uint8_t host_idx;
+    // Track a simple cycle for BT host selection when using the repurposed key
+    static uint8_t bt_next_cycle = 1; // valid values: 1..3
 
     switch (keycode) {
         case BT_HST1 ... BT_HST3:
-            if (get_transport() == TRANSPORT_BLUETOOTH) {
-                if (record->event.pressed) {
-                    host_idx = keycode - BT_HST1 + 1;
+            if (record->event.pressed) {
+                host_idx = keycode - BT_HST1 + 1;
 
+                if (get_transport() == TRANSPORT_BLUETOOTH) {
+                    // Normal behavior in BT mode: start hold-to-pair timer and request connect
                     pairing_key_timer = timer_read32();
                     wireless_connect_ex(host_idx, 0);
-                } else {
+                } else if (get_transport() == TRANSPORT_USB) {
+                    // In cable mode, remember the desired host for the next time BT is enabled.
+                    // Do NOT start pairing timer while on USB.
+                    wireless_connect_ex(host_idx, 0);
+                }
+            } else {
+                // On release, only clear pairing timer if we are in BT mode
+                if (get_transport() == TRANSPORT_BLUETOOTH) {
                     host_idx          = 0;
                     pairing_key_timer = 0;
                 }
             }
             break;
         case P2P4G:
-            if (get_transport() == TRANSPORT_P2P4) {
-                if (record->event.pressed) {
+            if (record->event.pressed) {
+                transport_t tr = get_transport();
+                if (tr == TRANSPORT_BLUETOOTH || tr == TRANSPORT_USB) {
+                    // Repurpose: in BT/USB modes, use this key to cycle Bluetooth hosts 1->2->3
+                    bt_next_cycle = (bt_next_cycle % 3) + 1; // 1..3
+                    wireless_connect_ex(bt_next_cycle, 0);
+                } else if (tr == TRANSPORT_P2P4) {
+                    // In 2.4G mode, keep original behavior: hold to enter pairing
                     host_idx = P24G_INDEX;
-
                     pairing_key_timer = timer_read32();
-                } else {
+                }
+            } else {
+                if (get_transport() == TRANSPORT_P2P4) {
                     host_idx          = 0;
                     pairing_key_timer = 0;
                 }
