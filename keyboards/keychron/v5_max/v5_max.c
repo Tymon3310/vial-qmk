@@ -89,6 +89,9 @@ void os_state_indicate(void) {
 #    ifdef NUM_LOCK_INDEX
     if (host.num_lock) {
         rgb_matrix_set_color(NUM_LOCK_INDEX, 255, 255, 255);
+    } else {
+        // Ensure we clear the LED if Num Lock is not active to avoid stale state after host power-down
+        rgb_matrix_set_color(NUM_LOCK_INDEX, 0, 0, 0);
     }
 #    endif
 
@@ -108,18 +111,24 @@ void os_state_indicate(void) {
 #    ifdef SCROLL_LOCK_INDEX
     if (host.scroll_lock) {
         rgb_matrix_set_color(SCROLL_LOCK_INDEX, 255, 255, 255);
+    } else {
+        rgb_matrix_set_color(SCROLL_LOCK_INDEX, 0, 0, 0);
     }
 #    endif
 
 #    ifdef COMPOSE_LOCK_INDEX
     if (host.compose) {
         rgb_matrix_set_color(COMPOSE_LOCK_INDEX, 255, 255, 255);
+    } else {
+        rgb_matrix_set_color(COMPOSE_LOCK_INDEX, 0, 0, 0);
     }
 #    endif
 
 #    ifdef KANA_LOCK_INDEX
     if (host.kana) {
         rgb_matrix_set_color(KANA_LOCK_INDEX, 255, 255, 255);
+    } else {
+        rgb_matrix_set_color(KANA_LOCK_INDEX, 0, 0, 0);
     }
 #    endif
 }
