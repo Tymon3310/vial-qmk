@@ -51,6 +51,10 @@ enum turbo_wrapper_keycodes {
 // Track swap-hands state (mirroring) separately for LED indication
 static bool swap_hands_active = false;
 
+// Timer for temporarily disabling layer RGB coloring when RGB keycodes are used
+static uint32_t rgb_keycode_timer = 0;
+static bool rgb_layer_coloring_enabled = true;
+
 // Disable SOCD Cleaner by default (module defaults to enabled). This runs after init.
 void keyboard_post_init_user(void) {
     socd_cleaner_enabled = false;
@@ -129,7 +133,7 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 0 };
 
 // clang-format on
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Forward our Vial-visible wrapper to the module’s TURBO keycode (handles press/release + double-tap lock)
+    // Forward our Vial-visible wrapper to the module's TURBO keycode (handles press/release + double-tap lock)
     if (keycode == TURBO_WRAPPER) {
         (void)process_record_mouse_turbo_click(MOUSE_TURBO_CLICK, record);
         return false; // suppress original wrapper
@@ -139,8 +143,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
+    // Check for RGB keycodes and disable layer coloring temporarily
     if (record->event.pressed) {
         switch (keycode) {
+            case RGB_TOG:
+            case RGB_MOD:
+            case RGB_RMOD:
+            case RGB_HUI:
+            case RGB_HUD:
+            case RGB_SAI:
+            case RGB_SAD:
+            case RGB_VAI:
+            case RGB_VAD:
+            case RGB_SPI:
+            case RGB_SPD:
+                rgb_keycode_timer = timer_read32();
+                rgb_layer_coloring_enabled = false;
+                break;
             case SOC_ON_WRAPPER:
                 socd_cleaner_enabled = true;
                 return false;
@@ -193,6 +212,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_get_flags()) {
         return false;
     }
+
+    // Re-enable layer coloring after 3 seconds of no RGB keycode activity
+    if (!rgb_layer_coloring_enabled && rgb_keycode_timer && timer_elapsed32(rgb_keycode_timer) > 3000) {
+        rgb_layer_coloring_enabled = true;
+        rgb_keycode_timer = 0;
+    }
+
     const bool caps_hw   = host_keyboard_led_state().caps_lock;
     const bool caps_word = is_caps_word_on();
 
@@ -238,13 +264,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    for (uint8_t i = led_min; i < led_max; i++) {
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case 3:
-                rgb_matrix_set_color(i, RGB_BLUE);
-                break;
-            default:
-                break;
+    // Only apply layer coloring if enabled and not temporarily disabled
+    if (rgb_layer_coloring_enabled) {
+        for (uint8_t i = led_min; i < led_max; i++) {
+            switch (get_highest_layer(layer_state | default_layer_state)) {
+                case 3:
+                    rgb_matrix_set_color(i, RGB_BLUE);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
