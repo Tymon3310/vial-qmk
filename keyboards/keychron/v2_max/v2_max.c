@@ -43,8 +43,8 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 
 void keyboard_post_init_kb(void) {
 #ifdef LK_WIRELESS_ENABLE
-    palSetLineMode(P24G_MODE_SELECT_PIN, PAL_MODE_INPUT);
-    palSetLineMode(BT_MODE_SELECT_PIN, PAL_MODE_INPUT);
+    palSetLineMode(P24G_MODE_SELECT_PIN, PAL_MODE_INPUT_PULLUP);
+    palSetLineMode(BT_MODE_SELECT_PIN,   PAL_MODE_INPUT_PULLUP);
 
     gpio_write_pin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
 

@@ -1,0 +1,9 @@
+{
+  "name": "Keychron Q60 MAX Ansi",
+  "vendorId": "0x3434",
+  "productId": "0x08C0",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Keychron Q2 MAX Iso Encoder",
+  "vendorId": "0x3434",
+  "productId": "0x0821",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}

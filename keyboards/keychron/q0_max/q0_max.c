@@ -29,8 +29,8 @@
 
 void keyboard_post_init_kb(void) {
 #ifdef LK_WIRELESS_ENABLE
-    palSetLineMode(P24G_MODE_SELECT_PIN, PAL_MODE_INPUT);
-    palSetLineMode(BT_MODE_SELECT_PIN, PAL_MODE_INPUT);
+    palSetLineMode(P24G_MODE_SELECT_PIN, PAL_MODE_INPUT_PULLUP);
+    palSetLineMode(BT_MODE_SELECT_PIN,   PAL_MODE_INPUT_PULLUP);
 
     lkbt51_init(false);
     wireless_init();

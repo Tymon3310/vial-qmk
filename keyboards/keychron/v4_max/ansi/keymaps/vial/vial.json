@@ -1,0 +1,9 @@
+{
+  "name": "Keychron V4 MAX Ansi",
+  "vendorId": "0x3434",
+  "productId": "0x0940",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}

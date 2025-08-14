@@ -1,0 +1,9 @@
+{
+  "name": "Keychron Q5 MAX Ansi Encoder",
+  "vendorId": "0x3434",
+  "productId": "0x0850",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Keychron V1 MAX Iso Encoder",
+  "vendorId": "0x3434",
+  "productId": "0x0914",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}

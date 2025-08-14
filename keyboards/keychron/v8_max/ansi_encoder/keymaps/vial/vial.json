@@ -1,0 +1,9 @@
+{
+  "name": "Keychron V8 MAX Ansi Encoder",
+  "vendorId": "0x3434",
+  "productId": "0x0980",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}

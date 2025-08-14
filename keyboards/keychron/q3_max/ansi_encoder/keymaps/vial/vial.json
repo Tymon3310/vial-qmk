@@ -1,0 +1,9 @@
+{
+  "name": "Keychron Q3 MAX Ansi Encoder",
+  "vendorId": "0x3434",
+  "productId": "0x0830",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
+  }
+}
