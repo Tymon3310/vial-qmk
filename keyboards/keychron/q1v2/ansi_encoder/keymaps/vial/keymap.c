@@ -26,7 +26,7 @@ enum layers{
 };
 
 #define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
+#define KC_FILE LGUI(KC_E)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_82(
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LCMD,  KC_LALT,                                KC_SPC,                                 KC_RALT,  MO(WIN_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [WIN_FN] = LAYOUT_ansi_82(
-        _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,            RGB_TOG,
+        _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,            RGB_TOG,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
         RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,
         _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,
@@ -65,10 +65,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [MAC_FN]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [WIN_FN]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)}
-};
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {[MAC_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, [MAC_FN] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)}, [WIN_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}, [WIN_FN] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)}};
 #endif // ENCODER_MAP_ENABLE

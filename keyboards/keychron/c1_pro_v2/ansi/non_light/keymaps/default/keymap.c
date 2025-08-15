@@ -16,15 +16,15 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers{
-  MAC_BASE,
-  MAC_FN,
-  WIN_BASE,
-  WIN_FN,
+enum layers {
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN,
 };
 
 #define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
+#define KC_FILE LGUI(KC_E)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LWIN,  KC_LALT,                                KC_SPC,                                 KC_RALT,  KC_RWIN,  MO(WIN_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [WIN_FN] = LAYOUT_tkl_ansi(
-        _______,            KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  KC_F5,    KC_F6,    KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,  _______,  _______,
+        _______,            KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  KC_F5,    KC_F6,    KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,

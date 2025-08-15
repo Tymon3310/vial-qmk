@@ -27,7 +27,7 @@ enum layers{
 };
 
 #define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
+#define KC_FILE LGUI(KC_E)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_iso_53(
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______,                            _______,                             _______,  _______,  _______,  _______, _______, _______),
 
     [_FN2] = LAYOUT_iso_53(
-        KC_GRV,  KC_BRID,  KC_BRIU,  KC_TASK, KC_FLXP, RM_VALD, RM_VALU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,                    _______,
+        KC_GRV,  KC_BRID,  KC_BRIU,  KC_TASK, KC_FILE, RM_VALD, RM_VALU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,                    _______,
         RM_TOGG, RM_NEXT,  RM_VALU,  RM_HUEU, RM_SATU, RM_SPDU, _______, _______, _______, _______, _______,  _______,  _______,  _______,          _______,
         _______, _______,  RM_PREV,  RM_VALD, RM_HUED, RM_SATD, RM_SPDD, NK_TOGG, _______, _______, _______,  _______,            _______, _______,
         _______, _______,  _______,                             _______,                            _______,  _______,  _______,  _______, _______, _______),
