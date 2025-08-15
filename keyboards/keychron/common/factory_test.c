@@ -327,8 +327,10 @@ void factory_test_rx(uint8_t *data, uint8_t length) {
         /* Verify checksum */
         if ((checksum & 0xFF) != data[RAW_EPSIZE - 2] || checksum >> 8 != data[RAW_EPSIZE - 1]) return;
 
-    uint8_t payload[32];
-    uint8_t len = 0;
+#ifdef LK_WIRELESS_ENABLE
+        uint8_t payload[32];
+        uint8_t len = 0;
+#endif
 
         switch (data[1]) {
             case FACTORY_TEST_CMD_BACKLIGHT:
