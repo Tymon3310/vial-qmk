@@ -30,10 +30,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 
 #if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
+bool process_record_keychron_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {

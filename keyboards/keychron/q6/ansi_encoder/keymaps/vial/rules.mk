@@ -3,5 +3,4 @@ VIAL_ENABLE = yes
 VIALRGB_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 
-VPATH += keyboards/keychron/common
-SRC += keychron_common.c
+# keychron_common is included at the keyboard level; do not add it here to avoid duplicate symbols.
