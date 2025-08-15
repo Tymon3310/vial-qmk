@@ -1,0 +1,8 @@
+{
+  "name": "Keychron K7 Max ANSI RGB",
+  "vendorId": "0x3434",
+  "productId": "0x5201",
+  "lighting": "vialrgb",
+  "matrix": { "rows": 5, "cols": 16 },
+  "customKeycodes": ["BT_HST1", "BT_HST2", "BT_HST3", "P2P4G", "BAT_LVL", "NK_TOGG"]
+}

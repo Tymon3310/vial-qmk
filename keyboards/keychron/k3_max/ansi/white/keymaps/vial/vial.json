@@ -1,0 +1,6 @@
+{
+  "name": "Keychron K3 Max ANSI White (Vial)",
+  "vendorId": "0x3434",
+  "productId": "0xK3M2",
+  "matrix": { "rows": 6, "cols": 16 }
+}

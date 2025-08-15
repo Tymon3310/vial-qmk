@@ -1,0 +1,6 @@
+{
+  "name": "Keychron K2 Max ISO White",
+  "vendorId": "0x3434",
+  "productId": "0x0003",
+  "matrix": {"rows": 6, "cols": 16}
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Keychron K3 Max ISO RGB (Vial)",
+  "vendorId": "0x3434",
+  "productId": "0xK3M3",
+  "lighting": "vialrgb",
+  "matrix": { "rows": 6, "cols": 16 }
+}

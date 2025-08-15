@@ -1,0 +1,6 @@
+{
+  "name": "Keychron K2 Max ANSI White",
+  "vendorId": "0x3434",
+  "productId": "0x0001",
+  "matrix": {"rows": 6, "cols": 16}
+}

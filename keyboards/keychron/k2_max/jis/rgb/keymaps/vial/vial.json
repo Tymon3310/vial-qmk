@@ -1,0 +1,7 @@
+{
+  "name": "Keychron K2 Max JIS RGB (Vial)",
+  "vendorId": "0x3434",
+  "productId": "0xK2M1",
+  "lighting": "vialrgb",
+  "matrix": { "rows": 6, "cols": 16 }
+}

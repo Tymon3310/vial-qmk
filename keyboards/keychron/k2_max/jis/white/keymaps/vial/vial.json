@@ -1,0 +1,6 @@
+{
+  "name": "Keychron K2 Max JIS White (Vial)",
+  "vendorId": "0x3434",
+  "productId": "0xK2M2",
+  "matrix": { "rows": 6, "cols": 16 }
+}
