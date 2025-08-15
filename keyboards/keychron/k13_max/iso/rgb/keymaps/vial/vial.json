@@ -1,0 +1,22 @@
+{
+  "name": "Keychron K13 Max ISO RGB",
+  "vendorId": "0x3434",
+  "productId": "0x5603",
+  "matrix": { "rows": 6, "cols": 17 },
+  "layouts": {
+    "labels": ["BT_HST1", "BT_HST2", "BT_HST3", "P2P4G", "BAT_LVL", "NK_TOGG"],
+    "keymap": []
+  },
+  "lighting": {
+    "supported": true,
+    "backends": ["vialrgb"]
+  },
+  "customKeycodes": [
+    {"name": "BT_HST1", "title": "Bluetooth Host 1"},
+    {"name": "BT_HST2", "title": "Bluetooth Host 2"},
+    {"name": "BT_HST3", "title": "Bluetooth Host 3"},
+    {"name": "P2P4G",  "title": "2.4G Dongle"},
+    {"name": "BAT_LVL", "title": "Battery Level"},
+    {"name": "NK_TOGG", "title": "NKRO Toggle"}
+  ]
+}
