@@ -2,3 +2,4 @@ VIA_ENABLE = yes
 VIAL_ENABLE = yes
 QMK_SETTINGS = yes
 LTO_ENABLE = yes
+VIALRGB_ENABLE = yes
