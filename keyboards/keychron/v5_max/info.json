@@ -63,5 +63,5 @@
     "build": {
         "debounce_type": "sym_eager_pk"
     },
-    "debounce": 20
+    "debounce": 50
 }
