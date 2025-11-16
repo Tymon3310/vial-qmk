@@ -1,34 +1,29 @@
-<!--- Provide a general summary of your changes in the title above. -->
+<!---
 
-<!--- Anything on lines wrapped in comments like these will not show up in the final text. -->
+    If you are submitting a Vial-enabled keymap for a keyboard in QMK:
 
-## Description
+    - Keymaps will not be accepted with VIAL_INSECURE=yes.
+    - Avoid changing keyboard-level code if possible. (ex: switching the encoder pins in info.json)
+    - Please name your keymap "vial". Personal keymaps are not accepted at this time.
+      - If your Vial keymap only works for a specific keyboard revision, place it under that revision's folder. (ex: keyboards/planck/rev6_drop/keymaps/vial and keyboards/planck/ez/glow/keymaps/vial)
 
-<!--- Describe your changes in detail here. -->
+    If you are submitting a new keyboard with keymaps:
 
-## Types of Changes
+    - If you are also submitting this keyboard to QMK, please try to submit mostly the same code to both repos if possible.
+    - If you are not submitting this keyboard to QMK, only include "default" and "vial" keymaps. VIA firmware can no longer be built by this repository.
 
-<!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply. -->
-- [ ] Core
-- [ ] Bugfix
-- [ ] New feature
-- [ ] Enhancement/optimization
-- [ ] Keyboard (addition or update)
-- [ ] Keymap/layout (addition or update)
-- [ ] Documentation
+    ------
 
-## Issues Fixed or Closed by This PR
+    For all keyboard and keymap submissions:
 
-* 
+    As the submitter, you are ultimately responsible for maintaining the keyboards/keymaps you submit.
+    Vial contributors will try to fix compilation issues as updates are made, but are not always familiar with and often can't test specific keymaps/keyboards.
 
-## Checklist
+    Vial is decentralized, so inclusion in the vial-qmk repository is optional. Unmaintained keymaps/keyboards which are broken and cannot be fixed without extensive rework or strong familiarity with the hardware may be removed from this repository, with or without warning.
 
-<!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
-<!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] My code follows the code style of this project: [**C**](https://docs.qmk.fm/#/coding_conventions_c), [**Python**](https://docs.qmk.fm/#/coding_conventions_python)
-- [ ] I have read the [**PR Checklist** document](https://docs.qmk.fm/#/pr_checklist) and have made the appropriate changes.
-- [ ] My change requires a change to the documentation.
-- [ ] I have updated the documentation accordingly.
-- [ ] I have read the [**CONTRIBUTING** document](https://docs.qmk.fm/#/contributing).
-- [ ] I have added tests to cover my changes.
-- [ ] I have tested the changes and verified that they work and don't break anything (as well as I can manage).
+    ------
+
+    For core changes, please explain what you are changing and why.
+
+    Before submitting a PR, delete the entirety of this comment and document your changes.
+-->

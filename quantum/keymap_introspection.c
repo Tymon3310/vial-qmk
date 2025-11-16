@@ -98,7 +98,7 @@ __attribute__((weak)) uint16_t keycode_at_dip_switch_map_location(uint8_t switch
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Combos
 
-#if defined(COMBO_ENABLE)
+#if defined(COMBO_ENABLE) && !defined(VIAL_COMBO_ENABLE)
 
 uint16_t combo_count_raw(void) {
     return ARRAY_SIZE(key_combos);
@@ -124,7 +124,7 @@ __attribute__((weak)) combo_t* combo_get(uint16_t combo_idx) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Tap Dance
 
-#if defined(TAP_DANCE_ENABLE)
+#if defined(TAP_DANCE_ENABLE) && !defined(VIAL_TAP_DANCE_ENABLE)
 
 uint16_t tap_dance_count_raw(void) {
     return ARRAY_SIZE(tap_dance_actions);
@@ -152,7 +152,7 @@ __attribute__((weak)) tap_dance_action_t* tap_dance_get(uint16_t tap_dance_idx) 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Key Overrides
 
-#if defined(KEY_OVERRIDE_ENABLE)
+#if defined(KEY_OVERRIDE_ENABLE) && !defined(VIAL_KEY_OVERRIDE_ENABLE)
 
 uint16_t key_override_count_raw(void) {
     return ARRAY_SIZE(key_overrides);

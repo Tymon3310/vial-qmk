@@ -45,12 +45,12 @@
 #    endif
 #endif
 
-// 2kB backing space allocated
+// 8kB backing space allocated
 #ifndef WEAR_LEVELING_BACKING_SIZE
-#    define WEAR_LEVELING_BACKING_SIZE 2048
+#    define WEAR_LEVELING_BACKING_SIZE 8192
 #endif // WEAR_LEVELING_BACKING_SIZE
 
-// 1kB logical EEPROM
+// 4kB logical EEPROM
 #ifndef WEAR_LEVELING_LOGICAL_SIZE
 #    define WEAR_LEVELING_LOGICAL_SIZE ((WEAR_LEVELING_BACKING_SIZE) / 2)
 #endif // WEAR_LEVELING_LOGICAL_SIZE

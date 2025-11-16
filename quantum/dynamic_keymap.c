@@ -20,12 +20,21 @@
 #include "action.h"
 #include "send_string.h"
 #include "keycodes.h"
+#include "action_tapping.h"
+#include "wait.h"
+#include <string.h>
+
+#include "qmk_settings.h"
 #include "nvm_dynamic_keymap.h"
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #else
 #    define NUM_ENCODERS 0
+#endif
+
+#ifdef VIAL_ENABLE
+#include "vial.h"
 #endif
 
 #ifndef DYNAMIC_KEYMAP_MACRO_DELAY
@@ -54,7 +63,63 @@ void dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwis
 }
 #endif // ENCODER_MAP_ENABLE
 
+#ifdef QMK_SETTINGS
+uint8_t dynamic_keymap_get_qmk_settings(uint16_t offset) {
+    return nvm_dynamic_keymap_get_qmk_settings(offset);
+}
+
+void dynamic_keymap_set_qmk_settings(uint16_t offset, uint8_t value) {
+    nvm_dynamic_keymap_set_qmk_settings(offset, value);
+}
+#endif
+
+#ifdef VIAL_TAP_DANCE_ENABLE
+int dynamic_keymap_get_tap_dance(uint8_t index, vial_tap_dance_entry_t *entry) {
+    return nvm_dynamic_keymap_get_tap_dance(index, entry);
+}
+
+int dynamic_keymap_set_tap_dance(uint8_t index, const vial_tap_dance_entry_t *entry) {
+    return nvm_dynamic_keymap_set_tap_dance(index, entry);
+}
+#endif
+
+#ifdef VIAL_COMBO_ENABLE
+int dynamic_keymap_get_combo(uint8_t index, vial_combo_entry_t *entry) {
+    return nvm_dynamic_keymap_get_combo(index, entry);
+}
+
+int dynamic_keymap_set_combo(uint8_t index, const vial_combo_entry_t *entry) {
+    return nvm_dynamic_keymap_set_combo(index, entry);
+}
+#endif
+
+#ifdef VIAL_KEY_OVERRIDE_ENABLE
+int dynamic_keymap_get_key_override(uint8_t index, vial_key_override_entry_t *entry) {
+    return nvm_dynamic_keymap_get_key_override(index, entry);
+}
+
+int dynamic_keymap_set_key_override(uint8_t index, const vial_key_override_entry_t *entry) {
+    return nvm_dynamic_keymap_set_key_override(index, entry);
+}
+#endif
+
+#ifdef VIAL_ALT_REPEAT_KEY_ENABLE
+int dynamic_keymap_get_alt_repeat_key(uint8_t index, vial_alt_repeat_key_entry_t *entry) {
+    return nvm_dynamic_keymap_get_alt_repeat_key(index, entry);
+}
+
+int dynamic_keymap_set_alt_repeat_key(uint8_t index, const vial_alt_repeat_key_entry_t *entry) {
+    return nvm_dynamic_keymap_set_alt_repeat_key(index, entry);
+}
+#endif
+
 void dynamic_keymap_reset(void) {
+#ifdef VIAL_ENABLE
+    /* temporarily unlock the keyboard so we can set hardcoded QK_BOOT keycode */
+    int vial_unlocked_prev = vial_unlocked;
+    vial_unlocked = 1;
+#endif
+
     // Erase the keymaps, if necessary.
     nvm_dynamic_keymap_erase();
 
@@ -72,6 +137,50 @@ void dynamic_keymap_reset(void) {
         }
 #endif // ENCODER_MAP_ENABLE
     }
+
+#ifdef QMK_SETTINGS
+    qmk_settings_reset();
+#endif
+
+#ifdef VIAL_TAP_DANCE_ENABLE
+    {
+        vial_tap_dance_entry_t td = { KC_NO, KC_NO, KC_NO, KC_NO, TAPPING_TERM };
+        for (size_t i = 0; i < VIAL_TAP_DANCE_ENTRIES; ++i) {
+            dynamic_keymap_set_tap_dance(i, &td);
+        }
+    }
+#endif
+
+#ifdef VIAL_COMBO_ENABLE
+    {
+        vial_combo_entry_t combo = { 0 };
+        for (size_t i = 0; i < VIAL_COMBO_ENTRIES; ++i)
+            dynamic_keymap_set_combo(i, &combo);
+    }
+#endif
+
+#ifdef VIAL_KEY_OVERRIDE_ENABLE
+    {
+        vial_key_override_entry_t ko = { 0 };
+        ko.layers = ~0;
+        ko.options = vial_ko_option_activation_negative_mod_up | vial_ko_option_activation_required_mod_down | vial_ko_option_activation_trigger_down;
+        for (size_t i = 0; i < VIAL_KEY_OVERRIDE_ENTRIES; ++i)
+            dynamic_keymap_set_key_override(i, &ko);
+    }
+#endif
+
+#ifdef VIAL_ALT_REPEAT_KEY_ENABLE
+    {
+        vial_alt_repeat_key_entry_t arep = { 0 };
+        for (size_t i = 0; i < VIAL_ALT_REPEAT_KEY_ENTRIES; ++i)
+            dynamic_keymap_set_alt_repeat_key(i, &arep);
+    }
+#endif
+
+#ifdef VIAL_ENABLE
+    /* re-lock the keyboard */
+    vial_unlocked = vial_unlocked_prev;
+#endif
 }
 
 void dynamic_keymap_get_buffer(uint16_t offset, uint16_t size, uint8_t *data) {
@@ -120,21 +229,17 @@ static uint8_t dynamic_keymap_read_byte(uint32_t offset) {
     return d;
 }
 
-typedef struct send_string_nvm_state_t {
-    uint32_t offset;
-} send_string_nvm_state_t;
-
-char send_string_get_next_nvm(void *arg) {
-    send_string_nvm_state_t *state = (send_string_nvm_state_t *)arg;
-    char                     ret   = dynamic_keymap_read_byte(state->offset);
-    state->offset++;
-    return ret;
-}
-
 void dynamic_keymap_macro_reset(void) {
     // Erase the macros, if necessary.
     nvm_dynamic_keymap_macro_erase();
     nvm_dynamic_keymap_macro_reset();
+}
+
+static uint16_t decode_keycode(uint16_t kc) {
+    /* map 0xFF01 => 0x0100; 0xFF02 => 0x0200, etc */
+    if (kc > 0xFF00)
+        return (kc & 0xFF) << 8;
+    return kc;
 }
 
 void dynamic_keymap_macro_send(uint8_t id) {
@@ -151,7 +256,7 @@ void dynamic_keymap_macro_send(uint8_t id) {
     }
 
     // Skip N null characters
-    // p will then point to the Nth macro
+    // offset will then point to the Nth macro
     uint32_t offset = 0;
     uint32_t end    = nvm_dynamic_keymap_macro_size();
     while (id > 0) {
@@ -166,6 +271,63 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++offset;
     }
 
-    send_string_nvm_state_t state = {.offset = offset};
-    send_string_with_delay_impl(send_string_get_next_nvm, &state, DYNAMIC_KEYMAP_MACRO_DELAY);
+    // Send the macro string one or three chars at a time
+    // by making temporary 1 or 3 char strings
+    char data[4] = {0, 0, 0, 0};
+    // We already checked there was a null at the end of
+    // the buffer, so this cannot go past the end
+    while (1) {
+        memset(data, 0, sizeof(data));
+        data[0] = dynamic_keymap_read_byte(offset++);
+        // Stop at the null terminator of this macro string
+        if (data[0] == 0) {
+            break;
+        }
+        if (data[0] == SS_QMK_PREFIX) {
+            // If the char is magic, process it as indicated by the next character
+            // (tap, down, up, delay)
+            data[1] = dynamic_keymap_read_byte(offset++);
+            if (data[1] == 0)
+                break;
+            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
+                // For tap, down, up, just stuff it into the array and send_string it
+                data[2] = dynamic_keymap_read_byte(offset++);
+                if (data[2] != 0)
+                    send_string(data);
+            } else if (data[1] == VIAL_MACRO_EXT_TAP || data[1] == VIAL_MACRO_EXT_DOWN || data[1] == VIAL_MACRO_EXT_UP) {
+                data[2] = dynamic_keymap_read_byte(offset++);
+                if (data[2] != 0) {
+                    data[3] = dynamic_keymap_read_byte(offset++);
+                    if (data[3] != 0) {
+                        uint16_t kc;
+                        memcpy(&kc, &data[2], sizeof(kc));
+                        kc = decode_keycode(kc);
+                        switch (data[1]) {
+                        case VIAL_MACRO_EXT_TAP:
+                            vial_keycode_tap(kc);
+                            break;
+                        case VIAL_MACRO_EXT_DOWN:
+                            vial_keycode_down(kc);
+                            break;
+                        case VIAL_MACRO_EXT_UP:
+                            vial_keycode_up(kc);
+                            break;
+                        }
+                    }
+                }
+            } else if (data[1] == SS_DELAY_CODE) {
+                // For delay, decode the delay and wait_ms for that amount
+                uint8_t d0 = dynamic_keymap_read_byte(offset++);
+                uint8_t d1 = dynamic_keymap_read_byte(offset++);
+                if (d0 == 0 || d1 == 0)
+                    break;
+                // we cannot use 0 for these, need to subtract 1 and use 255 instead of 256 for delay calculation
+                int ms = (d0 - 1) + (d1 - 1) * 255;
+                while (ms--) wait_ms(1);
+            }
+        } else {
+            // If the char wasn't magic, just send it
+            send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
+        }
+    }
 }

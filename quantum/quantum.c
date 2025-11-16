@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include "qmk_settings.h"
 #include "process_quantum.h"
 
 #ifdef SLEEP_LED_ENABLE
@@ -83,6 +84,10 @@
 
 #ifdef UNICODE_COMMON_ENABLE
 #    include "process_unicode_common.h"
+#endif
+
+#ifdef VIAL_ENABLE
+#    include "vial.h"
 #endif
 
 #ifdef LAYER_LOCK_ENABLE
@@ -168,7 +173,7 @@ __attribute__((weak)) void tap_code16_delay(uint16_t code, uint16_t delay) {
  * \param code The modded keycode to tap. If `code` is `KC_CAPS_LOCK`, the delay will be `TAP_HOLD_CAPS_DELAY`, otherwise `TAP_CODE_DELAY`, if defined.
  */
 __attribute__((weak)) void tap_code16(uint16_t code) {
-    tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
+    tap_code16_delay(code, code == KC_CAPS_LOCK ? QS_tap_hold_caps_delay : QS_tap_code_delay);
 }
 
 __attribute__((weak)) bool pre_process_record_modules(uint16_t keycode, keyrecord_t *record) {
@@ -297,13 +302,14 @@ void post_process_record_quantum(keyrecord_t *record) {
     post_process_record_kb(keycode, record);
 }
 
-/** \brief Core keycode function
- *
- * Hands off handling to other quantum/process_keycode/ functions
- */
 bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, true);
-
+    return process_record_quantum_helper(keycode, record);
+}
+/* Core keycode function, hands off handling to other functions,
+    then processes internal quantum keycodes, and then processes
+    ACTIONs.                                                      */
+bool process_record_quantum_helper(uint16_t keycode, keyrecord_t *record) {
     // This is how you use actions here
     // if (keycode == QK_LEADER) {
     //   action_t action;
@@ -363,6 +369,9 @@ bool process_record_quantum(keyrecord_t *record) {
             process_record_kb(keycode, record) &&
 #if defined(VIA_ENABLE)
             process_record_via(keycode, record) &&
+#endif
+#if defined(VIAL_ENABLE)
+            process_record_vial(keycode, record) &&
 #endif
 #if defined(SECURE_ENABLE)
             process_secure(keycode, record) &&

@@ -246,6 +246,7 @@
         "bootloader": {
             "type": "string",
             "enum": [
+                "vibl",
                 "apm32-dfu",
                 "at32-dfu",
                 "atmel-dfu",
