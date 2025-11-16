@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "rtc_timer.h"
+#include "timer.h"
+
 #if (HAL_USE_RTC)
 #    include "hal.h"
-#    include "rtc_timer.h"
 
 void rtc_timer_init(void) {
     rtc_timer_clear();
@@ -32,6 +34,25 @@ uint32_t rtc_timer_read_ms(void) {
     rtcGetTime(&RTCD1, &tm);
 
     return tm.millisecond;
+}
+
+uint32_t rtc_timer_elapsed_ms(uint32_t last) {
+    return TIMER_DIFF_32(rtc_timer_read_ms(), last);
+}
+#else
+
+static uint32_t rtc_timer_offset;
+
+void rtc_timer_init(void) {
+    rtc_timer_clear();
+}
+
+void rtc_timer_clear(void) {
+    rtc_timer_offset = timer_read32();
+}
+
+uint32_t rtc_timer_read_ms(void) {
+    return timer_elapsed32(rtc_timer_offset);
 }
 
 uint32_t rtc_timer_elapsed_ms(uint32_t last) {
