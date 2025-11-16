@@ -1,11 +1,11 @@
 [submodule "lib/chibios"]
 	path = lib/chibios
-	url = https://github.com/Keychron/ChibiOS.git
+	url = https://github.com/Keychron/ChibiOS
 	branch = 25q3
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
-	url = https://github.com/qmk/ChibiOS-Contrib
-	branch = master
+	url = https://github.com/Keychron/ChibiOS-Contrib
+	branch = chibios-21.11.x
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/qmk/googletest
