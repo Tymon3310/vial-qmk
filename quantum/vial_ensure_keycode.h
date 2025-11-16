@@ -11,8 +11,12 @@
 #define C_S(kc) C(S(kc))
 #define LCG_T(kc)  MT(MOD_LCTL | MOD_LGUI, kc)
 #define RCG_T(kc)  MT(MOD_RCTL | MOD_RGUI, kc)
-#define LCG(kc) C(G(kc))
-#define RCG(kc) RCTL(RGUI(kc))
+#ifndef LCG
+#    define LCG(kc) C(G(kc))
+#endif
+#ifndef RCG
+#    define RCG(kc) RCTL(RGUI(kc))
+#endif
 
 #define KC_BSPACE KC_BACKSPACE
 #define KC_NUMLOCK KC_NUM_LOCK

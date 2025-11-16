@@ -138,6 +138,7 @@ typedef struct PACKED {
 
 void keychron_common_init(void);
 bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record);
+bool process_record_keychron(uint16_t keycode, keyrecord_t *record);
 void keychron_common_task(void);
 
 #ifdef ENCODER_ENABLE

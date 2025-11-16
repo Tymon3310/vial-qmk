@@ -1,4 +1,5 @@
 # custom matrix setup
 CUSTOM_MATRIX = lite
 
-SRC += matrix.c
+# Explicitly reference the shared matrix implementation in the parent folder
+SRC += keyboards/keychron/v5/matrix.c

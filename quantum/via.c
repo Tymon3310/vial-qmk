@@ -30,6 +30,9 @@
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #include "quantum/nvm/eeprom/nvm_eeprom_eeconfig_internal.h"
 #include "quantum/nvm/eeprom/nvm_eeprom_via_internal.h"
+#include "matrix.h"
+#include "wait.h"
+#include "bootloader.h"
 
 #ifdef VIAL_ENABLE
 #include "vial.h"
@@ -55,12 +58,17 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data);
 void via_qmk_rgb_matrix_get_value(uint8_t *data);
 #endif
 
-#if defined(RGB_MATRIX_ENABLE)
-#include "nvm_eeprom_eeconfig_internal.h"
-#include "eeprom.h"
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+#    include "nvm_eeprom_eeconfig_internal.h"
+#    include "eeprom.h"
 
 static uint8_t rgb_matrix_value_id_mask;
 #endif
+
+__attribute__((weak)) void via_raw_hid_send(uint8_t src, uint8_t *data, uint8_t length) {
+    (void)src;
+    raw_hid_send(data, length);
+}
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
@@ -189,7 +197,7 @@ __attribute__((weak)) void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
 //
 // raw_hid_send() is called at the end, with the same buffer, which was
 // possibly modified with returned values.
-void raw_hid_receive(uint8_t *data, uint8_t length) {
+void raw_hid_receive(uint8_t src, uint8_t *data, uint8_t length) {
     uint8_t *command_id   = &(data[0]);
     uint8_t *command_data = &(data[1]);
 

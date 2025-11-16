@@ -1022,6 +1022,54 @@ enum qk_keycode_defines {
     MS_ACL0    = QK_MOUSE_ACCELERATION_0,
     MS_ACL1    = QK_MOUSE_ACCELERATION_1,
     MS_ACL2    = QK_MOUSE_ACCELERATION_2,
+#ifndef KC_MS_U
+#    define KC_MS_U MS_UP
+#endif
+#ifndef KC_MS_D
+#    define KC_MS_D MS_DOWN
+#endif
+#ifndef KC_MS_L
+#    define KC_MS_L MS_LEFT
+#endif
+#ifndef KC_MS_R
+#    define KC_MS_R MS_RGHT
+#endif
+#ifndef KC_BTN1
+#    define KC_BTN1 MS_BTN1
+#endif
+#ifndef KC_BTN2
+#    define KC_BTN2 MS_BTN2
+#endif
+#ifndef KC_BTN3
+#    define KC_BTN3 MS_BTN3
+#endif
+#ifndef KC_BTN4
+#    define KC_BTN4 MS_BTN4
+#endif
+#ifndef KC_BTN5
+#    define KC_BTN5 MS_BTN5
+#endif
+#ifndef KC_WH_U
+#    define KC_WH_U MS_WHLU
+#endif
+#ifndef KC_WH_D
+#    define KC_WH_D MS_WHLD
+#endif
+#ifndef KC_WH_L
+#    define KC_WH_L MS_WHLL
+#endif
+#ifndef KC_WH_R
+#    define KC_WH_R MS_WHLR
+#endif
+#ifndef KC_ACL0
+#    define KC_ACL0 MS_ACL0
+#endif
+#ifndef KC_ACL1
+#    define KC_ACL1 MS_ACL1
+#endif
+#ifndef KC_ACL2
+#    define KC_ACL2 MS_ACL2
+#endif
     KC_LCTL    = KC_LEFT_CTRL,
     KC_LSFT    = KC_LEFT_SHIFT,
     KC_LALT    = KC_LEFT_ALT,
@@ -1438,6 +1486,39 @@ enum qk_keycode_defines {
     RM_VALD    = QK_RGB_MATRIX_VALUE_DOWN,
     RM_SPDU    = QK_RGB_MATRIX_SPEED_UP,
     RM_SPDD    = QK_RGB_MATRIX_SPEED_DOWN,
+#ifndef RGB_TOG
+#    define RGB_TOG 0x7820
+#endif
+#ifndef RGB_MOD
+#    define RGB_MOD 0x7821
+#endif
+#ifndef RGB_RMOD
+#    define RGB_RMOD 0x7822
+#endif
+#ifndef RGB_HUI
+#    define RGB_HUI 0x7823
+#endif
+#ifndef RGB_HUD
+#    define RGB_HUD 0x7824
+#endif
+#ifndef RGB_SAI
+#    define RGB_SAI 0x7825
+#endif
+#ifndef RGB_SAD
+#    define RGB_SAD 0x7826
+#endif
+#ifndef RGB_VAI
+#    define RGB_VAI 0x7827
+#endif
+#ifndef RGB_VAD
+#    define RGB_VAD 0x7828
+#endif
+#ifndef RGB_SPI
+#    define RGB_SPI 0x7829
+#endif
+#ifndef RGB_SPD
+#    define RGB_SPD 0x782A
+#endif
     QK_BOOT    = QK_BOOTLOADER,
     QK_RBT     = QK_REBOOT,
     DB_TOGG    = QK_DEBUG_TOGGLE,

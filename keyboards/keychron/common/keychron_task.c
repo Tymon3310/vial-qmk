@@ -133,7 +133,7 @@ void keychron_task(void) {
     keychron_task_kb();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) return false;
 
     if (!process_record_keychron(keycode, record)) return false;
@@ -142,7 +142,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_kb(void) {
+__attribute__((weak)) bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) return false;
 
     rgb_matrix_indicators_keychron();
@@ -152,7 +152,7 @@ bool rgb_matrix_indicators_kb(void) {
 #endif
 
 #ifdef LED_MATRIX_ENABLE
-bool led_matrix_indicators_kb(void) {
+__attribute__((weak)) bool led_matrix_indicators_kb(void) {
     if (!led_matrix_indicators_user()) return false;
 
     led_matrix_indicators_keychron();
@@ -161,6 +161,6 @@ bool led_matrix_indicators_kb(void) {
 }
 #endif
 
-void housekeeping_task_kb(void) {
+__attribute__((weak)) void housekeeping_task_kb(void) {
     keychron_task();
 }
