@@ -55,11 +55,11 @@ static indicator_config_t pairing_config      = INDICATOR_CONFIG_PARING;
 static indicator_config_t connected_config    = INDICATOR_CONFIG_CONNECTD;
 static indicator_config_t reconnecting_config = INDICATOR_CONFIG_RECONNECTING;
 static indicator_config_t disconnected_config = INDICATOR_CONFIG_DISCONNECTED;
-indicator_config_t indicator_config;
-static bluetooth_state_t indicator_state;
-static uint16_t          next_period;
-static indicator_type_t  type;
-static uint32_t          indicator_timer_buffer = 0;
+indicator_config_t        indicator_config;
+static bluetooth_state_t  indicator_state;
+static uint16_t           next_period;
+static indicator_type_t   type;
+static uint32_t           indicator_timer_buffer = 0;
 
 #if defined(BAT_LOW_LED_PIN) || defined(BAT_LOW_LED_PIN_STATE)
 static uint32_t bat_low_pin_indicator  = 0;
@@ -98,10 +98,10 @@ static pin_t bt_led_pin_list[HOST_DEVICES_COUNT] = BT_INDICATION_LED_PIN_LIST;
 #    define SET_LED_BT(idx) led_matrix_set_value(idx, 255)
 #    define SET_LED_LOW_BAT(idx) led_matrix_set_value(idx, 255)
 #    define LED_DRIVER_IS_ENABLED led_matrix_is_enabled
-#    define LED_DRIVER_EECONFIG_RELOAD()            \
+#    define LED_DRIVER_EECONFIG_RELOAD()                \
         eeconfig_read_led_matrix(&led_matrix_eeconfig); \
-        if (!led_matrix_eeconfig.mode) {            \
-            eeconfig_update_led_matrix_default();   \
+        if (!led_matrix_eeconfig.mode) {                \
+            eeconfig_update_led_matrix_default();       \
         }
 #    define LED_DRIVER_ALLOW_SHUTDOWN led_matrix_driver_allow_shutdown
 #    define LED_DRIVER_ENABLE_NOEEPROM led_matrix_enable_noeeprom
@@ -121,10 +121,10 @@ static pin_t bt_led_pin_list[HOST_DEVICES_COUNT] = BT_INDICATION_LED_PIN_LIST;
 #    define SET_LED_BT(idx) rgb_matrix_set_color(idx, 0, 0, 255)
 #    define SET_LED_LOW_BAT(idx) rgb_matrix_set_color(idx, 255, 0, 0)
 #    define LED_DRIVER_IS_ENABLED rgb_matrix_is_enabled
-#    define LED_DRIVER_EECONFIG_RELOAD()               \
-        eeconfig_read_rgb_matrix(&rgb_matrix_config);   \
-        if (!rgb_matrix_config.mode) {                  \
-            eeconfig_update_rgb_matrix_default();       \
+#    define LED_DRIVER_EECONFIG_RELOAD()              \
+        eeconfig_read_rgb_matrix(&rgb_matrix_config); \
+        if (!rgb_matrix_config.mode) {                \
+            eeconfig_update_rgb_matrix_default();     \
         }
 #    define LED_DRIVER_ALLOW_SHUTDOWN rgb_matrix_driver_allow_shutdown
 #    define LED_DRIVER_ENABLE_NOEEPROM rgb_matrix_enable_noeeprom
@@ -261,9 +261,9 @@ static void indicator_timer_cb(void *arg) {
 
         if (idx < HOST_DEVICES_COUNT) {
             if ((indicator_config.value & 0x80) && !time_up) {
-               gpio_write_pin(bt_led_pin_list[idx], BT_INDICATION_LED_ON_STATE);
+                gpio_write_pin(bt_led_pin_list[idx], BT_INDICATION_LED_ON_STATE);
             } else {
-               gpio_write_pin(bt_led_pin_list[idx], !BT_INDICATION_LED_ON_STATE);
+                gpio_write_pin(bt_led_pin_list[idx], !BT_INDICATION_LED_ON_STATE);
             }
         }
     }
@@ -519,7 +519,7 @@ bool LED_INDICATORS_KB(void) {
         /* Prevent backlight flash caused by key activities */
         if (battery_is_critical_low()) {
             SET_ALL_LED_OFF();
-             return false;
+            return false;
         }
 
 #    if (defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)) && defined(LOW_BAT_IND_INDEX)
@@ -557,7 +557,7 @@ bool LED_INDICATORS_KB(void) {
     } else
         os_state_indicate();
 
-   return false;
+    return false;
 }
 
 bool led_update_kb(led_t led_state) {
@@ -566,15 +566,15 @@ bool led_update_kb(led_t led_state) {
         led_update_ports(led_state);
 
         if (!LED_DRIVER_IS_ENABLED()) {
-    #    if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE) || defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+#    if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE) || defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
             LED_DRIVER.exit_shutdown();
-    #    endif
+#    endif
             SET_ALL_LED_OFF();
             os_state_indicate();
             LED_DRIVER.flush();
-    #    if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE) || defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
+#    if defined(LED_MATRIX_DRIVER_SHUTDOWN_ENABLE) || defined(RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE)
             if (LED_DRIVER_ALLOW_SHUTDOWN()) LED_DRIVER.shutdown();
-    #    endif
+#    endif
         }
     }
 

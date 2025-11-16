@@ -4,11 +4,11 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers{
-  MAC_BASE,
-  MAC_FN,
-  WIN_BASE,
-  WIN_FN,
+enum layers {
+    MAC_BASE,
+    MAC_FN,
+    WIN_BASE,
+    WIN_FN,
 };
 
 // clang-format off

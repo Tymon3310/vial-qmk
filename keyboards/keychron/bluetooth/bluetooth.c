@@ -104,7 +104,7 @@ void bluetooth_init(void) {
 
 #ifdef BLUETOOTH_NKRO_ENABLE
     eeconfig_read_keymap(&keymap_config);
-    nkro.bluetooth    = keymap_config.nkro;
+    nkro.bluetooth = keymap_config.nkro;
 #endif
 }
 
@@ -268,13 +268,13 @@ static void bluetooth_exit_pin_code_entry(void) {
     bluetooth_exit_pin_code_entry_kb();
 }
 
-__attribute__((weak)) void bluetooth_enter_reset_kb(uint8_t reason){};
-__attribute__((weak)) void bluetooth_enter_discoverable_kb(uint8_t host_idx){};
-__attribute__((weak)) void bluetooth_enter_reconnecting_kb(uint8_t host_idx){};
-__attribute__((weak)) void bluetooth_enter_connected_kb(uint8_t host_idx){};
-__attribute__((weak)) void bluetooth_enter_disconnected_kb(uint8_t host_idx){};
+__attribute__((weak)) void bluetooth_enter_reset_kb(uint8_t reason) {};
+__attribute__((weak)) void bluetooth_enter_discoverable_kb(uint8_t host_idx) {};
+__attribute__((weak)) void bluetooth_enter_reconnecting_kb(uint8_t host_idx) {};
+__attribute__((weak)) void bluetooth_enter_connected_kb(uint8_t host_idx) {};
+__attribute__((weak)) void bluetooth_enter_disconnected_kb(uint8_t host_idx) {};
 __attribute__((weak)) void bluetooth_enter_pin_code_entry_kb(void) {}
-__attribute__((weak)) void bluetooth_exit_pin_code_entry_kb(void){};
+__attribute__((weak)) void bluetooth_exit_pin_code_entry_kb(void) {};
 
 /*  */
 static void bluetooth_hid_set_protocol(bool report_protocol) {
@@ -453,7 +453,7 @@ void bluetooth_task(void) {
 }
 
 void send_string_task(void) {
-    if (get_transport() == TRANSPORT_BLUETOOTH && bluetooth_get_state()== BLUETOOTH_CONNECTED) {
+    if (get_transport() == TRANSPORT_BLUETOOTH && bluetooth_get_state() == BLUETOOTH_CONNECTED) {
         bluetooth_transport.task();
 #ifndef DISABLE_REPORT_BUFFER
         report_buffer_task();
