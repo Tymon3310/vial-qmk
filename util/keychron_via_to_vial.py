@@ -229,8 +229,10 @@ class KeychronVialConverter:
                 lines.append(line)
         if metadata.has_rgb and "VIALRGB_ENABLE = yes" not in lines:
             lines.append("VIALRGB_ENABLE = yes")
-        if metadata.has_encoder and "ENCODER_MAP_ENABLE = yes" not in lines:
-            lines.append("ENCODER_MAP_ENABLE = yes")
+        if metadata.has_encoder:
+            for line in ("ENCODER_MAP_ENABLE = yes", "VIAL_ENCODERS_ENABLE = yes"):
+                if line not in lines:
+                    lines.append(line)
         rules_path.write_text("\n".join(lines) + "\n")
 
         uid = ', '.join(f"0x{byte:02X}" for byte in secrets.token_bytes(8))
