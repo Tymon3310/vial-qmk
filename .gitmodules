@@ -1,11 +1,11 @@
 [submodule "lib/chibios"]
 	path = lib/chibios
 	url = https://github.com/Keychron/ChibiOS
-	branch = fix_STM32F401_25q1
+	branch = 25q3
 [submodule "lib/chibios-contrib"]
 	path = lib/chibios-contrib
 	url = https://github.com/Keychron/ChibiOS-Contrib
-	branch = wb32f3g71_fixed_25q1
+	branch = chibios-21.11.x
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/qmk/googletest
