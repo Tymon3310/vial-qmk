@@ -223,3 +223,4 @@
                                      PIN_PUPDR_PULLUP(GPIOE_PIN13) |        \
                                      PIN_PUPDR_PULLUP(GPIOE_PIN14) |        \
                                      PIN_PUPDR_PULLUP(GPIOE_PIN15))
+

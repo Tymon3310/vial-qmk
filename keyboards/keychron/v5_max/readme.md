@@ -10,16 +10,12 @@ A customizable 96% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/v5_max/ansi_encoder:keychron
-    make keychron/v5_max/iso_encoder:keychron
-    make keychron/v5_max/jis_encoder:keychron
+    make keychron/v5_max/ansi_encoder:default
 
 Flashing example for this keyboard:
 
-    make keychron/v5_max/ansi_encoder:keychron:flash
-    make keychron/v5_max/iso_encoder:keychron:flash
-    make keychron/v5_max/jis_encoder:keychron:flash
-    
+    make keychron/v5_max/ansi_encoder:default:flash
+
 **Reset Key**: Toggle mode switch to "Cable", hold down the *Esc* key or reset button underneath space bar while connecting the USB cable,
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

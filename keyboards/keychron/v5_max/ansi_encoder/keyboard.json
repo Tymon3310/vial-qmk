@@ -1,11 +1,19 @@
 {
     "usb": {
         "pid": "0x0950",
-        "device_version": "1.1.1"
+        "device_version": "1.2.0"
     },
     "features": {
         "encoder": true,
         "encoder_map": true
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "B15",
+                "pin_b": "B14"
+            }
+        ]
     },
     "layouts": {
         "LAYOUT_ansi_98": {

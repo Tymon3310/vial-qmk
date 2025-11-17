@@ -2,7 +2,7 @@
     "keyboard_name": "Keychron V5 Max",
     "manufacturer": "Keychron",
     "url": "https://github.com/Keychron",
-    "maintainer": "Keychron",
+    "maintainer": "lokher",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "usb": {
@@ -15,6 +15,7 @@
         "dip_switch" : true,
         "nkro" : true,
         "rgb_matrix": true,
+        "raw" : true,
         "send_string" : true
     },
     "matrix_pins": {
@@ -24,14 +25,6 @@
     "diode_direction": "ROW2COL",
     "dip_switch" :{
         "pins": ["A8"]
-    },
-    "encoder": {
-        "rotary": [
-            {
-                "pin_a": "B15",
-                "pin_b": "B14"
-            }
-        ]
     },
     "rgb_matrix": {
         "driver": "snled27351_spi",
@@ -63,8 +56,8 @@
     "eeprom": {
         "wear_leveling": {
             "driver": "embedded_flash",
-            "logical_size": 3072,
-            "backing_size": 6144
+        "logical_size": 8192,
+        "backing_size": 16384
         }
     },
     "build": {

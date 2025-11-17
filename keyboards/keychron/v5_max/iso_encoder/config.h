@@ -17,24 +17,35 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-/* LED Current Configuration */
+/* RGB Matrix driver configuration */
+#    define RGB_MATRIX_LED_COUNT 98
+#    define DRIVER_CS_PINS \
+        { B8, B9 }
+
+/* Set LED driver current */
 #    define SNLED27351_CURRENT_TUNE \
         { 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C }
 
-/* RGB Matrix Configuration */
-#    define RGB_MATRIX_LED_COUNT 98
+/* Set to infinit, which is use in USB mode by default */
+#    define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
+/* Allow shutdown of led driver to save power */
+#    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+#    define RGB_MATRIX_DRIVER_LOAD_ENABLE
+/* Turn off backlight on low brightness to save power */
+#    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
 
 /* Indications */
 #    define NUM_LOCK_INDEX 30
 #    define CAPS_LOCK_INDEX 51
-
+#    define P24G_INDICATION_LED_MATRIX_INDEX 20
 #    define BT_INDCATION_LED_MATRIX_LIST \
         { 17, 18, 19 }
-#    define P24G_INDICATION_LED_INDEX 20
-
 #    define BAT_LEVEL_LED_LIST \
         { 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 }
 #    define LOW_BAT_IND_INDEX \
         { 89 }
+
+#    define RGB_MATRIX_KEYPRESSES
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 #endif
