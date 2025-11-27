@@ -99,7 +99,7 @@ static wt_state_t         indicator_state;
 static uint16_t           next_period;
 static indicator_type_t   type;
 static uint32_t           indicator_timer_buffer = 0;
-static bool               direct_led_off_enabled = true;  
+static bool               direct_led_off_enabled = true;
 
 #if defined(BAT_LOW_LED_PIN) || defined(SPACE_KEY_LOW_BAT_IND)
 static uint32_t bat_low_backlit_indicator = 0;
@@ -716,7 +716,7 @@ bool LED_INDICATORS_KB(void) {
 }
 
 void LED_NONE_INDICATORS_KB(void) {
-#    if defined(RGB_DISABLE_WHEN_USB_SUSPENDED) || defined(LED_DISABLE_WHEN_USB_SUSPENDED)
+#    if defined(RGB_MATRIX_SLEEP) || defined(LED_MATRIX_SLEEP)
     if (get_transport() == TRANSPORT_USB && USB_DRIVER.state == USB_SUSPENDED) return;
 #    endif
 

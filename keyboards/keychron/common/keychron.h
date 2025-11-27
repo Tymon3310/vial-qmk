@@ -34,7 +34,7 @@
 #    include "profile.h"
 #endif
 
-#if defined(WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
+#if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
 #    include "wireless_include.h"
 #endif
 

@@ -24,7 +24,7 @@
 #define I2C1_SDA_PIN C9
 #define EXTERNAL_EEPROM_WP_PIN B10
 
-/* Analog Matrix Configuration*/
+/* Analog Matrix Configuration */
 #define ANALOG_MATRIX_POWER_PIN C13
 #define ANALOG_MATRIX_POWER_ENABLE_LEVEL 1
 #define ANALOG_MATRIX_WAKEUP_PIN C5
@@ -91,16 +91,14 @@
 #        define LED_DRIVER_REINIT_ON_TRANSPORT_CHANGE
 #    endif
 
-/* Keep USB connection in blueooth mode */
+/* Keep USB connection in wireless mode */
 #    define KEEP_USB_CONNECTION_IN_WIRELESS_MODE
 
-/* Enable bluetooth NKRO */
+/* Enable wireless NKRO */
 #    define WIRELESS_NKRO_ENABLE
 #endif
 
-/* Factory Test keys */
+/* Factory Test Keys */
 #define FN_KEY_1 MO(1)
 #define FN_KEY_2 MO(3)
 #define FN_BL_TRIG_KEY KC_END
-
-#define MATRIX_IO_DELAY 10

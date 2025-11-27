@@ -9,11 +9,15 @@ A customizable 80% hall effect keyboard.
 * Hardware Availability: [Keychron Q3 HE QMK/VIA Wireless Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-q3-he-qmk-wireless-custom-keyboard)
   Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q3_he/ansi_encoder:default
-
+    make keychron/q3_he/ansi_encoder:keychron
+    make keychron/q3_he/iso_encoder:keychron
+    make keychron/q3_he/jis_encoder:keychron
+        
 Flashing example for this keyboard:
 
-    make keychron/q3_he/ansi_encoder:default:flash
+    make keychron/q3_he/ansi_encoder:keychron:flash
+    make keychron/q3_he/iso_encoder:keychron:flash
+    make keychron/q3_he/jis_encoder:keychron:flash
 
 **Reset Key**: Disconnect the USB cable, toggle mode switch to "Cable", hold down the *Esc* key or reset button underneath space bar, then connect the USB cable.
 

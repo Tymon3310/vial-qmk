@@ -6,6 +6,7 @@
 #include "wear_leveling.h"
 #include "wear_leveling_efl_config.h"
 #include "wear_leveling_internal.h"
+#include <stdatomic.h>
 
 static flash_offset_t base_offset = UINT32_MAX;
 
@@ -153,8 +154,10 @@ bool backing_store_lock(void) {
 static backing_store_int_t backing_store_safe_read_from_location(backing_store_int_t *loc) {
     backing_store_int_t value;
     is_issuing_read    = true;
+    atomic_thread_fence(memory_order_seq_cst);
     ecc_error_occurred = false;
     value              = flash_erased_is_one ? ~(*loc) : (*loc);
+    atomic_thread_fence(memory_order_seq_cst);
     is_issuing_read    = false;
     return value;
 }
