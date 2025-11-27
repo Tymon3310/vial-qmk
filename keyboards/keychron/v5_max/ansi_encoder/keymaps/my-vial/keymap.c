@@ -15,10 +15,14 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "config.h"
 #include "keychron_common.h"
+#include "keychron_rgb_type.h"
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h" // For RGB_MATRIX_INDICATOR_SET_COLOR macro
 #endif
+
+extern os_indicator_config_t os_ind_cfg;
 
 enum layers {
     MAC_BASE,
@@ -56,6 +60,8 @@ static bool     rgb_layer_coloring_enabled = true;
 // Disable SOCD Cleaner by default (module defaults to enabled). This runs after init.
 void keyboard_post_init_user(void) {
     socd_cleaner_enabled = false;
+    // Disable Num Lock indicator when RGB is off (handled by os_state_indicate in keychron_rgb.c)
+    os_ind_cfg.disable.num_lock = true;
 }
 
 // clang-format off
@@ -230,6 +236,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (CAPS_LOCK_LED_INDEX >= led_min && CAPS_LOCK_LED_INDEX < led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
         }
+    }
+
+    // Num Lock indicator: Red when OFF
+    // Note: When Num Lock is ON, it will follow the active RGB effect.
+    if (!host_keyboard_led_state().num_lock) {
+#ifdef NUM_LOCK_INDEX
+        if (NUM_LOCK_INDEX >= led_min && NUM_LOCK_INDEX < led_max) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 0, 0);
+        }
+#endif
     }
 
     // Arrow cluster indicators:

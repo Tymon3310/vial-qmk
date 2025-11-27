@@ -16,7 +16,7 @@
 // #define VIAL_UNLOCK_COMBO_ROWS {0, 3}
 // #define VIAL_UNLOCK_COMBO_COLS {0, 12}
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 10
+#define DYNAMIC_KEYMAP_LAYER_COUNT 16
 
 // Enable all QMK RGB matrix effects via a dedicated header
 #define MOUSE_TURBO_CLICK_PERIOD 50
