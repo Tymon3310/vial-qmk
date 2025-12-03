@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-
 #include "xinput_keycodes.h"
 
 uint8_t profile_gobal_mode[PROFILE_COUNT] = {

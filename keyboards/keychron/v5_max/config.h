@@ -60,10 +60,10 @@
 /* Reinit LED driver on tranport changed */
 #    define LED_DRIVER_REINIT_ON_TRANSPORT_CHANGE
 
-/* Keep USB connection in blueooth mode */
+/* Keep USB connection in wireless mode */
 #    define KEEP_USB_CONNECTION_IN_WIRELESS_MODE
 
-/* Enable bluetooth NKRO */
+/* Enable wireless NKRO */
 #    define WIRELESS_NKRO_ENABLE
 
 /* Don’t clear 2.4G pairing info on factory reset. */
@@ -73,5 +73,3 @@
 /* Factory test keys */
 #define FN_KEY_1 MO(1)
 #define FN_KEY_2 MO(3)
-
-#define MATRIX_IO_DELAY 10

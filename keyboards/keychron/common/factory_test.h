@@ -16,15 +16,10 @@
 
 #pragma once
 
-#define FACTORY_RESET_CHECK process_record_factory_test
-#define FACTORY_RESET_TASK factory_test_task
-
 void factory_test_init(void);
-
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
 bool factory_test_indicator(void);
 #endif
-
 bool factory_reset_indicating(void);
 void factory_test_task(void);
 void factory_test_rx(bool usb, uint8_t *data, uint8_t length);

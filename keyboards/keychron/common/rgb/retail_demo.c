@@ -22,6 +22,8 @@
 #include "quantum.h"
 #include "eeprom.h"
 #include "nvm_eeprom_eeconfig_internal.h"
+#include "keychron_common.h"
+#include "factory_test.h"
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
 #    include "transport.h"
 #endif
@@ -49,7 +51,6 @@
 #    endif
 
 enum {
-    KEY_PRESS_FN          = 0x01 << 0,
     KEY_PRESS_D           = 0x01 << 1,
     KEY_PRESS_E           = 0x01 << 2,
     KEY_PRESS_RETAIL_DEMO = KEY_PRESS_FN | KEY_PRESS_D | KEY_PRESS_E,

@@ -25,36 +25,66 @@
 #include "nvm_eeprom_eeconfig_internal.h"
 
 #ifdef ANANLOG_MATRIX
+#    ifndef PROF_KEY_COL_OFFSET
+#        define PROF_KEY_COL_OFFSET 0
+#    endif
+
 #    ifndef PROF_TRIG_KEY_ROW
-#        define PROF_TRIG_KEY_ROW 2
+#        if MATRIX_ROWS == 5
+#            define PROF_TRIG_KEY_ROW 1
+#        elif MATRIX_ROWS == 6
+#            define PROF_TRIG_KEY_ROW 2
+#        else
+#            error "PROF_TRIG_KEY_ROW is not set"
+#        endif
 #    endif
 
 #    ifndef PROF_TRIG_KEY_COL
-#        define PROF_TRIG_KEY_COL 10
+#        define PROF_TRIG_KEY_COL (PROF_KEY_COL_OFFSET + 10)
 #    endif
-
+/* Profile 1 Key */
 #    ifndef PROF_1_KEY_ROW
-#        define PROF_1_KEY_ROW 4
+#        if MATRIX_ROWS == 5
+#            define PROF_1_KEY_ROW 3
+#        elif MATRIX_ROWS == 6
+#            define PROF_1_KEY_ROW 4
+#        else
+#            error "PROF_1_KEY_ROW is not set"
+#        endif
 #    endif
 
 #    ifndef PROF_1_KEY_COL
-#        define PROF_1_KEY_COL 2
+#        define PROF_1_KEY_COL (PROF_KEY_COL_OFFSET + 2)
 #    endif
 
+/* Profile 2 Key */
 #    ifndef PROF_2_KEY_ROW
-#        define PROF_2_KEY_ROW 4
+#        if MATRIX_ROWS == 5
+#            define PROF_2_KEY_ROW 3
+#        elif MATRIX_ROWS == 6
+#            define PROF_2_KEY_ROW 4
+#        else
+#            error "PROF_2_KEY_ROW is not set"
+#        endif
 #    endif
 
+/* Profile 3 Key */
 #    ifndef PROF_2_KEY_COL
-#        define PROF_2_KEY_COL 3
+#        define PROF_2_KEY_COL (PROF_KEY_COL_OFFSET + 3)
 #    endif
 
 #    ifndef PROF_3_KEY_ROW
-#        define PROF_3_KEY_ROW 4
+#        if MATRIX_ROWS == 5
+#            define PROF_3_KEY_ROW 3
+#        elif MATRIX_ROWS == 6
+#            define PROF_3_KEY_ROW 4
+#        else
+#            error "PROF_3_KEY_ROW is not set"
+#        endif
 #    endif
 
 #    ifndef PROF_3_KEY_COL
-#        define PROF_3_KEY_COL 4
+#        define PROF_3_KEY_COL (PROF_KEY_COL_OFFSET + 4)
 #    endif
 
 #    define KEY_MASK(r, c) (virtual_matrix[r] & (1 << c))

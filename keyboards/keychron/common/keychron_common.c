@@ -62,8 +62,11 @@ uint32_t siri_timer     = 0;
 static uint32_t winlock_timer = 0;
 #endif
 #if defined(KEYCOMBO_OS_SELECT_ENABLE)
-static uint32_t os_keycombo_timer = 0;
-static uint16_t os_keycode        = 0;
+static uint32_t os_keycombo_timer   = 0;
+static uint16_t os_selected_keycode = 0;
+#endif
+#if defined(KEYCOMBO_OS_TOGGLE_ENABLE) && defined(KEYCOMBO_OS_TOGGLE_HOLD_TIME)
+static uint32_t os_toggle_timer = 0;
 #endif
 
 static uint8_t mac_keycode[4] = {
@@ -123,6 +126,33 @@ void gui_toggle(void) {
     backlight_indicator_start(250, 250, 3, color);
 #endif
 }
+
+#ifdef KEYCOMBO_OS_TOGGLE_ENABLE
+void os_toggle(void) {
+    default_layer_xor(1U << MAC_BASE_LAYER);
+    default_layer_xor(1U << WIN_BASE_LAYER);
+    eeconfig_update_default_layer(default_layer_state);
+#    ifdef KEYCOMBO_OS_TOGGLE_INDICATION_ENABLE
+    if (get_highest_layer(default_layer_state) == MAC_BASE_LAYER) {
+#        ifdef RGB_MATRIX_ENABLE
+        RGB color = OS_INDICATION_COLOR_MAC;
+        backlight_indicator_start(250, 250, 3, color);
+#        endif
+#        ifdef LED_MATRIX_ENABLE
+        backlight_indicator_start(250, 250, 3);
+#        endif
+    } else {
+#        ifdef RGB_MATRIX_ENABLE
+        RGB color = OS_INDICATION_COLOR_WIN;
+        backlight_indicator_start(250, 250, 3, color);
+#        endif
+#        ifdef LED_MATRIX_ENABLE
+        backlight_indicator_start(250, 250, 3);
+#        endif
+    }
+#    endif
+}
+#endif
 
 bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -221,30 +251,17 @@ bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef KEYCOMBO_OS_TOGGLE_ENABLE
         case OS_TOGGL:
+#    if defined(KEYCOMBO_OS_TOGGLE_HOLD_TIME)
             if (record->event.pressed) {
-                default_layer_xor(1U << MAC_BASE_LAYER);
-                default_layer_xor(1U << WIN_BASE_LAYER);
-                eeconfig_update_default_layer(default_layer_state);
-#    ifdef KEYCOMBO_OS_TOGGLE_INDICATION_ENABLE
-                if (get_highest_layer(default_layer_state) == MAC_BASE_LAYER) {
-#        ifdef RGB_MATRIX_ENABLE
-                    RGB color = OS_INDICATION_COLOR_MAC;
-                    backlight_indicator_start(250, 250, 3, color);
-#        endif
-#        ifdef LED_MATRIX_ENABLE
-                    backlight_indicator_start(250, 250, 3);
-#        endif
-                } else {
-#        ifdef RGB_MATRIX_ENABLE
-                    RGB color = OS_INDICATION_COLOR_WIN;
-                    backlight_indicator_start(250, 250, 3, color);
-#        endif
-#        ifdef LED_MATRIX_ENABLE
-                    backlight_indicator_start(250, 250, 3);
-#        endif
-                }
-#    endif
+                os_toggle_timer = timer_read32();
+            } else {
+                os_toggle_timer = 0;
             }
+#    else
+            if (record->event.pressed) {
+                os_toggle();
+            }
+#    endif
             return false;
 #endif
 
@@ -252,14 +269,14 @@ bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
         case OS_WIN:
         case OS_MAC:
             if (record->event.pressed) {
-                if (os_keycode == 0) {
-                    os_keycode        = keycode;
-                    os_keycombo_timer = timer_read32();
+                if (os_selected_keycode == 0) {
+                    os_selected_keycode = keycode;
+                    os_keycombo_timer   = timer_read32();
                 }
             } else {
-                if (os_keycode == keycode) {
-                    os_keycode        = 0;
-                    os_keycombo_timer = 0;
+                if (os_selected_keycode == keycode) {
+                    os_selected_keycode = 0;
+                    os_keycombo_timer   = 0;
                 }
             }
             break;
@@ -295,7 +312,7 @@ void keychron_common_task(void) {
 #endif
 #if defined(KEYCOMBO_OS_SELECT_ENABLE) && defined(MAC_BASE_LAYER) && defined(WIN_BASE_LAYER)
     if (os_keycombo_timer && timer_elapsed32(os_keycombo_timer) > 3000) {
-        if (os_keycode == OS_WIN) {
+        if (os_selected_keycode == OS_WIN) {
             if (get_highest_layer(default_layer_state) == MAC_BASE_LAYER) {
                 default_layer_set(1UL << WIN_BASE_LAYER);
                 eeprom_update_byte(EECONFIG_DEFAULT_LAYER, 1U << WIN_BASE_LAYER);
@@ -310,6 +327,12 @@ void keychron_common_task(void) {
         RGB color = {.r = 255, .g = 0, .b = 0};
         backlight_indicator_start(250, 250, 3, color);
         os_keycombo_timer = 0;
+    }
+#endif
+#if defined(KEYCOMBO_OS_TOGGLE_ENABLE) && defined(KEYCOMBO_OS_TOGGLE_HOLD_TIME)
+    if (os_toggle_timer && timer_elapsed32(os_toggle_timer) > KEYCOMBO_OS_TOGGLE_HOLD_TIME) {
+        os_toggle();
+        os_toggle_timer = 0;
     }
 #endif
 }

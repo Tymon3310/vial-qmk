@@ -31,6 +31,7 @@
 #include "backlit_indicator.h"
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
 #    include "transport.h"
+#    include "wireless.h"
 #endif
 
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
@@ -69,7 +70,7 @@ void indicator_eeconfig_reload(void) {
 }
 
 __attribute__((weak)) void os_state_indicate(void) {
-#    if defined(RGB_DISABLE_WHEN_USB_SUSPENDED) || defined(LED_DISABLE_WHEN_USB_SUSPENDED)
+#    if defined(RGB_MATRIX_SLEEP) || defined(LED_MATRIX_SLEEP)
 #        if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
     if (get_transport() == TRANSPORT_USB && USB_DRIVER.state == USB_SUSPENDED) return;
 #        else

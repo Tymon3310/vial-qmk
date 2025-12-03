@@ -16,6 +16,7 @@
 
 #include "quantum.h"
 
+// clang-format off
 const matrix_row_t analog_matrix_mask[] = {
     0b1111111111111111,
     0b1111111111111111,
@@ -25,7 +26,6 @@ const matrix_row_t analog_matrix_mask[] = {
     0b1111111001000111,
 };
 
-// clang-format off
 #ifdef RGB_MATRIX_ENABLE
 const snled27351_led_t g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations

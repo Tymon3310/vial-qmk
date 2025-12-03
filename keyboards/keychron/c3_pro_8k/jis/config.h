@@ -33,6 +33,4 @@
 #    define WINLOCK_LED_LIST \
         { 79, 85 }
 
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_KEYPRESSES
 #endif
