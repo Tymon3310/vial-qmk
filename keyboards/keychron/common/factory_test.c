@@ -15,6 +15,7 @@
  */
 
 #include "quantum.h"
+#include "keychron_common.h"
 #include "usb_descriptor.h"
 #include "raw_hid.h"
 #include "keychron_raw_hid.h"
@@ -59,20 +60,36 @@
 #endif
 
 #ifdef ANANLOG_MATRIX
+#    ifndef FACTORY_KEY_COL_OFFSET
+#        define FACTORY_KEY_COL_OFFSET 0
+#    endif
+
 #    ifndef J_KEY_ROW
-#        define J_KEY_ROW 3
+#        if MATRIX_ROWS == 5
+#            define J_KEY_ROW 2
+#        elif MATRIX_ROWS == 6
+#            define J_KEY_ROW 3
+#        else
+#            error "J_KEY_ROW is not set"
+#        endif
 #    endif
 
 #    ifndef J_KEY_COL
-#        define J_KEY_COL 7
+#        define J_KEY_COL (FACTORY_KEY_COL_OFFSET + 7)
 #    endif
 
 #    ifndef Z_KEY_ROW
-#        define Z_KEY_ROW 4
+#        if MATRIX_ROWS == 5
+#            define Z_KEY_ROW 3
+#        elif MATRIX_ROWS == 6
+#            define Z_KEY_ROW 4
+#        else
+#            error "J_KEY_ROW is not set"
+#        endif
 #    endif
 
 #    ifndef Z_KEY_COL
-#        define Z_KEY_COL 2
+#        define Z_KEY_COL (FACTORY_KEY_COL_OFFSET + 2)
 #    endif
 #endif
 #define KEY_MASK(r, c) (virtual_matrix[r] & (1 << c))
@@ -87,7 +104,6 @@ enum {
 };
 
 enum {
-    KEY_PRESS_FN             = 0x01 << 0,
     KEY_PRESS_J              = 0x01 << 1,
     KEY_PRESS_Z              = 0x01 << 2,
     KEY_PRESS_BL_KEY1        = 0x01 << 3,
@@ -371,13 +387,11 @@ void analog_matrix_factory_reset(void) {
 }
 #endif
 
-bool factory_test_task(void) {
+void factory_test_task(void) {
     if (factory_reset_timer) factory_timer_check();
 #ifdef ANANLOG_MATRIX
     analog_matrix_factory_reset();
 #endif
-
-    return true;
 }
 
 void factory_test_send(bool usb, uint8_t *payload, uint8_t length) {

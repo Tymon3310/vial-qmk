@@ -2,7 +2,7 @@ USE_FPU = yes
 
 OPT_DEFS += -DANANLOG_MATRIX
 
-ANALOG_MATRX_DIR = common/analog_matrix
+ANALOG_MATRX_DIR = $(TOP_DIR)/keyboards/keychron/common/analog_matrix
 SRC += \
      i2c_master.c \
      $(ANALOG_MATRX_DIR)/eeprom_he.c \
@@ -20,5 +20,4 @@ SRC += \
      $(ANALOG_MATRX_DIR)/game_controller_common.c \
      $(ANALOG_MATRX_DIR)/analog_matrix.c
 
-VPATH += $(TOP_DIR)/keyboards/keychron/$(ANALOG_MATRX_DIR)
-
+VPATH += $(ANALOG_MATRX_DIR)

@@ -33,6 +33,9 @@
 #ifndef HC164_MR
 #    define HC164_MR D2
 #endif
+#ifndef SHIFTER_START_INDEX
+#    define SHIFTER_START_INDEX 0
+#endif
 
 #define ADC_GRP_NUM_CHANNELS MATRIX_ROWS
 #define ADC_GRP_BUF_DEPTH 1
@@ -154,6 +157,11 @@ static bool select_col(uint8_t col) {
         writePinHigh(HC164_MR);
         shifter_delay(20);
         HC164_output(0x01, true);
+#if (SHIFTER_START_INDEX != 0)
+        for (uint8_t i = 0; i < SHIFTER_START_INDEX; i++) {
+            HC164_output(0x00, true);
+        }
+#endif
     }
     return true;
 }

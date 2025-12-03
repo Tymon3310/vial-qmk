@@ -27,22 +27,6 @@
 #    include "eeprom.h"
 #    include "state_notify.h"
 
-#    ifndef KEY_RATE_SELECT
-#        define KEY_RATE_SELECT KC_K
-#    endif
-
-#    ifndef KEY_RATE_1K
-#        define KEY_RATE_1K KC_Z
-#    endif
-
-#    ifndef KEY_RATE_4K
-#        define KEY_RATE_4K KC_X
-#    endif
-
-#    ifndef KEY_RATE_8K
-#        define KEY_RATE_8K KC_C
-#    endif
-
 enum {
     KEY_RATE_PRESS_FN     = 0x01 << 0,
     KEY_RATE_PRESS_SELECT = 0x01 << 1,
@@ -125,6 +109,7 @@ void report_rate_hid_rx(uint8_t *data, uint8_t length) {
     data[2] = success ? 0 : 1;
 }
 
+#if defined(KEY_RATE_1K) && defined(KEY_RATE_4K) && defined(KEY_RATE_8K) && defined(KEY_RATE_SELECT)
 __attribute__((weak)) void report_rate_indicator_set(uint8_t report_rate) {
 #    ifdef RGB_MATRIX_ENABLE
     RGB color = {.r = 0, .g = 0, .b = 0};
@@ -143,6 +128,7 @@ __attribute__((weak)) void report_rate_indicator_set(uint8_t report_rate) {
     backlight_indicator_start(250, 250, 3, color);
 #    endif
 }
+#endif
 
 bool process_record_report_rate(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -153,7 +139,7 @@ bool process_record_report_rate(uint16_t keycode, keyrecord_t *record) {
                 report_rate_combo &= ~KEY_RATE_PRESS_FN;
             }
             break;
-
+#if defined(KEY_RATE_1K) && defined(KEY_RATE_4K) && defined(KEY_RATE_8K) && defined(KEY_RATE_SELECT)
         case KEY_RATE_SELECT:
             if (record->event.pressed) {
                 report_rate_combo |= KEY_RATE_PRESS_SELECT;
@@ -207,6 +193,8 @@ bool process_record_report_rate(uint16_t keycode, keyrecord_t *record) {
                 report_rate_combo &= ~KEY_RATE_PRESS_8K;
             }
             break;
+#endif
+        default:break;
     }
 
     return true;

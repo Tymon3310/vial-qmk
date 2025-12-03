@@ -120,7 +120,7 @@ __attribute__((weak)) void usb_transport_enable(bool enable) {
             usbDisconnectBus(&USBD1);
             wait_ms(30);
 #    endif
-            usb_start(&USBD1);
+            restart_usb_driver(&USBD1);
 #endif
             host_set_driver(&chibios_driver);
         }

@@ -31,6 +31,7 @@
 #include "backlit_indicator.h"
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
 #    include "transport.h"
+#    include "wireless.h"
 #endif
 
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)

@@ -123,13 +123,13 @@ enum {
 // clang-format on
 static_assert(NEW_SAFE_RANGE <= 0x7E1F /* QK_KB_31 */, "Keycode overflow");
 
-#ifdef ANANLOG_MATRIX
 enum {
     KEY_PRESS_FN = 0x01 << 0,
-    KEY_PRESS_P  = 0x01 << 1,
+#ifdef ANANLOG_MATRIX
+    KEY_PRESS_P          = 0x01 << 1,
     KEY_PRESS_PROF_COMBO = KEY_PRESS_FN | KEY_PRESS_P,
-};
 #endif
+};
 
 typedef struct PACKED {
     uint8_t len;
