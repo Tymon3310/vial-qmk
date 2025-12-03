@@ -103,7 +103,13 @@ enum {
 #else
     __BL_SPD_NEXT = __PROF3_NEXT,
 #endif
-    NEW_SAFE_RANGE = __BL_SPD_NEXT,
+#if defined(SNAP_CLICK_ENABLE) && !defined(ANANLOG_MATRIX)
+    SC_TOGG = __BL_SPD_NEXT,  /* Snap Click Toggle */
+    __SC_TOGG_NEXT,
+#else
+    __SC_TOGG_NEXT = __BL_SPD_NEXT,
+#endif
+    NEW_SAFE_RANGE = __SC_TOGG_NEXT,
 };
 
 #define KC_MCTRL KC_MAC_MISSION_CONTROL

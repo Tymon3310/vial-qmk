@@ -16,6 +16,24 @@
 
 #pragma once
 #include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+
+/* Snap Click Types - for use in SNAP_CLICK_DEFAULT_PAIRS */
+#define SC_TYPE_NONE        0
+#define SC_TYPE_REGULAR     1  /* Last key pressed wins, releases normally */
+#define SC_TYPE_LAST_INPUT  2  /* Last key pressed wins, other key activates on release */
+#define SC_TYPE_FIRST_KEY   3  /* First key always wins when both pressed */
+#define SC_TYPE_SECOND_KEY  4  /* Second key always wins when both pressed */
+#define SC_TYPE_NEUTRAL     5  /* Both keys cancel out (no output) when pressed together */
+
+/* Macro for defining snap click pairs in keymap config.h
+ * Usage: #define SNAP_CLICK_DEFAULT_PAIRS { \
+ *            { SC_TYPE_LAST_INPUT, KC_A, KC_D }, \
+ *            { SC_TYPE_LAST_INPUT, KC_W, KC_S }, \
+ *        }
+ */
+#define SC_PAIR(type, key1, key2) { type, { key1, key2 } }
 
 typedef struct __attribute__((__packed__)) {
     uint8_t type;
@@ -40,4 +58,10 @@ typedef union {
 } snap_click_state_t;
 
 void snap_click_config_reset(void);
+void snap_click_init(void);
+bool snap_click_is_enabled(void);
+void snap_click_toggle(void);
+void snap_click_enable(void);
+void snap_click_disable(void);
+bool process_record_snap_click(uint16_t keycode, keyrecord_t *record);
 void snap_click_rx(uint8_t *data, uint8_t length);

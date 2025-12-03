@@ -281,6 +281,27 @@ bool process_record_keychron_common(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 #endif
+
+#if defined(SNAP_CLICK_ENABLE) && !defined(ANANLOG_MATRIX)
+        case SC_TOGG:
+            if (record->event.pressed) {
+                extern void snap_click_toggle(void);
+                snap_click_toggle();
+#    ifdef SNAP_CLICK_TOGGLE_INDICATION_ENABLE
+                extern bool snap_click_is_enabled(void);
+                if (snap_click_is_enabled()) {
+                    /* Green indicator when enabled */
+                    RGB color = {.r = 0, .g = 255, .b = 0};
+                    backlight_indicator_start(250, 250, 3, color);
+                } else {
+                    /* Red indicator when disabled */
+                    RGB color = {.r = 255, .g = 0, .b = 0};
+                    backlight_indicator_start(250, 250, 3, color);
+                }
+#    endif
+            }
+            return false;
+#endif
         default:
             return true; // Process all other keycodes normally
     }

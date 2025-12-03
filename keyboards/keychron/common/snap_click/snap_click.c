@@ -38,20 +38,102 @@ enum {
 
 #    define SC_MASK_BOTH_KEYS_PRESSED 3
 
+/* EEPROM offset for snap click enabled state (1 byte after the pairs) */
+#    define EECONFIG_SNAP_CLICK_ENABLED (EECONFIG_BASE_SNAP_CLICK + sizeof(snap_click_pair))
+
 snap_click_config_t snap_click_pair[SNAP_CLICK_COUNT];
 snap_click_state_t  snap_click_state[SNAP_CLICK_COUNT];
+static bool         snap_click_enabled = true;
+
+/* Default pairs can be defined in config.h like:
+ * #define SNAP_CLICK_DEFAULT_PAIRS { \
+ *     { SC_TYPE_LAST_INPUT, { KC_A, KC_D } }, \
+ *     { SC_TYPE_LAST_INPUT, { KC_W, KC_S } }, \
+ * }
+ */
+#    ifdef SNAP_CLICK_DEFAULT_PAIRS
+static const snap_click_config_t snap_click_defaults[] = SNAP_CLICK_DEFAULT_PAIRS;
+#        define SNAP_CLICK_DEFAULT_COUNT (sizeof(snap_click_defaults) / sizeof(snap_click_defaults[0]))
+#    endif
 
 void snap_click_config_reset(void) {
     memset(snap_click_pair, 0, sizeof(snap_click_pair));
+
+#    ifdef SNAP_CLICK_DEFAULT_PAIRS
+    /* Apply default pairs */
+    for (uint8_t i = 0; i < SNAP_CLICK_DEFAULT_COUNT && i < SNAP_CLICK_COUNT; i++) {
+        snap_click_pair[i] = snap_click_defaults[i];
+    }
+#    endif
+
     eeprom_update_block(snap_click_pair, (uint8_t *)(EECONFIG_BASE_SNAP_CLICK), sizeof(snap_click_pair));
+
+    /* Default to enabled */
+    snap_click_enabled = true;
+    eeprom_update_byte((uint8_t *)EECONFIG_SNAP_CLICK_ENABLED, snap_click_enabled ? 0x01 : 0x00);
 }
 
 void snap_click_init(void) {
     eeprom_read_block(snap_click_pair, (uint8_t *)(EECONFIG_BASE_SNAP_CLICK), sizeof(snap_click_pair));
     memset(snap_click_state, 0, sizeof(snap_click_state));
+
+    /* Read enabled state from EEPROM */
+    uint8_t enabled_byte = eeprom_read_byte((uint8_t *)EECONFIG_SNAP_CLICK_ENABLED);
+    /* 0xFF means uninitialized EEPROM, default to enabled; 0x01 = enabled, 0x00 = disabled */
+    snap_click_enabled = (enabled_byte == 0xFF || enabled_byte == 0x01);
+
+#    ifdef SNAP_CLICK_DEFAULT_PAIRS
+    /* Check if EEPROM is empty (all zeros or uninitialized) and apply defaults */
+    bool all_empty = true;
+    for (uint8_t i = 0; i < SNAP_CLICK_COUNT; i++) {
+        if (snap_click_pair[i].type != 0) {
+            all_empty = false;
+            break;
+        }
+    }
+    if (all_empty) {
+        for (uint8_t i = 0; i < SNAP_CLICK_DEFAULT_COUNT && i < SNAP_CLICK_COUNT; i++) {
+            snap_click_pair[i] = snap_click_defaults[i];
+        }
+        eeprom_update_block(snap_click_pair, (uint8_t *)(EECONFIG_BASE_SNAP_CLICK), sizeof(snap_click_pair));
+    }
+#    endif
+}
+
+bool snap_click_is_enabled(void) {
+    return snap_click_enabled;
+}
+
+void snap_click_toggle(void) {
+    snap_click_enabled = !snap_click_enabled;
+    eeprom_update_byte((uint8_t *)EECONFIG_SNAP_CLICK_ENABLED, snap_click_enabled ? 0x01 : 0x00);
+
+    /* Clear all snap click states when toggling */
+    memset(snap_click_state, 0, sizeof(snap_click_state));
+}
+
+void snap_click_enable(void) {
+    if (!snap_click_enabled) {
+        snap_click_enabled = true;
+        eeprom_update_byte((uint8_t *)EECONFIG_SNAP_CLICK_ENABLED, 0x01);
+    }
+}
+
+void snap_click_disable(void) {
+    if (snap_click_enabled) {
+        snap_click_enabled = false;
+        eeprom_update_byte((uint8_t *)EECONFIG_SNAP_CLICK_ENABLED, 0x00);
+        /* Clear all snap click states when disabling */
+        memset(snap_click_state, 0, sizeof(snap_click_state));
+    }
 }
 
 bool process_record_snap_click(uint16_t keycode, keyrecord_t *record) {
+    /* Skip processing if snap click is disabled */
+    if (!snap_click_enabled) {
+        return true;
+    }
+
     for (uint8_t i = 0; i < SNAP_CLICK_COUNT; i++) {
         snap_click_config_t *p = &snap_click_pair[i];
 

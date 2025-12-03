@@ -544,7 +544,7 @@ void auto_caliration_check(uint8_t row, uint8_t col, uint16_t value) {
                     if (abs(saved_calib_values[row][col].zero_travel - calib_values[row][col].zero_travel) > 15 || abs(saved_calib_values[row][col].full_travel - calib_values[row][col].full_travel) > 50) {
                         /* Save */
                         saved_calib_values[row][col].zero_travel = calib_values[row][col].zero_travel;
-                        saved_calib_values[row][col].full_travel = calib_values[row][col].full_travel;
+                        saved_calib_values[row][col].full_travel = calib_values[row][col].full_travel;saved_calib_values
                         save_calibration_value(row, col);
                     } else {
                         calib_values[row][col].full_travel = p->value.full_travel - 15;
