@@ -35,3 +35,4 @@
         {SC_TYPE_LAST_INPUT, {KC_A, KC_D}}, \
         {SC_TYPE_LAST_INPUT, {KC_W, KC_S}}, \
     }
+

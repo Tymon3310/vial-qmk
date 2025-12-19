@@ -19,7 +19,7 @@
 #include "keychron_common.h"
 #include "keychron_rgb_type.h"
 #ifdef RGB_MATRIX_ENABLE
-#    include "rgb_matrix.h" // For RGB_MATRIX_INDICATOR_SET_COLOR macro
+#    include "rgb_matrix.h"
 #endif
 
 extern os_indicator_config_t os_ind_cfg;
@@ -29,40 +29,81 @@ enum layers {
     MAC_FN,
     WIN_BASE,
     WIN_FN,
+    LAYER_4,
+    LAYER_5,
+    LAYER_6,
+    LAYER_7,
+    LAYER_8,
+    LAYER_9,
+    LAYER_10,
+    LAYER_11,
+    LAYER_12,
+    LAYER_13,
+    LAYER_14,
+    LAYER_15,
 };
 
-#define CAPS_LOCK_INDEX 51
-
-// Wrapper keycodes for exposing SOCD Cleaner controls via Vial (QK_KB_16+ unused)
-enum socd_wrapper_keycodes {
-    SOC_ON_WRAPPER = QK_KB_16,
-    SOC_OFF_WRAPPER,
-    SOC_TOG_WRAPPER,
+/* Custom keycodes - after SC_TOGG (index 16) */
+enum custom_keycodes {
+    WASD_TOG = QK_KB_17,  /* WASD <-> Arrow swap toggle */
 };
 
-// WASD<->Arrow swap toggle keycode (next free in keyboard range)
-enum wasd_swap_keycodes {
-    WASD_ARROW_TOG = QK_KB_19, // repurpose existing custom keycode to trigger swap-hands
-};
+/* Track swap-hands state for LED indication */
+static bool wasd_swap_active = false;
 
-// Add Turbo Click wrapper in the keyboard range so Vial can show it
-enum turbo_wrapper_keycodes {
-    TURBO_WRAPPER = QK_KB_20,
-};
-
-// Track swap-hands state (mirroring) separately for LED indication
-static bool swap_hands_active = false;
-
-// Timer for temporarily disabling layer RGB coloring when RGB keycodes are used
+/* Timer for temporarily disabling layer RGB coloring when RGB keycodes are used */
 static uint32_t rgb_keycode_timer          = 0;
 static bool     rgb_layer_coloring_enabled = true;
 
-// Disable SOCD Cleaner by default (module defaults to enabled). This runs after init.
-void keyboard_post_init_user(void) {
-    socd_cleaner_enabled = false;
-    // Disable Num Lock indicator when RGB is off (handled by os_state_indicate in keychron_rgb.c)
-    os_ind_cfg.disable.num_lock = true;
-}
+/* LED indices for indicators */
+#define CAPS_LOCK_LED_INDEX 51
+/* WASD LED indices (from led_config_t matrix mapping):
+ *   W [2,2] -> LED 33
+ *   A [3,1] -> LED 52
+ *   S [3,2] -> LED 53
+ *   D [3,3] -> LED 54
+ */
+#define W_LED_INDEX 33
+#define A_LED_INDEX 52
+#define S_LED_INDEX 53
+#define D_LED_INDEX 54
+/* Arrow key LED indices:
+ *   Up   [4,14] -> LED 80
+ *   Left [5,13] -> LED 92
+ *   Down [5,14] -> LED 93
+ *   Right[5,15] -> LED 94
+ */
+#define ARROW_UP_LED_INDEX    80
+#define ARROW_LEFT_LED_INDEX  92
+#define ARROW_DOWN_LED_INDEX  93
+#define ARROW_RIGHT_LED_INDEX 94
+
+/* Layer color definitions - 16 distinct colors
+ * Using HSV with spread across the spectrum plus variations
+ * to ensure all 16 layers have unique, easily distinguishable colors
+ */
+typedef struct {
+    uint8_t r, g, b;
+} layer_color_t;
+
+static const layer_color_t layer_colors[16] = {
+    [MAC_BASE] = {0, 0, 0},        /* Base - no color overlay (use effect) */
+    [MAC_FN]   = {150, 80, 30},    /* Mac FN - Warm Orange */
+    [WIN_BASE] = {0, 0, 0},        /* Base - no color overlay (use effect) */
+    [WIN_FN]   = {150, 80, 30},    /* Win FN - Warm Orange */
+    [LAYER_4]  = {255, 0, 0},      /* Red */
+    [LAYER_5]  = {255, 127, 0},    /* Orange */
+    [LAYER_6]  = {255, 255, 0},    /* Yellow */
+    [LAYER_7]  = {127, 255, 0},    /* Chartreuse */
+    [LAYER_8]  = {0, 255, 0},      /* Green */
+    [LAYER_9]  = {0, 255, 127},    /* Spring Green */
+    [LAYER_10] = {0, 255, 255},    /* Cyan */
+    [LAYER_11] = {0, 127, 255},    /* Azure */
+    [LAYER_12] = {0, 0, 255},      /* Blue */
+    [LAYER_13] = {127, 0, 255},    /* Violet */
+    [LAYER_14] = {255, 0, 255},    /* Magenta */
+    [LAYER_15] = {255, 0, 127},    /* Rose */
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
         RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
         _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
-        _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  SC_TOGG,  WASD_TOG, _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
     [WIN_BASE] = LAYOUT_ansi_98(
         KC_ESC,             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,     KC_F11,   KC_F12,             KC_DEL,   KC_HOME,  KC_END,     KC_MUTE,
@@ -92,26 +133,115 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
         RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
         _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
-        _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  SC_TOGG,  WASD_TOG, _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    /* Layers 4-15: Empty templates for Vial customization */
+    [LAYER_4] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_5] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_6] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_7] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_8] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_9] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_10] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_11] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_12] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_13] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_14] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
+        _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
+    [LAYER_15] = LAYOUT_ansi_98(
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,            _______,  _______,  _______,    _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,            _______,  _______,  _______,    
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,  _______,  _______,  _______,  _______,    _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______            ),
  };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [MAC_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [MAC_FN] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [MAC_FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
     [WIN_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [WIN_FN] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [WIN_FN]   = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [LAYER_4]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_5]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_6]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_7]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_8]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_9]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_10] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_11] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_12] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_13] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_14] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [LAYER_15] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 };
 #endif // ENCODER_MAP_ENABLE
-
-// Define SOCD Cleaner opposing pairs for WASD and arrow keys (mutable resolutions)
-socd_cleaner_t socd_opposing_pairs[] = {
-    {{KC_W, KC_S}, SOCD_CLEANER_LAST, {false, false}},       // WASD vertical
-    {{KC_A, KC_D}, SOCD_CLEANER_LAST, {false, false}},       // WASD horizontal
-    {{KC_UP, KC_DOWN}, SOCD_CLEANER_LAST, {false, false}},   // Arrow vertical
-    {{KC_LEFT, KC_RIGHT}, SOCD_CLEANER_LAST, {false, false}} // Arrow horizontal
-};
 
 // Swap-hands configuration restricted to swapping WASD with arrow cluster only.
 // All other positions map to themselves to avoid full keyboard mirroring.
@@ -136,20 +266,15 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 0 };
 #endif
 
 // clang-format on
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Forward our Vial-visible wrapper to the module's TURBO keycode (handles press/release + double-tap lock)
-    if (keycode == TURBO_WRAPPER) {
-        (void)process_record_mouse_turbo_click(MOUSE_TURBO_CLICK, record);
-        return false; // suppress original wrapper
-    }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keychron_common(keycode, record)) {
         return false;
     }
 
-    // Check for RGB keycodes and disable layer coloring temporarily
     if (record->event.pressed) {
         switch (keycode) {
+            /* Temporarily disable layer coloring when RGB keys are used */
             case RGB_TOG:
             case RGB_MOD:
             case RGB_RMOD:
@@ -164,151 +289,120 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_keycode_timer          = timer_read32();
                 rgb_layer_coloring_enabled = false;
                 break;
-            case SOC_ON_WRAPPER:
-                socd_cleaner_enabled = true;
-                return false;
-            case SOC_OFF_WRAPPER:
-                socd_cleaner_enabled = false;
-                return false;
-            case SOC_TOG_WRAPPER:
-                socd_cleaner_enabled = !socd_cleaner_enabled;
-                return false;
-            case WASD_ARROW_TOG:
+
+            /* WASD <-> Arrow swap toggle */
+            case WASD_TOG:
                 swap_hands_toggle();
-                swap_hands_active = is_swap_hands_on();
+                wasd_swap_active = is_swap_hands_on();
+#ifdef RGB_MATRIX_ENABLE
+                /* Visual feedback: cyan flash when enabled, red flash when disabled */
+                if (wasd_swap_active) {
+                    rgb_matrix_set_color_all(0, 255, 255); /* Cyan */
+                } else {
+                    rgb_matrix_set_color_all(255, 0, 0);   /* Red */
+                }
+#endif
                 return false;
+
             default:
                 break;
         }
     }
-
-    // Let SOCD module process the effective key
-    if (!process_record_socd_cleaner(keycode, record)) {
-        return false;
-    }
     return true;
 }
 
-// Define handedness of the keyboard layout for Chordal Hold (unused in logic here but preserved)
+/* Define handedness of the keyboard layout for Chordal Hold */
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
-    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', '*', '*', '*', '*', '*', '*', '*', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', '*', '*', '*', '*', '*', '*', '*', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
 };
 
-// Implementation is provided by the module; no local definition here.
-
 #ifdef RGB_MATRIX_ENABLE
-// Light the Caps Lock key LED when Caps Lock OR Caps Word is active.
-// Caps Lock LED index derived from led_config_t mapping in ansi_encoder.c: row 3, col 0 -> index 51
-#    define CAPS_LOCK_LED_INDEX 51
-// Arrow key LED indices (derived from led_config_t matrix mapping):
-// Matrix positions:
-//   Up   [4,14] -> LED 80
-//   Left [5,13] -> LED 92
-//   Down [5,14] -> LED 93
-//   Right[5,15] -> LED 94
-#    define ARROW_UP_LED_INDEX 80
-#    define ARROW_LEFT_LED_INDEX 92
-#    define ARROW_DOWN_LED_INDEX 93
-#    define ARROW_RIGHT_LED_INDEX 94
-
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // If RGB Matrix is disabled or suspended, don't light indicators
+    /* Skip if RGB Matrix is disabled or suspended */
     if (!rgb_matrix_get_flags()) {
         return false;
     }
 
-    // Re-enable layer coloring after 3 seconds of no RGB keycode activity
+    /* Re-enable layer coloring after 3 seconds of no RGB keycode activity */
     if (!rgb_layer_coloring_enabled && rgb_keycode_timer && timer_elapsed32(rgb_keycode_timer) > 3000) {
         rgb_layer_coloring_enabled = true;
         rgb_keycode_timer          = 0;
     }
 
+    /* === Caps Lock / Caps Word indicator === */
     const bool caps_hw   = host_keyboard_led_state().caps_lock;
     const bool caps_word = is_caps_word_on();
 
     if (caps_hw || caps_word) {
         if (CAPS_LOCK_LED_INDEX >= led_min && CAPS_LOCK_LED_INDEX < led_max) {
-            // Bright white for active Caps indicator
-            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 255, 255);
-        }
-    } else {
-        // Ensure LED is off when neither is active (let the running effect handle it otherwise)
-        if (CAPS_LOCK_LED_INDEX >= led_min && CAPS_LOCK_LED_INDEX < led_max) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 255, 255); /* Bright white */
         }
     }
 
-    // Num Lock indicator: Red when OFF
-    // Note: When Num Lock is ON, it will follow the active RGB effect.
+    /* === Num Lock indicator: Red when OFF === */
+#    ifdef NUM_LOCK_INDEX
     if (!host_keyboard_led_state().num_lock) {
-#ifdef NUM_LOCK_INDEX
         if (NUM_LOCK_INDEX >= led_min && NUM_LOCK_INDEX < led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 0, 0);
         }
-#endif
     }
+#    endif
 
-    // Arrow cluster indicators:
-    //  - Green when WASD<->Arrow swap active
-    //  - Red when SOCD enabled (and swap not active)
-    //  - Yellow when both active
-    if (socd_cleaner_enabled || swap_hands_active) {
-        uint8_t r = 0, g = 0, b = 0;
-        if (swap_hands_active && socd_cleaner_enabled) {
-            r = 255;
-            g = 160;
-            b = 0;
-        } // both -> amber
-        else if (swap_hands_active) {
-            r = 0;
-            g = 255;
-            b = 0;
-        } // swap only
-        else {
-            r = 255;
-            g = 0;
-            b = 0;
-        } // socd only
+    /* === WASD <-> Arrow swap indicator ===
+     * When active: Light both WASD and Arrow keys in Cyan
+     * This makes it visually clear that they are swapped
+     */
+    if (wasd_swap_active) {
+        const uint8_t wasd_leds[]  = {W_LED_INDEX, A_LED_INDEX, S_LED_INDEX, D_LED_INDEX};
         const uint8_t arrow_leds[] = {ARROW_UP_LED_INDEX, ARROW_LEFT_LED_INDEX, ARROW_DOWN_LED_INDEX, ARROW_RIGHT_LED_INDEX};
+
+        /* Light WASD keys in Cyan */
+        for (uint8_t i = 0; i < sizeof(wasd_leds); i++) {
+            uint8_t idx = wasd_leds[i];
+            if (idx >= led_min && idx < led_max) {
+                RGB_MATRIX_INDICATOR_SET_COLOR(idx, 0, 255, 255);
+            }
+        }
+
+        /* Light Arrow keys in Cyan */
         for (uint8_t i = 0; i < sizeof(arrow_leds); i++) {
             uint8_t idx = arrow_leds[i];
             if (idx >= led_min && idx < led_max) {
-                RGB_MATRIX_INDICATOR_SET_COLOR(idx, r, g, b);
+                RGB_MATRIX_INDICATOR_SET_COLOR(idx, 0, 255, 255);
             }
         }
     }
 
-    // Only apply layer coloring if enabled and not temporarily disabled
+    /* === Layer color overlay ===
+     * Only apply if enabled and not temporarily disabled by RGB keycode use
+     * Each layer 4-15 has a unique, easily distinguishable color
+     */
     if (rgb_layer_coloring_enabled) {
-        for (uint8_t i = led_min; i < led_max; i++) {
-            uint8_t current_layer = get_highest_layer(layer_state | default_layer_state);
-            if (current_layer > 3) {
-                // Use different hues and high saturation for better layer differentiation
-                uint8_t hue        = (current_layer - 4) * 42; // Spread hues across spectrum (42 * 6 = 252)
-                uint8_t saturation = 255;                      // Maximum saturation for vivid colors
-                uint8_t value      = 200;                      // Slightly dimmed brightness
-                RGB     rgb        = hsv_to_rgb((HSV){hue, saturation, value});
-                rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-            } else {
-                switch (current_layer) {
-                    case WIN_FN:
-                    case MAC_FN:
-                        // Use warm orange with low saturation to distinguish from high-saturation spectrum layers 4-9
-                        rgb_matrix_set_color(i, 150, 80, 30); // Warm orange with muted saturation
-                        break;
-                    default:
-                        break;
+        uint8_t current_layer = get_highest_layer(layer_state | default_layer_state);
+
+        /* Skip base layers (0-3) - let the RGB effect handle them */
+        if (current_layer >= LAYER_4 || current_layer == MAC_FN || current_layer == WIN_FN) {
+            layer_color_t color = layer_colors[current_layer];
+
+            /* Only apply if the layer has a defined color */
+            if (color.r != 0 || color.g != 0 || color.b != 0) {
+                for (uint8_t i = led_min; i < led_max; i++) {
+                    rgb_matrix_set_color(i, color.r, color.g, color.b);
                 }
             }
         }
     }
 
-    // Return false to allow kb-level/other indicators to run as well
-    return false;
+    return false; /* Allow kb-level/other indicators to run */
 }
 #endif
 
-// Ensure no LEDs are left on when the host suspends/powers off USB
+/* Ensure no LEDs are left on when the host suspends/powers off USB */
 void suspend_power_down_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_suspend_state(true);
