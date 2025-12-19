@@ -17,19 +17,11 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-/* RGB Matrix Configuration */
-#    define RGB_MATRIX_LED_COUNT 91
-#    define DRIVER_COUNT 2
-#    define SNLED27351_SELECT_PINS \
-        { A8, C9 }
-
-/* Scan phase of led driver */
-#    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
-/* Set led driver current */
+/* LED Current Configuration */
 #    define SNLED27351_CURRENT_TUNE \
         { 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86 }
 
-/* Turn off backllit if brightness value is low */
-#    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 48
+/* RGB Matrix Configuration */
+#    define RGB_MATRIX_LED_COUNT 91
 
 #endif

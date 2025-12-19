@@ -1,4 +1,4 @@
-/* Copyright 2025 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,14 @@
 #ifdef RGB_MATRIX_ENABLE
 /* LED Current Configuration */
 #    define SNLED27351_CURRENT_TUNE \
-        { 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86, 0x86 }
+        { 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C }
 
 /* RGB Matrix Configuration */
-#    define RGB_MATRIX_LED_COUNT 87
+#    define RGB_MATRIX_LED_COUNT 81
+
+/* Indications */
+#    define CAPS_LOCK_INDEX 44
+#    define LOW_BAT_IND_INDEX \
+        { 74 }
 
 #endif

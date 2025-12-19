@@ -34,7 +34,7 @@ bool firstDisconnect = true;
 
 static uint32_t pairing_key_timer;
 static uint8_t  host_idx = 0;
-extern uint32_t connected_idle_time;
+extern uint16_t connected_idle_time;
 #if defined(KC_BLUETOOTH_ENABLE)
 static uint32_t kc_bt_reset_timer = 0;
 #endif

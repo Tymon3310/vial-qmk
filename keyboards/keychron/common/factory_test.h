@@ -20,6 +20,7 @@ void factory_test_init(void);
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
 bool factory_test_indicator(void);
 #endif
+void factory_reset(void);
 bool factory_reset_indicating(void);
 void factory_test_task(void);
 void factory_test_rx(bool usb, uint8_t *data, uint8_t length);

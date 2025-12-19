@@ -22,12 +22,16 @@
 #define LED_WIN_OS_PIN C4
 #define LED_OS_PIN_ON_STATE 1
 
-#if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
+/* SNLED27351 Driver Configuration */
+#if defined(RGB_MATRIX_ENABLE)
 #    define SPI_DRIVER SPID1
 #    define SPI_SCK_PIN A5
 #    define SPI_MOSI_PIN A7
-#    define SNLED27351_SDB_PIN C10
+#    define SNLED27351_SDB_PIN B7
+#    define SNLED27351_SELECT_PINS \
+        { A8, C9 }
 #    define SNLED27351_SPI_DIVISOR 64
+#    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
 #endif
 
 /* Custom keycodes */
