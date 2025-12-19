@@ -146,78 +146,81 @@ void factory_timer_start(void) {
     factory_reset_timer = timer_read32();
 }
 
+void factory_reset(void) {
+    clear_keyboard();                   // Avoid key being pressed after NKRO state changed
+    clear_keyboard_but_mods_and_keys(); // Clear extra keys and mouse keys
+#if !defined(KEYCOMBO_OS_SELECT_ENABLE) && !defined(KEYCOMBO_OS_TOGGLE_ENABLE)
+    layer_state_t default_layer_tmp = default_layer_state;
+#endif
+    backlight_test_mode = BACKLIGHT_TEST_OFF;
+
+    eeconfig_disable();
+#ifdef ANANLOG_MATRIX
+    analog_matrix_eeconfig_init();
+    analog_matrix_clear_advance_keys();
+#endif
+    if (!eeconfig_is_enabled()) eeconfig_init();
+
+    eeconfig_read_keymap(&keymap_config);
+#if !defined(KEYCOMBO_OS_SELECT_ENABLE) && !defined(KEYCOMBO_OS_TOGGLE_ENABLE)
+    default_layer_set(default_layer_tmp);
+#endif
+#ifdef DYNAMIC_DEBOUNCE_ENABLE
+    debounce_config_reset();
+#endif
+#if defined(SNAP_CLICK_ENABLE) && !defined(ANANLOG_MATRIX)
+    snap_click_config_reset();
+#endif
+#ifdef LED_MATRIX_ENABLE
+    led_matrix_enable();
+    led_matrix_init();
+    eeconfig_update_led_matrix_default();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable();
+    rgb_matrix_init();
+    eeconfig_update_rgb_matrix_default();
+#    if defined(KEYCHRON_RGB_ENABLE) && defined(EECONFIG_SIZE_CUSTOM_RGB)
+    eeconfig_reset_custom_rgb();
+#    endif
+#endif
+#ifdef USB_REPORT_INTERVAL_ENABLE
+    extern void report_rate_reset(void);
+    report_rate_reset();
+#endif
+#if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
+#    ifdef EECONFIG_SIZE_WIRELESS_CONFIG
+    wireless_config_reset();
+#    endif
+    wait_ms(50);
+#    if defined(LK_WIRELESS_ENABLE)
+    lkbt51_factory_reset(P2P4G_CELAR_MASK);
+#    elif defined(KC_BLUETOOTH_ENABLE)
+    ckbt51_factory_reset();
+#    endif
+#    ifdef KEYCOMBO_CONN_SWITCH_ENABLE
+    eeprom_update_transport(get_transport());
+#    endif
+#endif
+#ifdef STATE_NOTIFY_ENABLE
+    factory_reset_nofity();
+#endif
+#ifdef RGB_MATRIX_ENABLE
+    RGB color = {.r = 255, .g = 0, .b = 0};
+    backlight_indicator_start(250, 250, 3, color);
+#endif
+#ifdef LED_MATRIX_ENABLE
+    backlight_indicator_start(250, 250, 3);
+#endif
+}
+
 static inline void factory_timer_check(void) {
     if (timer_elapsed32(factory_reset_timer) > 3000) {
         factory_reset_timer = 0;
 
         if (factory_reset_state == KEY_PRESS_FACTORY_RESET) {
             keys_released = KEY_PRESS_J | KEY_PRESS_Z;
-
-            clear_keyboard();                   // Avoid key being pressed after NKRO state changed
-            clear_keyboard_but_mods_and_keys(); // Clear extra keys and mouse keys
-#if !defined(KEYCOMBO_OS_SELECT_ENABLE) && !defined(KEYCOMBO_OS_TOGGLE_ENABLE)
-            layer_state_t default_layer_tmp = default_layer_state;
-#endif
-            backlight_test_mode = BACKLIGHT_TEST_OFF;
-
-            eeconfig_disable();
-#ifdef ANANLOG_MATRIX
-            analog_matrix_eeconfig_init();
-            analog_matrix_clear_advance_keys();
-#endif
-            if (!eeconfig_is_enabled()) eeconfig_init();
-
-            eeconfig_read_keymap(&keymap_config);
-#if !defined(KEYCOMBO_OS_SELECT_ENABLE) && !defined(KEYCOMBO_OS_TOGGLE_ENABLE)
-            default_layer_set(default_layer_tmp);
-#endif
-#ifdef DYNAMIC_DEBOUNCE_ENABLE
-            debounce_config_reset();
-#endif
-#if defined(SNAP_CLICK_ENABLE) && !defined(ANANLOG_MATRIX)
-            snap_click_config_reset();
-#endif
-#ifdef LED_MATRIX_ENABLE
-            led_matrix_enable();
-            led_matrix_init();
-            eeconfig_update_led_matrix_default();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-            rgb_matrix_enable();
-            rgb_matrix_init();
-            eeconfig_update_rgb_matrix_default();
-#    if defined(KEYCHRON_RGB_ENABLE) && defined(EECONFIG_SIZE_CUSTOM_RGB)
-            eeconfig_reset_custom_rgb();
-#    endif
-#endif
-#ifdef USB_REPORT_INTERVAL_ENABLE
-            extern void report_rate_reset(void);
-            report_rate_reset();
-#endif
-#if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
-#    ifdef EECONFIG_SIZE_WIRELESS_CONFIG
-            wireless_config_reset();
-#    endif
-            wait_ms(50);
-#    if defined(LK_WIRELESS_ENABLE)
-            lkbt51_factory_reset(P2P4G_CELAR_MASK);
-#    elif defined(KC_BLUETOOTH_ENABLE)
-            ckbt51_factory_reset();
-#    endif
-#    ifdef KEYCOMBO_CONN_SWITCH_ENABLE
-            eeprom_update_transport(get_transport());
-#    endif
-#endif
-#ifdef STATE_NOTIFY_ENABLE
-            factory_reset_nofity();
-#endif
-#ifdef RGB_MATRIX_ENABLE
-            RGB color = {.r = 255, .g = 0, .b = 0};
-            backlight_indicator_start(250, 250, 3, color);
-#endif
-#ifdef LED_MATRIX_ENABLE
-            backlight_indicator_start(250, 250, 3);
-#endif
+            factory_reset();
         } else if (factory_reset_state == KEY_PRESS_BACKLIGTH_TEST) {
 #ifdef LED_MATRIX_ENABLE
             if (!led_matrix_is_enabled()) led_matrix_enable();

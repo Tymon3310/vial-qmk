@@ -634,6 +634,7 @@ bool wireless_lpm_set(uint8_t *data) {
         indicator_set_backlit_timeout(backlit_disable_time * 1000);
         indicator_reset_backlit_time();
 
+#ifdef MOUSEKEY_ENABLE
         // Wiggle mouse to reset bluetooth module timer
         mousekey_on(MS_LEFT);
         mousekey_send();
@@ -644,6 +645,13 @@ bool wireless_lpm_set(uint8_t *data) {
         mousekey_off(MS_RGHT);
         mousekey_send();
         wait_ms(10);
+#else
+        set_mods(0x02);
+        send_keyboard_report();
+        wait_ms(10);
+        del_mods(0x02);
+        send_keyboard_report();
+#endif
     }
 
     // Update bluetooth module param
