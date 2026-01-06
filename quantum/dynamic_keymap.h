@@ -33,6 +33,8 @@
 uint8_t  dynamic_keymap_get_layer_count(void);
 uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column);
 void     dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode);
+uint8_t  dynamic_keymap_get_change_counter(void);
+void     dynamic_keymap_set_change_counter(uint8_t value);
 #ifdef ENCODER_MAP_ENABLE
 uint16_t dynamic_keymap_get_encoder(uint8_t layer, uint8_t encoder_id, bool clockwise);
 void     dynamic_keymap_set_encoder(uint8_t layer, uint8_t encoder_id, bool clockwise, uint16_t keycode);
