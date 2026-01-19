@@ -1,7 +1,7 @@
 {
-  "name": "Keychron Q5 he Max ANSI Knob",
+  "name": "Keychron Q5 HE ANSI Knob",
   "vendorId": "0x3434",
-  "productId": "0x0950",
+  "productId": "0x0B50",
   "lighting": {
     "extends": "qmk_rgb_matrix",
     "underglowEffects": [

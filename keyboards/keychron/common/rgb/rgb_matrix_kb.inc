@@ -16,7 +16,7 @@
 
 #include "rgb_matrix_kb_config.h"
 
-#if defined(KEYCHRON_RGB_ENABLE) && defined(EECONFIG_SIZE_CUSTOM_RGB)
+#ifdef KEYCHRON_RGB_ENABLE
 
 RGB_MATRIX_EFFECT(PER_KEY_RGB)
 RGB_MATRIX_EFFECT(MIXED_RGB)
