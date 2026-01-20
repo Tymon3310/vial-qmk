@@ -266,13 +266,19 @@ bool kc_raw_hid_rx(uint8_t src, uint8_t *data, uint8_t length) {
             return false;
     }
 
-    kc_raw_hid_send(src, data, length);
+    /* Return true to indicate command was handled, caller decides whether to send response */
     return true;
 }
 
 #    if defined(VIA_ENABLE)
-bool via_command_kb(uint8_t src, uint8_t *data, uint8_t length) {
-    return kc_raw_hid_rx(src, data, length);
+/* Override raw_hid_receive_kb to handle Keychron-specific commands */
+/* VIA will send the response for us, so we just modify data[] */
+void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
+    /* Try to handle as Keychron command, if not handled set id_unhandled */
+    if (!kc_raw_hid_rx(RAW_HID_SRC_USB, data, length)) {
+        data[0] = 0xFF; /* id_unhandled */
+    }
+    /* Note: VIA's raw_hid_receive will call via_raw_hid_send after this returns */
 }
 
 /* Override default via_raw_hid_send implement */
@@ -281,7 +287,9 @@ void via_raw_hid_send(uint8_t src, uint8_t *data, uint8_t len) {
 }
 #    else
 void raw_hid_receive(uint8_t src, uint8_t *data, uint8_t length) {
-    kc_raw_hid_rx(src, data, length);
+    if (kc_raw_hid_rx(src, data, length)) {
+        kc_raw_hid_send(src, data, length);
+    }
 }
 #    endif
 #endif

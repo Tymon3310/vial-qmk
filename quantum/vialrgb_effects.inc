@@ -47,6 +47,9 @@ enum {
     VIALRGB_EFFECT_SOLID_MULTISPLASH,
     VIALRGB_EFFECT_PIXEL_RAIN,
     VIALRGB_EFFECT_PIXEL_FRACTAL,
+    // Keychron custom effects
+    VIALRGB_EFFECT_PER_KEY_RGB,
+    VIALRGB_EFFECT_MIXED_RGB,
 };
 
 static const PROGMEM vialrgb_supported_mode_t supported_modes[] = {
@@ -182,5 +185,13 @@ static const PROGMEM vialrgb_supported_mode_t supported_modes[] = {
 #endif
 #ifdef RGB_MATRIX_EFFECT_PIXEL_FRACTAL
     { VIALRGB_EFFECT_PIXEL_FRACTAL, RGB_MATRIX_PIXEL_FRACTAL },
+#endif
+// Keychron custom effects - use KEYCHRON_RGB_ENABLE which is defined as a
+// makefile option (-DKEYCHRON_RGB_ENABLE) when Keychron RGB is enabled
+#ifdef KEYCHRON_RGB_ENABLE
+    // VialRGB ID 48 -> QMK effect 24 (RGB_MATRIX_CUSTOM_PER_KEY_RGB)
+    // VialRGB ID 49 -> QMK effect 25 (RGB_MATRIX_CUSTOM_MIXED_RGB)
+    { 48, 24 },
+    { 49, 25 },
 #endif
 };

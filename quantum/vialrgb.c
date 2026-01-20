@@ -169,7 +169,14 @@ void vialrgb_set_value(uint8_t *data, uint8_t length) {
         uint16_t vialrgb_id = args[0] | (args[1] << 8);
         set_mode(vialrgb_id);
         rgb_matrix_set_speed_noeeprom(args[2]);
-        rgb_matrix_sethsv_noeeprom(args[3], args[4], args[5]);
+        /* Don't apply global HSV for Keychron custom modes (Per-Key RGB, Mixed RGB)
+         * as they use their own per-key/region color settings */
+#ifdef KEYCHRON_RGB_ENABLE
+        if (vialrgb_id != VIALRGB_EFFECT_PER_KEY_RGB && vialrgb_id != VIALRGB_EFFECT_MIXED_RGB)
+#endif
+        {
+            rgb_matrix_sethsv_noeeprom(args[3], args[4], args[5]);
+        }
         break;
     }
 #ifdef RGB_MATRIX_EFFECT_VIALRGB_DIRECT

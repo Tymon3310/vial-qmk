@@ -1,0 +1,18 @@
+{
+  "name": "Keychron C2 Pro",
+  "vendorId": "0x3434",
+  "productId": "0x0000",
+  "keycodes": [
+    "qmk_lighting"
+  ],
+  "menus": [],
+  "matrix": {
+    "rows": 6,
+    "cols": 17
+  },
+  "layouts": {},
+  "vial": {
+    "version": 0,
+    "vialgui": 0
+  }
+}
