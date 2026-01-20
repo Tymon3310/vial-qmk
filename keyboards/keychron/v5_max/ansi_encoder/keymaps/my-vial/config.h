@@ -25,14 +25,6 @@
 /* Enable visual indication when toggling snap click */
 #define SNAP_CLICK_TOGGLE_INDICATION_ENABLE
 
-/* Default snap click pairs for gaming (A/D for strafing, W/S for forward/back)
- * SC_TYPE_LAST_INPUT: The last key pressed takes priority, and when released,
- *                     the other key (if still held) becomes active again.
- * This is ideal for WASD gaming movement.
- */
-#define SNAP_CLICK_DEFAULT_PAIRS            \
-    {                                       \
-        {SC_TYPE_LAST_INPUT, {KC_A, KC_D}}, \
-        {SC_TYPE_LAST_INPUT, {KC_W, KC_S}}, \
-    }
-
+/* Mixed RGB Configuration */
+/* Increase the number of RGB effect regions/layers */
+#define EFFECT_LAYERS 8
