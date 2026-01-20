@@ -7,6 +7,7 @@
 #include <string.h>
 #include "rgb_matrix.h"
 #include "vial.h"
+#include "print.h"
 
 typedef struct {
     uint16_t vialrgb_id;
@@ -68,8 +69,9 @@ static void set_mode(uint16_t mode) {
     if (mode == VIALRGB_EFFECT_OFF) {
         rgb_matrix_disable_noeeprom();
     } else {
+        uint16_t qmk_id = vialrgb_id_to_qmk_id(mode);
         rgb_matrix_enable_noeeprom();
-        rgb_matrix_mode_noeeprom(vialrgb_id_to_qmk_id(mode));
+        rgb_matrix_mode_noeeprom(qmk_id);
     }
 }
 

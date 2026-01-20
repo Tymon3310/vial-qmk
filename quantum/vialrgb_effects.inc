@@ -50,6 +50,7 @@ enum {
     // Keychron custom effects
     VIALRGB_EFFECT_PER_KEY_RGB,
     VIALRGB_EFFECT_MIXED_RGB,
+    VIALRGB_EFFECT_RULE_LIGHTING = 0xFE,  /* Must match GUI's RULE_LIGHTING_EFFECT_IDX */
 };
 
 static const PROGMEM vialrgb_supported_mode_t supported_modes[] = {
@@ -193,5 +194,8 @@ static const PROGMEM vialrgb_supported_mode_t supported_modes[] = {
     // VialRGB ID 49 -> QMK effect 25 (RGB_MATRIX_CUSTOM_MIXED_RGB)
     { 48, 24 },
     { 49, 25 },
+#endif
+#ifdef RGB_MATRIX_EFFECT_RULE_LIGHTING
+    { VIALRGB_EFFECT_RULE_LIGHTING, RGB_MATRIX_RULE_LIGHTING },
 #endif
 };

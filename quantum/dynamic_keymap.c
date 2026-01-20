@@ -41,6 +41,17 @@
 #    define DYNAMIC_KEYMAP_MACRO_DELAY TAP_CODE_DELAY
 #endif
 
+// Change counter - increments on any keymap modification
+static uint8_t keymap_change_counter = 0;
+
+uint8_t dynamic_keymap_get_change_counter(void) {
+    return keymap_change_counter;
+}
+
+void dynamic_keymap_set_change_counter(uint8_t value) {
+    keymap_change_counter = value;
+}
+
 uint8_t dynamic_keymap_get_layer_count(void) {
     return DYNAMIC_KEYMAP_LAYER_COUNT;
 }
@@ -51,6 +62,7 @@ uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column) 
 
 void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode) {
     nvm_dynamic_keymap_update_keycode(layer, row, column, keycode);
+    keymap_change_counter++;
 }
 
 #ifdef ENCODER_MAP_ENABLE

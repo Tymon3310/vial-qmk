@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "keychron_common.h"
 
 
 enum layers{
@@ -24,8 +25,7 @@ enum layers{
   WIN_FN
 };
 
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -62,3 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
 
 };
+
+void housekeeping_task_user(void) {
+    keychron_common_task();
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_keychron_common(keycode, record)) {
+        return false;
+    }
+    return true;
+}

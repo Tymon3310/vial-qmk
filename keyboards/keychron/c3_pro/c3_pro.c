@@ -94,8 +94,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-void suspend_power_down_kb(void) {
+void suspend_power_down_keychron_kb(void) {
     gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-    suspend_power_down_user();
 }

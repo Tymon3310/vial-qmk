@@ -17,7 +17,12 @@
 #pragma once
 
 /* External EEPROM Write Protect Pin*/
-#define EXTERNAL_EEPROM_WP_PIN C8
+#define EXTERNAL_EEPROM_WP_PIN B10
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define VIAL_TAP_DANCE_ENTRIES 4
+#define VIAL_COMBO_ENTRIES 4
+#define VIAL_KEY_OVERRIDE_ENTRIES 4
 
 /* Analog Matrix Configuration */
 #define ANALOG_MATRIX_POWER_PIN C12

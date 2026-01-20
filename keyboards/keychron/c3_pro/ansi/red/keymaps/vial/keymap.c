@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron(keycode, record)) {
+    if (!process_record_keychron_common(keycode, record)) {
         return false;
     }
     return true;
@@ -76,7 +76,7 @@ void keyboard_post_init_user(void) {
 }
 
 void housekeeping_task_user(void) {
-    housekeeping_task_keychron();
+    keychron_common_task();
 
     if (default_layer_state == (1U << 0)) {
         gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
