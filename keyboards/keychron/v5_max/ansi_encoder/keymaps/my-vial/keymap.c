@@ -45,7 +45,7 @@ enum layers {
 
 /* Custom keycodes - after SC_TOGG (index 16) */
 enum custom_keycodes {
-    WASD_TOG = QK_KB_17,  /* WASD <-> Arrow swap toggle */
+    WASD_TOG = QK_KB_17, /* WASD <-> Arrow swap toggle */
 };
 
 /* Track swap-hands state for LED indication */
@@ -73,9 +73,9 @@ static bool     rgb_layer_coloring_enabled = true;
  *   Down [5,14] -> LED 93
  *   Right[5,15] -> LED 94
  */
-#define ARROW_UP_LED_INDEX    80
-#define ARROW_LEFT_LED_INDEX  92
-#define ARROW_DOWN_LED_INDEX  93
+#define ARROW_UP_LED_INDEX 80
+#define ARROW_LEFT_LED_INDEX 92
+#define ARROW_DOWN_LED_INDEX 93
 #define ARROW_RIGHT_LED_INDEX 94
 
 /* Layer color definitions - 16 distinct colors
@@ -87,22 +87,22 @@ typedef struct {
 } layer_color_t;
 
 static const layer_color_t layer_colors[16] = {
-    [MAC_BASE] = {0, 0, 0},        /* Base - no color overlay (use effect) */
-    [MAC_FN]   = {150, 80, 30},    /* Mac FN - Warm Orange */
-    [WIN_BASE] = {0, 0, 0},        /* Base - no color overlay (use effect) */
-    [WIN_FN]   = {150, 80, 30},    /* Win FN - Warm Orange */
-    [LAYER_4]  = {255, 0, 0},      /* Red */
-    [LAYER_5]  = {255, 127, 0},    /* Orange */
-    [LAYER_6]  = {255, 255, 0},    /* Yellow */
-    [LAYER_7]  = {127, 255, 0},    /* Chartreuse */
-    [LAYER_8]  = {0, 255, 0},      /* Green */
-    [LAYER_9]  = {0, 255, 127},    /* Spring Green */
-    [LAYER_10] = {0, 255, 255},    /* Cyan */
-    [LAYER_11] = {0, 127, 255},    /* Azure */
-    [LAYER_12] = {0, 0, 255},      /* Blue */
-    [LAYER_13] = {127, 0, 255},    /* Violet */
-    [LAYER_14] = {255, 0, 255},    /* Magenta */
-    [LAYER_15] = {255, 0, 127},    /* Rose */
+    [MAC_BASE] = {0, 0, 0},     /* Base - no color overlay (use effect) */
+    [MAC_FN]   = {150, 80, 30}, /* Mac FN - Warm Orange */
+    [WIN_BASE] = {0, 0, 0},     /* Base - no color overlay (use effect) */
+    [WIN_FN]   = {150, 80, 30}, /* Win FN - Warm Orange */
+    [LAYER_4]  = {255, 0, 0},   /* Red */
+    [LAYER_5]  = {255, 127, 0}, /* Orange */
+    [LAYER_6]  = {255, 255, 0}, /* Yellow */
+    [LAYER_7]  = {127, 255, 0}, /* Chartreuse */
+    [LAYER_8]  = {0, 255, 0},   /* Green */
+    [LAYER_9]  = {0, 255, 127}, /* Spring Green */
+    [LAYER_10] = {0, 255, 255}, /* Cyan */
+    [LAYER_11] = {0, 127, 255}, /* Azure */
+    [LAYER_12] = {0, 0, 255},   /* Blue */
+    [LAYER_13] = {127, 0, 255}, /* Violet */
+    [LAYER_14] = {255, 0, 255}, /* Magenta */
+    [LAYER_15] = {255, 0, 127}, /* Rose */
 };
 
 // clang-format off
@@ -299,7 +299,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (wasd_swap_active) {
                     rgb_matrix_set_color_all(0, 255, 255); /* Cyan */
                 } else {
-                    rgb_matrix_set_color_all(255, 0, 0);   /* Red */
+                    rgb_matrix_set_color_all(255, 0, 0); /* Red */
                 }
 #endif
                 return false;
@@ -313,12 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 /* Define handedness of the keyboard layout for Chordal Hold */
 const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
-    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
-    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
-    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
-    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
-    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
-    {'L', 'L', 'L', '*', '*', '*', '*', '*', '*', '*', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
+    {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'}, {'L', 'L', 'L', '*', '*', '*', '*', '*', '*', '*', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'},
 };
 
 #ifdef RGB_MATRIX_ENABLE
@@ -344,14 +339,14 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    /* === Num Lock indicator: Red when OFF === */
-#    ifdef NUM_LOCK_INDEX
-    if (!host_keyboard_led_state().num_lock) {
-        if (NUM_LOCK_INDEX >= led_min && NUM_LOCK_INDEX < led_max) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 0, 0);
-        }
-    }
-#    endif
+    //     /* === Num Lock indicator: Red when OFF === */
+    // #    ifdef NUM_LOCK_INDEX
+    //     if (!host_keyboard_led_state().num_lock) {
+    //         if (NUM_LOCK_INDEX >= led_min && NUM_LOCK_INDEX < led_max) {
+    //             RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 0, 0);
+    //         }
+    //     }
+    // #    endif
 
     /* === WASD <-> Arrow swap indicator ===
      * When active: Light both WASD and Arrow keys in Cyan
