@@ -25,10 +25,6 @@
 #include "color.h"
 #include "keyboard.h"
 
-#ifdef RULE_LIGHTING_ENABLE
-#include "rule_lighting.h"
-#endif
-
 #ifndef RGB_MATRIX_TIMEOUT
 #    define RGB_MATRIX_TIMEOUT 0
 #endif

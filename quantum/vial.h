@@ -60,10 +60,6 @@ enum {
     dynamic_vial_key_override_set = 0x06,
     dynamic_vial_alt_repeat_key_get = 0x07,
     dynamic_vial_alt_repeat_key_set = 0x08,
-    dynamic_rule_lighting_get_config = 0x09,
-    dynamic_rule_lighting_set_config = 0x0A,
-    dynamic_rule_lighting_get_entry = 0x0B,
-    dynamic_rule_lighting_set_entry = 0x0C,
 };
 
 #define VIAL_MACRO_EXT_TAP 5
@@ -223,18 +219,4 @@ enum {
 #else
 #undef VIAL_ALT_REPEAT_KEY_ENTRIES
 #define VIAL_ALT_REPEAT_KEY_ENTRIES 0
-#endif
-
-
-/* Vial RGB Indicator - opt-in feature for per-key colors based on layer/mods/caps
- * To enable, add to your config.h:
- *   #define RULE_LIGHTING_ENABLE
- * Optionally set entry count (default based on EEPROM size):
- *   #define RULE_LIGHTING_ENTRIES 16
- */
-#if defined(RGB_MATRIX_ENABLE) && defined(RULE_LIGHTING_ENABLE)
-#include "rule_lighting.h"
-#else
-#undef RULE_LIGHTING_ENTRIES
-#define RULE_LIGHTING_ENTRIES 0
 #endif

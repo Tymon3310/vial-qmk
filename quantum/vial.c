@@ -62,10 +62,6 @@ static void reload_key_override(void);
 static void reload_alt_repeat_key(void);
 #endif
 
-#ifdef RULE_LIGHTING_ENABLE
-#include "rule_lighting.h"
-#endif
-
 void vial_init(void) {
 #ifdef VIAL_TAP_DANCE_ENABLE
     reload_tap_dance();
@@ -79,8 +75,6 @@ void vial_init(void) {
 #ifdef VIAL_ALT_REPEAT_KEY_ENABLE
     reload_alt_repeat_key();
 #endif
-    // Note: rule_lighting_init() is called from rgb_matrix_init() instead,
-    // because is_keyboard_master() is not valid until split_pre_init() runs
 }
 
 __attribute__((unused)) static uint16_t vial_keycode_firewall(uint16_t in) {
@@ -238,7 +232,6 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 msg[1] = VIAL_COMBO_ENTRIES;
                 msg[2] = VIAL_KEY_OVERRIDE_ENTRIES;
                 msg[3] = VIAL_ALT_REPEAT_KEY_ENTRIES;
-                msg[4] = RULE_LIGHTING_ENTRIES;
 
                 // The last byte of msg indicates optionally supported features.
                 msg[length - 1] = (0
@@ -324,46 +317,6 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 entry.alt_keycode = vial_keycode_firewall(entry.alt_keycode);
                 msg[0] = dynamic_keymap_set_alt_repeat_key(idx, &entry);
                 reload_alt_repeat_key();
-                break;
-            }
-#endif
-#ifdef RULE_LIGHTING_ENABLE
-            case dynamic_rule_lighting_get_config: {
-                rule_lighting_config_t *config = rule_lighting_get_config();
-                memset(msg, 0, length);
-                if (config) {
-                    msg[0] = 0;  /* success */
-                    memcpy(&msg[1], config, sizeof(rule_lighting_config_t));
-                } else {
-                    msg[0] = 1;  /* error */
-                }
-                break;
-            }
-            case dynamic_rule_lighting_set_config: {
-                rule_lighting_config_t config;
-                memcpy(&config, &msg[3], sizeof(config));
-                rule_lighting_set_config(&config);
-                msg[0] = 0;  /* success */
-                break;
-            }
-            case dynamic_rule_lighting_get_entry: {
-                uint8_t idx = msg[3];
-                rule_lighting_entry_t *entry = rule_lighting_get_entry(idx);
-                memset(msg, 0, length);
-                if (entry) {
-                    memcpy(&msg[1], entry, sizeof(rule_lighting_entry_t));
-                    msg[0] = 0;  /* success */
-                } else {
-                    msg[0] = 1;  /* error */
-                }
-                break;
-            }
-            case dynamic_rule_lighting_set_entry: {
-                uint8_t idx = msg[3];
-                rule_lighting_entry_t entry;
-                memcpy(&entry, &msg[4], sizeof(entry));
-                rule_lighting_set_entry(idx, &entry);
-                msg[0] = 0;  /* success */
                 break;
             }
 #endif
