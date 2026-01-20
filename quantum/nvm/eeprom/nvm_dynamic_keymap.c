@@ -90,21 +90,9 @@ STATIC_ASSERT(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR <= 65535, "DYNAMIC_KEYMAP_EEPROM_MA
 #define VIAL_ALT_REPEAT_KEY_SIZE 0
 #endif
 
-// RGB Indicator
-#define RULE_LIGHTING_EEPROM_ADDR (VIAL_ALT_REPEAT_KEY_EEPROM_ADDR + VIAL_ALT_REPEAT_KEY_SIZE)
-
-#ifdef RULE_LIGHTING_ENABLE
-#include "rule_lighting.h"
-#define RULE_LIGHTING_CONFIG_SIZE (sizeof(rule_lighting_config_t))
-#define RULE_LIGHTING_ENTRIES_SIZE (sizeof(rule_lighting_entry_t) * RULE_LIGHTING_ENTRIES)
-#define RULE_LIGHTING_SIZE (RULE_LIGHTING_CONFIG_SIZE + RULE_LIGHTING_ENTRIES_SIZE)
-#else
-#define RULE_LIGHTING_SIZE 0
-#endif
-
 // Dynamic macro
 #ifndef DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
-#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (RULE_LIGHTING_EEPROM_ADDR + RULE_LIGHTING_SIZE)
+#    define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR (VIAL_ALT_REPEAT_KEY_EEPROM_ADDR + VIAL_ALT_REPEAT_KEY_SIZE)
 #endif
 
 // Sanity check that dynamic keymaps fit in available EEPROM
@@ -394,40 +382,6 @@ int nvm_dynamic_keymap_set_alt_repeat_key(uint8_t index, const vial_alt_repeat_k
 
     void *address = (void*)(VIAL_ALT_REPEAT_KEY_EEPROM_ADDR + index * sizeof(vial_alt_repeat_key_entry_t));
     eeprom_write_block(entry, address, sizeof(vial_alt_repeat_key_entry_t));
-
-    return 0;
-}
-#endif
-
-#ifdef RULE_LIGHTING_ENABLE
-int nvm_dynamic_keymap_get_rgb_indicator_config(rule_lighting_config_t *config) {
-    void *address = (void*)(RULE_LIGHTING_EEPROM_ADDR);
-    eeprom_read_block(config, address, sizeof(rule_lighting_config_t));
-    return 0;
-}
-
-int nvm_dynamic_keymap_set_rgb_indicator_config(const rule_lighting_config_t *config) {
-    void *address = (void*)(RULE_LIGHTING_EEPROM_ADDR);
-    eeprom_write_block(config, address, sizeof(rule_lighting_config_t));
-    return 0;
-}
-
-int nvm_dynamic_keymap_get_rgb_indicator_entry(uint8_t index, rule_lighting_entry_t *entry) {
-    if (index >= RULE_LIGHTING_ENTRIES)
-        return -1;
-
-    void *address = (void*)(RULE_LIGHTING_EEPROM_ADDR + RULE_LIGHTING_CONFIG_SIZE + index * sizeof(rule_lighting_entry_t));
-    eeprom_read_block(entry, address, sizeof(rule_lighting_entry_t));
-
-    return 0;
-}
-
-int nvm_dynamic_keymap_set_rgb_indicator_entry(uint8_t index, const rule_lighting_entry_t *entry) {
-    if (index >= RULE_LIGHTING_ENTRIES)
-        return -1;
-
-    void *address = (void*)(RULE_LIGHTING_EEPROM_ADDR + RULE_LIGHTING_CONFIG_SIZE + index * sizeof(rule_lighting_entry_t));
-    eeprom_write_block(entry, address, sizeof(rule_lighting_entry_t));
 
     return 0;
 }
