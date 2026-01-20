@@ -16,6 +16,8 @@
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#define KC_FLXP KC_FILE
+#define KC_CRTA KC_CTANA
 
 // clang-format off
 
@@ -77,7 +79,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif // ENCODER_MAP_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron(keycode, record)) {
+    if (!process_record_keychron_common(keycode, record)) {
         return false;
     }
     return true;

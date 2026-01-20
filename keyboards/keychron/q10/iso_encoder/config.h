@@ -21,3 +21,10 @@
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 47
+
+/* HC595 Configuration */
+#define HC595_DS A7
+#define HC595_SHCP B1
+#define HC595_STCP B0
+#define HC595_START_INDEX 0
+#define HC595_END_INDEX 15
