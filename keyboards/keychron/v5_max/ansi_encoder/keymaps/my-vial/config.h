@@ -9,12 +9,12 @@
 // #define VIAL_UNLOCK_COMBO_COLS { 0, 17, 0, 17 }
 
 // The four corners (ESC, CTRL, NUM ENTER, DIAL)
-#define VIAL_UNLOCK_COMBO_ROWS {0, 5, 4, 0}
-#define VIAL_UNLOCK_COMBO_COLS {0, 0, 18, 18}
+// #define VIAL_UNLOCK_COMBO_ROWS {0, 5, 4, 0}
+// #define VIAL_UNLOCK_COMBO_COLS {0, 0, 18, 18}
 
 // Esc + Enter
-// #define VIAL_UNLOCK_COMBO_ROWS {0, 3}
-// #define VIAL_UNLOCK_COMBO_COLS {0, 12}
+#define VIAL_UNLOCK_COMBO_ROWS {0, 3}
+#define VIAL_UNLOCK_COMBO_COLS {0, 12}
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 16
 
