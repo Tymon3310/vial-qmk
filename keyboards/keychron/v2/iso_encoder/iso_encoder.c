@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-
-// clang-format off
 
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
@@ -106,7 +104,7 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 led_config_t g_led_config = {
     {
         // Key Matrix to LED Index
-        { 0,  1,  2,  3,  4,  5,  6,  7,  8,   9, 10, 11, 12, 13, 14 },
+        { 0,  1,  2,  3,  4,  5,  6,  7,  8,   9, 10, 11, 12, 13, __ },
         { 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 42, 28 },
         { 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 66, 41, 43 },
         { 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, __, 56, 57 },
@@ -130,4 +128,25 @@ led_config_t g_led_config = {
     }
 };
 
+// Default per-key RGB colors
+#define DC_RED {HSV_RED}
+#define DC_BLU {HSV_BLUE}
+#define DC_YLW {HSV_YELLOW}
+
+HSV default_per_key_led[RGB_MATRIX_LED_COUNT] = {
+    DC_RED, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW,         DC_YLW, 
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,                 DC_YLW, 
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_RED,         DC_YLW, 
+    DC_YLW, DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_YLW, DC_YLW,  
+    DC_YLW, DC_YLW, DC_YLW,                         DC_BLU,                         DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW   
+};
+
+// Default mixed RGB region
+uint8_t default_region[RGB_MATRIX_LED_COUNT] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,       0,
+    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0, 0,    
+    0, 0, 0,          0,          0, 0, 0, 0, 0, 0
+};
 #endif // RGB_MATRIX_ENABLE

@@ -1,28 +1,8 @@
 {
-    "keyboard_name": "Keychron Q60",
-    "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "lalalademaxiya1",
     "usb": {
-        "vid": "0x3434",
         "pid": "0x01C0",
-        "device_version": "1.0.0"
+        "device_version": "1.1.0"
     },
-    "features": {
-        "bootmagic": true,
-        "dip_switch": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true
-    },
-    "matrix_pins": {
-        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9"],
-        "rows": ["B4", "B3", "A15", "A14", "A13"]
-    },
-    "diode_direction": "ROW2COL",
-    "processor": "STM32L432",
-    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_ansi_60": {
             "layout": [

@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,5 +17,9 @@
 #pragma once
 
 #define HAL_USE_I2C TRUE
+
+#if defined(ENCODER_ENABLE)
+#    define PAL_USE_CALLBACKS TRUE
+#endif
 
 #include_next <halconf.h>

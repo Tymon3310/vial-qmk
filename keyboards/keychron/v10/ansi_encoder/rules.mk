@@ -1,4 +1,1 @@
-# custom matrix setup
-CUSTOM_MATRIX = lite
-
-SRC += matrix.c
+KEYCHRON_RGB_ENABLE = yes

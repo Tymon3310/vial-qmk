@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-
 // clang-format off
-
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
  *   driver
@@ -121,7 +119,7 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 led_config_t g_led_config = {
     {
         // Key Matrix to LED Index
-        { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, __, 14 },
+        { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, __, __ },
         { 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, __, 29 },
         { 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, __, 44 },
         { 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, __, 57, __, 58 },
@@ -130,12 +128,12 @@ led_config_t g_led_config = {
     },
     {
         // LED Index to Physical Position
-        {0,0},  {18,0},  {33,0},  {48,0},  {62,0},  {81,0},  {95,0},  {110,0},  {125,0},  {143,0},  {158,0},  {173,0},  {187,0},  {206,0},            {224,0},
-        {0,15}, {15,15}, {29,15}, {44,15}, {59,15}, {73,15}, {88,15}, {103,15}, {118,15}, {132,15}, {147,15}, {162,15}, {176,15}, {198,15},           {224,15},
-        {4,26}, {22,26}, {37,26}, {51,26}, {66,26}, {81,26}, {95,26}, {110,26}, {125,26}, {140,26}, {154,26}, {169,26}, {184,26}, {202,26},           {224,26},
-        {6,38}, {26,38}, {40,38}, {55,38}, {70,38}, {84,38}, {99,38}, {114,38}, {129,38}, {143,38}, {158,38}, {173,38},           {196,38},           {224,38},
-        {9,49},          {33,49}, {48,49}, {62,49}, {77,49}, {92,49}, {106,49}, {121,49}, {136,49}, {151,49}, {165,49},           {185,49}, {209,52},
-        {2,61}, {20,61}, {39,61},                            {94,61},                               {147,61}, {162,61}, {176,61}, {195,64}, {209,64}, {224,64}
+        {0,0},  {18,0},  {33,0},  {48,0},  {62,0},  {81,0},  {95,0},  {110,0},  {125,0},  {143,0},  {158,0},  {179,0},  {183,0},  {201,0},             {224,0},
+        {0,15}, {15,15}, {29,15}, {44,15}, {59,15}, {73,15}, {88,15}, {103,15}, {118,15}, {132,15}, {147,15}, {162,15}, {185,15}, {200,15},            {224,15},
+        {4,26}, {22,26}, {37,26}, {51,26}, {66,26}, {81,26}, {95,26}, {110,26}, {125,26}, {140,26}, {154,26}, {169,26}, {184,26}, {202,26},            {224,26},
+        {5,38}, {26,38}, {40,38}, {55,38}, {70,38}, {84,38}, {99,38}, {114,38}, {129,38}, {143,38}, {158,38}, {173,38},           {197,38},            {224,38},
+        {6,49},          {33,49}, {48,49}, {62,49}, {77,49}, {92,49}, {106,49}, {121,49}, {136,49}, {151,49}, {165,49},           {187,49}, {201,52},
+        {2,61}, {20,61}, {39,61},                            {94,61},                               {147,61}, {162,61}, {179,61}, {189,64}, {201,64},  {224,64}
     },
     {
         // RGB LED Index to Flag
@@ -148,4 +146,27 @@ led_config_t g_led_config = {
     }
 };
 
-#endif // RGB_MATRIX_ENABLE
+// Default Color of Per Key RGB
+#define DC_RED {HSV_RED}
+#define DC_BLU {HSV_BLUE}
+#define DC_YLW {HSV_YELLOW}
+
+HSV default_per_key_led[RGB_MATRIX_LED_COUNT] = {
+    DC_RED, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW,         DC_YLW,
+    DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW,         DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_RED,         DC_YLW,
+    DC_YLW,         DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_YLW, DC_YLW,
+    DC_YLW, DC_YLW, DC_YLW,                         DC_BLU,                         DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW
+};
+
+// Default mixed RGB region
+uint8_t default_region[RGB_MATRIX_LED_COUNT] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,    0,    0,
+    0,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0, 0,
+    0, 0, 0,          0,          0, 0, 0, 0, 0, 0
+};
+#endif

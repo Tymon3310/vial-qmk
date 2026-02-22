@@ -1,0 +1,2 @@
+include keyboards/keychron/common/keychron_common.mk
+

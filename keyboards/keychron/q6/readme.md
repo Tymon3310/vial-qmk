@@ -8,11 +8,17 @@ A customizable 100% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q6/ansi:default
-
+    make keychron/q6/ansi:keychron
+    make keychron/q6/ansi_encoder:keychron
+    make keychron/q6/iso:keychron
+    make keychron/q6/iso_encoder:keychron
+        
 Flashing example for this keyboard:
 
-    make keychron/q6/ansi:default:flash
+    make keychron/q6/ansi:keychron:flash
+    make keychron/q6/ansi_encoder:keychron:flash
+    make keychron/q6/iso:keychron:flash
+    make keychron/q6/iso_encoder:keychron:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 #ifdef RGB_MATRIX_ENABLE
 
 // clang-format off
-
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
  *   driver
@@ -151,5 +150,4 @@ led_config_t g_led_config = {
         1, 1, 1, 1,       4,       1, 1, 1, 1, 1, 1, 1,
     }
 };
-
 #endif // RGB_MATRIX_ENABLE

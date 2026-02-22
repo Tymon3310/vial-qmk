@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 #ifdef RGB_MATRIX_ENABLE
 
 // clang-format off
-
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
  *   driver
@@ -137,12 +136,12 @@ led_config_t g_led_config = {
     },
     {
         // LED Index to Physical Position
-                {0,0},    {19,0},  {34,0},  {60,1},  {72,3},   {87,6},   {99,8},  {120,8},  {132,6},  {147,3},  {159,1},  {173,0},  {185,0},  {201,1},            {219,1},
-        {5,14}, {24,14}, {36,14}, {48,13}, {62,15}, {74,17},  {86,20},  {98,22}, {115,22}, {127,20}, {139,17}, {151,15}, {165,13}, {177,14}, {195,14},           {220,15},
-        {4,24}, {24,24}, {40,24}, {53,24}, {65,27}, {77,29},  {89,31}, {112,33}, {124,31}, {136,29}, {148,27}, {160,24}, {176,24}, {189,24},                     {222,25},
-        {2,34}, {23,34}, {40,34}, {54,35}, {66,37}, {78,39},  {90,42}, {118,43}, {130,40}, {142,38}, {154,36}, {167,35}, {179,35}, {192,35}, {208,31},           {224,36},
-        {0,45}, {18,45}, {31,45}, {44,45}, {57,46}, {69,48},  {81,51},  {93,53}, {111,54}, {123,52}, {135,50}, {147,48}, {159,46}, {173,45}, {190,45}, {210,47},
-        {0,55}, {18,55}, {33,55},          {56,57}, {77,61},  {97,64},                     {124,63},           {147,59},                     {198,58}, {210,58}, {222,58},
+                {19,0},  {34,0},  {46,0},  {60,0},  {72,0},   {87,0},   {99,0},  {120,0},  {132,0},  {147,0},  {159,0},  {173,0},  {189,0},  {203,0},            {219,0},
+        {5,15}, {24,15}, {36,15}, {48,15}, {62,15}, {74,15},  {86,15},  {98,15}, {115,15}, {127,15}, {139,15}, {151,15}, {165,15}, {177,15}, {202,15},           {220,15},
+        {4,24}, {24,24}, {40,24}, {53,24}, {65,24}, {77,24},  {89,24}, {112,24}, {124,24}, {136,24}, {148,24}, {160,24}, {176,24}, {194,24},                     {222,24},
+        {2,34}, {23,34}, {40,34}, {54,34}, {66,34}, {78,34},  {90,34}, {118,34}, {130,34}, {142,34}, {154,34}, {167,34}, {179,34}, {203,29}, {194,34},           {224,34},
+        {0,45}, {18,45}, {31,45}, {44,45}, {57,45}, {69,45},  {81,45},  {93,45}, {111,45}, {123,45}, {135,45}, {147,45}, {159,45}, {173,45}, {196,45}, {210,45},
+        {0,55}, {18,55}, {33,55},          {56,55}, {77,55},  {97,55},                     {124,55},           {147,55},                     {198,55}, {210,55}, {222,55},
     },
     {
         // RGB LED Index to Flag
@@ -155,4 +154,27 @@ led_config_t g_led_config = {
     }
 };
 
-#endif // RGB_MATRIX_ENABLE
+// Default Color of Per Key RGB
+#define DC_RED {HSV_RED}
+#define DC_BLU {HSV_BLUE}
+#define DC_YLW {HSV_YELLOW}
+
+HSV default_per_key_led[RGB_MATRIX_LED_COUNT] = {
+            DC_RED, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW,         DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW,         DC_YLW,
+    DC_YLW, DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,                 DC_YLW,
+    DC_YLW, DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_RED, DC_BLU,         DC_YLW,
+    DC_YLW, DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW, DC_YLW,
+    DC_YLW, DC_YLW, DC_YLW,         DC_YLW, DC_BLU, DC_YLW,                 DC_BLU,         DC_YLW,                 DC_YLW, DC_YLW, DC_YLW
+};
+
+// Default mixed RGB region
+uint8_t default_region[RGB_MATRIX_LED_COUNT] = {
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,       0,
+    0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0,    0, 0, 0,       0,    0,       0, 0, 0
+};
+#endif

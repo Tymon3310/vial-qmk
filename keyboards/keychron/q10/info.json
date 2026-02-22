@@ -1,13 +1,54 @@
 {
-    "eeprom": {
-        "wear_leveling": {
-            "backing_size": 4096
-        }
+    "manufacturer": "Keychron",
+    "keyboard_name": "Keychron Q10",
+    "url": "https://github.com/Keychron",
+    "maintainer": "Keychron",
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "usb": {
+        "vid": "0x3434"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "dip_switch": true,
+        "encoder": true
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
     },
     "dip_switch": {
         "matrix_grid": [ [5, 5] ]
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A10", "pin_b": "A8"}
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", null, null, null, null, null, null, null, null],
+        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],
+        "custom": true,
+        "custom_lite": true
+    },
+    "diode_direction": "ROW2COL",
+    "build": {
+        "debounce_type": "custom"
+    },
+    "debounce": 50,
+    "eeprom": {
+        "wear_leveling": {
+            "driver": "embedded_flash",
+            "logical_size": 3072,
+            "backing_size": 6144
+        }
+    },
     "rgb_matrix": {
+        "driver": "snled27351",
+        "sleep": true,
         "animations": {
             "breathing": true,
             "band_spiral_val": true,
@@ -30,8 +71,6 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        },
-        "driver": "snled27351",
-        "sleep": true
+        }
     }
 }

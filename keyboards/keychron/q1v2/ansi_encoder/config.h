@@ -19,5 +19,5 @@
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
 
-/* Enable caps-lock LED */
+/* Indications */
 #define CAPS_LOCK_INDEX 44

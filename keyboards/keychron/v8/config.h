@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,7 @@
 
 #pragma once
 
-/* If uses PH3 with a stronger pull resistor then the following definition should be included */
-// #define MATRIX_UNSELECT_DRIVE_HIGH
+#include "eeconfig_kb.h"
 
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
@@ -31,6 +30,12 @@
 #define I2C1_TIMINGR_SCLL 51U
 
 #define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
-#define SNLED27351_CURRENT_TUNE { 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60 }
+/* Set LED driver current */
+#define SNLED27351_CURRENT_TUNE \
+    { 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60, 0xC4, 0xC4, 0x60 }
+#define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(4)

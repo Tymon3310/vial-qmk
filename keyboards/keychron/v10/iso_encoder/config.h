@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,4 +20,4 @@
 #define ENCODER_DEFAULT_POS 0x3
 
 /* Enable caps-lock LED */
-#define CAPS_LOCK_LED_INDEX 47
+#define CAPS_LOCK_INDEX 47

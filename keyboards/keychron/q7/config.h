@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,17 +16,27 @@
 
 #pragma once
 
+#include "eeconfig_kb.h"
+
+#ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
-#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
+#    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#    define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
-#define I2C1_TIMINGR_PRESC 0U
-#define I2C1_TIMINGR_SCLDEL 3U
-#define I2C1_TIMINGR_SDADEL 0U
-#define I2C1_TIMINGR_SCLH 15U
-#define I2C1_TIMINGR_SCLL 51U
+#    define I2C1_TIMINGR_PRESC 0U
+#    define I2C1_TIMINGR_SCLDEL 3U
+#    define I2C1_TIMINGR_SDADEL 0U
+#    define I2C1_TIMINGR_SCLH 15U
+#    define I2C1_TIMINGR_SCLL 51U
 
-#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
-#define SNLED27351_CURRENT_TUNE \
-    { 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80 }
+/* Set LED driver current */
+#    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
+#    define SNLED27351_CURRENT_TUNE \
+        { 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80, 0xF8, 0xF8, 0x80 }
+#endif
+
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(4)

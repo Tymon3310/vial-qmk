@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron(https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron(https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,30 +16,36 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { C14, C15, A0, A1, A2, A3, A4, A5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+#include "eeconfig_kb.h"
 
-/* Pin connected to DS of 74HC595 */
-#define DATA_PIN_74HC595 A7
-/* Pin connected to SH_CP of 74HC595 */
-#define CLOCK_PIN_74HC595 B1
-/* Pin connected to ST_CP of 74HC595 */
-#define LATCH_PIN_74HC595 B0
+/* Shift register configuration for matrix scan */
+#define HC595_STCP B0
+#define HC595_SHCP B1
+#define HC595_DS A7
+#define HC595_START_INDEX 8
+#define HC595_END_INDEX 15
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
+#ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
-#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
+#    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#    define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
-#define I2C1_TIMINGR_PRESC 0U
-#define I2C1_TIMINGR_SCLDEL 3U
-#define I2C1_TIMINGR_SDADEL 0U
-#define I2C1_TIMINGR_SCLH 15U
-#define I2C1_TIMINGR_SCLL 51U
+#    define I2C1_TIMINGR_PRESC 0U
+#    define I2C1_TIMINGR_SCLDEL 3U
+#    define I2C1_TIMINGR_SDADEL 0U
+#    define I2C1_TIMINGR_SCLH 15U
+#    define I2C1_TIMINGR_SCLL 51U
 
-#define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
-#define SNLED27351_CURRENT_TUNE { 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A }
+/* Set LED driver current */
+#    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_9_CHANNEL
+#    define SNLED27351_CURRENT_TUNE \
+        { 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A }
+
+#endif
+
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(1)
+#define FN_KEY_2 MO(3)

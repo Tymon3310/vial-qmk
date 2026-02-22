@@ -8,11 +8,11 @@ A customizable 65% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q65/ansi_encoder:default
+    make keychron/q65/ansi_encoder:keychron
 
 Flashing example for this keyboard:
 
-    make keychron/q65/ansi_encoder:default:flash
+    make keychron/q65/ansi_encoder:keychron:flash
 
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 

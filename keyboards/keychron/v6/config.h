@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron(https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,36 @@
 
 #pragma once
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
+#include "eeconfig_kb.h"
 
+#ifdef QMK_MCU_STM32L432
+/* Shift register configuration for matrix scan */
+#    define HC595_STCP A0
+#    define HC595_SHCP A1
+#    define HC595_DS C15
+#    define HC595_START_INDEX 10
+#    define HC595_END_INDEX 19
+
+#    ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
-#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
+#        define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#        define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
 /* Increase I2C speed to 1000 KHz */
-#define I2C1_TIMINGR_PRESC 0U
-#define I2C1_TIMINGR_SCLDEL 3U
-#define I2C1_TIMINGR_SDADEL 0U
-#define I2C1_TIMINGR_SCLH 15U
-#define I2C1_TIMINGR_SCLL 51U
+#        define I2C1_TIMINGR_PRESC 0U
+#        define I2C1_TIMINGR_SCLDEL 3U
+#        define I2C1_TIMINGR_SDADEL 0U
+#        define I2C1_TIMINGR_SCLH 15U
+#        define I2C1_TIMINGR_SCLL 51U
+#    endif
 
-/* Limit the maximum brigtness current of colour white to 500mA */
-#define SNLED27351_CURRENT_TUNE { 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48 }
+/* Set LED driver current */
+#    define SNLED27351_CURRENT_TUNE \
+        { 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48, 0xA8, 0xA8, 0x48 }
+#endif
+
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(1)
+#define FN_KEY_2 MO(3)

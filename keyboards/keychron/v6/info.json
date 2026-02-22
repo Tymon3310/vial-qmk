@@ -1,16 +1,30 @@
 {
-    "eeprom": {
-        "wear_leveling": {
-            "backing_size": 4096
-        }
+    "manufacturer": "Keychron",
+    "keyboard_name": "Keychron V6",
+    "url": "https://github.com/Keychron",
+    "maintainer": "Keychron",
+    "usb": {
+        "vid": "0x3434"
     },
-    "dip_switch": {
-        "matrix_grid": [ [5, 4] ]
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "raw" : true,
+        "rgb_matrix": true,
+        "dip_switch": true
     },
+    "diode_direction": "ROW2COL",
+    "build": {
+        "debounce_type": "custom"
+    },
+    "debounce": 50,
     "rgb_matrix": {
+        "sleep": true,
         "animations": {
-            "breathing": true,
             "band_spiral_val": true,
+            "breathing": true,
             "cycle_all": true,
             "cycle_left_right": true,
             "cycle_up_down": true,
@@ -30,8 +44,6 @@
             "solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        },
-        "driver": "snled27351",
-        "sleep": true
-    }
+        }
+    },
 }

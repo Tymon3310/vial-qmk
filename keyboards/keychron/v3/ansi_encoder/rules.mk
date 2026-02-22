@@ -1,4 +1,3 @@
-# custom matrix setup
-CUSTOM_MATRIX = lite
+KEYCHRON_RGB_ENABLE = yes
 
-SRC += matrix.c
+SRC += keyboards/keychron/common/matrix.c

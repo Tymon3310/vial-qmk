@@ -1,24 +1,27 @@
 {
-    "keyboard_name": "Keychron V3",
-    "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "lalalademaxiya1",
-    "features": {
-        "bootmagic": true,
-        "console": true,
-        "dip_switch": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true
-    },
     "usb": {
-        "vid": "0x3434",
         "pid": "0x0332",
         "device_version": "1.0.0"
     },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "dip_switch": {
+        "matrix_grid": [ [5, 4] ]
+    },
+    "matrix_pins": {
+        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9", "A10", "H3"],
+        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
+    },
+    "rgb_matrix": {
+        "driver": "snled27351"
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "driver": "embedded_flash",
+            "logical_size": 3072,
+            "backing_size": 6144
+        }
+    },
     "layouts": {
         "LAYOUT_tkl_iso": {
             "layout": [
