@@ -1,0 +1,13 @@
+{
+  "name": "c1_pro_v2",
+  "vendorId": "0x3434",
+  "productId": "0x051C",
+  "keycodes": [],
+  "menus": [],
+  "matrix": {
+    "rows": 6,
+    "cols": 17
+  },
+  "layouts": {},
+  "vial": {}
+}

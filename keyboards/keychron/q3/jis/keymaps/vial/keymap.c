@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers{
+enum layers {
     MAC_BASE,
     MAC_FN,
     WIN_BASE,

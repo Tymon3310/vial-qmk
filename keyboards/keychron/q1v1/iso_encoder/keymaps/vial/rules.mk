@@ -1,0 +1,17 @@
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+
+SRC += keyboards/keychron/common/keychron_common.c
+EXTRAINCDIRS += keyboards/keychron/common
+
+
+VIALRGB_ENABLE = no
+
+QMK_SETTINGS = no
+TAP_DANCE_ENABLE = no
+COMBO_ENABLE = no
+KEY_OVERRIDE_ENABLE = no
+
+CAPS_WORD_ENABLE = no
+LAYER_LOCK_ENABLE = no
+REPEAT_KEY_ENABLE = no

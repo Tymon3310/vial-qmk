@@ -393,8 +393,5 @@
       ]
     ]
   },
-  "vial": {
-    "version": 0,
-    "vialgui": 0
-  }
+  "vial": {}
 }

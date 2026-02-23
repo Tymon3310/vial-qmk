@@ -161,8 +161,8 @@ static uint8_t convert_to_travel(uint8_t row, uint8_t col, uint16_t value) {
 }
 
 void update_key_config(uint8_t row, uint8_t col) {
-    analog_key_t *           p_key;
-    analog_key_config_t *    p_key_cfg;
+    analog_key_t            *p_key;
+    analog_key_config_t     *p_key_cfg;
     analog_matrix_profile_t *cur_prof = profile_get_current();
 
     p_key     = &analog_key_matrix[row][col];
@@ -587,6 +587,10 @@ void analog_matrix_eeconfig_init(void) {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
         reset_profiles = true;
+    } else if (!eeconfig_is_kb_datablock_valid()) {
+        // KB EEPROM version mismatch (e.g. upgrading from stock to Vial firmware):
+        // reset profiles to defaults so stale per-key mode bytes don't silence the keyboard.
+        reset_profiles = true;
     }
 
     profile_init(reset_profiles);
@@ -746,7 +750,8 @@ bool analog_matrix_get_key_state(uint8_t row, uint8_t col) {
             return k->hold;
 
         default:
-            return false;
+            // Unknown/garbage mode (e.g. stale EEPROM from old firmware): behave as regular.
+            return (k->state == AKS_REGULAR_PRESSED);
     }
 }
 
