@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
-#define KC_FLXP KC_FILE
 #define KC_CRTA KC_CTANA
 
 // clang-format off

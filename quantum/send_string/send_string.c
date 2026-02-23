@@ -18,6 +18,9 @@
 
 #include <ctype.h>
 #include <stdlib.h>
+#if defined(__AVR__)
+#    include <avr/io.h>
+#endif
 
 #include "quantum_keycodes.h"
 #include "keycode.h"

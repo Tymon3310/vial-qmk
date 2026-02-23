@@ -1,8 +1,9 @@
 VIA_ENABLE = yes
 VIAL_ENABLE = yes
 
-SRC += keyboards/keychron/common/keychron_common.c keyboards/keychron/common/backlit_indicator.c
+SRC += keyboards/keychron/common/keychron_common.c
 EXTRAINCDIRS += keyboards/keychron/common
+
 
 VIALRGB_ENABLE = no
 
