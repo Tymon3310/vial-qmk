@@ -1,4 +1,11 @@
 {
+    "usb": {
+        "device_version": "1.1.0",
+        "pid": "0x0151"
+    },
+    "features": {
+        "encoder": true
+    },
     "encoder": {
         "enabled": true,
         "rotary": [
@@ -23,7 +30,6 @@
             {"matrix": [0, 15], "x": 184, "y": 0, "flags": 1},
             {"matrix": [0, 16], "x": 196, "y": 0, "flags": 1},
             {"matrix": [0, 17], "x": 208, "y": 0, "flags": 1},
-            {"matrix": [3, 12], "x": 224, "y": 0, "flags": 1},
 
             {"matrix": [1, 0], "x": 0, "y": 15, "flags": 1},
             {"matrix": [1, 1], "x": 12, "y": 15, "flags": 4},
@@ -96,6 +102,7 @@
             {"matrix": [4, 15], "x": 188, "y": 49, "flags": 4},
             {"matrix": [4, 16], "x": 200, "y": 49, "flags": 4},
             {"matrix": [4, 17], "x": 212, "y": 49, "flags": 4},
+
             {"matrix": [5, 0], "x": 1, "y": 61, "flags": 1},
             {"matrix": [5, 1], "x": 17, "y": 61, "flags": 1},
             {"matrix": [5, 2], "x": 32, "y": 61, "flags": 1},
@@ -110,10 +117,6 @@
             {"matrix": [5, 17], "x": 212, "y": 61, "flags": 4},
             {"matrix": [5, 5], "x": 224, "y": 55, "flags": 1}
         ]
-    },
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0151"
     },
     "layouts": {
         "LAYOUT_ansi_98": {
@@ -207,6 +210,7 @@
                 {"matrix": [4, 15], "x": 15.5, "y": 4.25},
                 {"matrix": [4, 16], "x": 16.5, "y": 4.25},
                 {"matrix": [4, 17], "x": 17.5, "y": 4.25},
+
                 {"matrix": [5, 0], "x": 0, "y": 5.25, "w": 1.25},
                 {"matrix": [5, 1], "x": 1.25, "y": 5.25, "w": 1.25},
                 {"matrix": [5, 2], "x": 2.5, "y": 5.25, "w": 1.25},

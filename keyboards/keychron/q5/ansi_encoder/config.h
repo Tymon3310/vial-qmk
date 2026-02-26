@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
 
 #pragma once
 
-/* Enable caps-lock LED */
-#define CAPS_LOCK_LED_INDEX 52
-
-/* Enable num-lock LED */
-#define NUM_LOCK_LED_INDEX 31
+/* Indications */
+#define CAPS_LOCK_INDEX 51
+#define NUM_LOCK_INDEX 30

@@ -1,27 +1,15 @@
 {
-    "keyboard_name": "Keychron V2",
-    "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "lalalademaxiya1",
     "usb": {
-        "vid": "0x3434",
         "pid": "0x0325",
         "device_version": "1.0.0"
-    },
-    "features": {
-        "bootmagic": true,
-        "dip_switch": true,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9", "H3"],
         "rows": ["B4", "B3", "A15", "A14", "A13"]
     },
-    "diode_direction": "ROW2COL",
+    "dip_switch": {
+        "matrix_grid": [ [4, 4] ]
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A10", "pin_b": "B5"}
@@ -29,6 +17,9 @@
     },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "rgb_matrix": {
+        "driver": "snled27351"
+    },
     "layouts": {
         "LAYOUT_jis_71": {
             "layout": [

@@ -173,7 +173,7 @@ void raw_hid_task(void) {
         Endpoint_ClearOUT();
 
         if (data_read) {
-            raw_hid_receive(data, sizeof(data));
+            raw_hid_receive(RAW_HID_SRC_USB, data, sizeof(data));
         }
     }
 }

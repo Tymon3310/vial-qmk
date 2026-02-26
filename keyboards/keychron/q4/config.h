@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,5 +16,25 @@
 
 #pragma once
 
-#define SNLED27351_CURRENT_TUNE \
-    { 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60 }
+#include "eeconfig_kb.h"
+
+#ifdef RGB_MATRIX_ENABLE
+/* Increase I2C speed to 1000 KHz */
+#    define I2C1_TIMINGR_PRESC 0U
+#    define I2C1_TIMINGR_SCLDEL 3U
+#    define I2C1_TIMINGR_SDADEL 0U
+#    define I2C1_TIMINGR_SCLH 15U
+#    define I2C1_TIMINGR_SCLL 51U
+
+/* Set LED current */
+#    define SNLED27351_CURRENT_TUNE \
+        { 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60 }
+#endif
+
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(2)
+#define FN_KEY_2 MO(3)
+#define FN_KEY_3 MO(4)
+#define FN_BL_TRIG_KEY KC_END

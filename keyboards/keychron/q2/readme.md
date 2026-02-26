@@ -10,21 +10,21 @@ A customizable 65% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q2/ansi:default
-    make keychron/q2/ansi_encoder:default
-    make keychron/q2/iso:default
-    make keychron/q2/iso_encoder:default
-    make keychron/q2/jis:default
-    make keychron/q2/jis_encoder:default
+    make keychron/q2/ansi:keychron
+    make keychron/q2/ansi_encoder:keychron
+    make keychron/q2/iso:keychron
+    make keychron/q2/iso_encoder:keychron
+    make keychron/q2/jis:keychron
+    make keychron/q2/jis_encoder:keychron
 
 Flashing example for this keyboard:
 
-    make keychron/q2/ansi:default:flash
-    make keychron/q2/ansi_encoder:default:flash
-    make keychron/q2/iso:default:flash
-    make keychron/q2/iso_encoder:default:flash
-    make keychron/q2/jis:default:flash
-    make keychron/q2/jis_encoder:default:flash
+    make keychron/q2/ansi:keychron:flash
+    make keychron/q2/ansi_encoder:keychron:flash
+    make keychron/q2/iso:keychron:flash
+    make keychron/q2/iso_encoder:keychron:flash
+    make keychron/q2/jis:keychron:flash
+    make keychron/q2/jis_encoder:keychron:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

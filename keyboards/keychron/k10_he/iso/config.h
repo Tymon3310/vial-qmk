@@ -16,18 +16,20 @@
 
 #pragma once
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define VIAL_TAP_DANCE_ENTRIES 4
+#define VIAL_COMBO_ENTRIES 4
+#define VIAL_KEY_OVERRIDE_ENTRIES 4
+
 #ifdef RGB_MATRIX_ENABLE
 /* LED Current Configuration */
-#    define SNLED27351_CURRENT_TUNE \
-        { 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C }
+#    define SNLED27351_CURRENT_TUNE {0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C, 0x2C}
 
 /* RGB Matrix Configuration */
 #    define RGB_MATRIX_LED_COUNT 105
 
 /* Indications */
-#    define LOW_BAT_IND_INDEX \
-        { 95 }
-#    define PROFILE_LED_MATRIX_LIST \
-        { 76, 77, 78 }
+#    define LOW_BAT_IND_INDEX {95}
+#    define PROFILE_LED_MATRIX_LIST {76, 77, 78}
 
 #endif

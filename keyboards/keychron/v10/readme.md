@@ -8,13 +8,13 @@ A customizable 75% ergonomic keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/v10/ansi_encoder:default
-    make keychron/v10/iso_encoder:default
+    make keychron/v10/ansi_encoder:keychron
+    make keychron/v10/iso_encoder:keychron
 
 Flashing example for this keyboard:
 
-    make keychron/v10/ansi_encoder:default:flash
-    make keychron/v10/iso_encoder:default:flash
+    make keychron/v10/ansi_encoder:keychron:flash
+    make keychron/v10/iso_encoder:keychron:flash
 
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 

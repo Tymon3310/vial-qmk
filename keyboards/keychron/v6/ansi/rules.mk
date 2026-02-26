@@ -1,4 +1,1 @@
-# custom matrix setup
-CUSTOM_MATRIX = lite
-
-SRC += matrix.c
+SRC += keyboards/keychron/common/matrix.c

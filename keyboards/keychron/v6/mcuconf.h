@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,5 +18,17 @@
 
 #include_next <mcuconf.h>
 
-#undef STM32_I2C_USE_I2C1
-#define STM32_I2C_USE_I2C1 TRUE
+#ifdef QMK_MCU_STM32L432
+// STM32 configuration overrides
+#    undef STM32_I2C_USE_I2C1
+#    define STM32_I2C_USE_I2C1 TRUE
+#endif
+
+#if QMK_MCU_WB32F3G71
+// WB32 configuration overrides
+#    undef WB32_I2C_USE_I2C1
+#    define WB32_I2C_USE_I2C1 TRUE
+
+#    undef WB32_SPI_USE_QSPI
+#    define WB32_SPI_USE_QSPI TRUE
+#endif

@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-
+// clang-format off
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
  *   driver
@@ -55,19 +55,19 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
     {0, CB9_CA13,   CB7_CA13,   CB8_CA13},
     {0, CB9_CA14,   CB7_CA14,   CB8_CA14},
 
-    {0, CB12_CA1,    CB10_CA1,    CB11_CA1},
-    {0, CB12_CA2,    CB10_CA2,    CB11_CA2},
-    {0, CB12_CA3,    CB10_CA3,    CB11_CA3},
-    {0, CB12_CA4,    CB10_CA4,    CB11_CA4},
-    {0, CB12_CA5,    CB10_CA5,    CB11_CA5},
-    {0, CB12_CA6,    CB10_CA6,    CB11_CA6},
-    {0, CB12_CA7,    CB10_CA7,    CB11_CA7},
-    {0, CB12_CA8,    CB10_CA8,    CB11_CA8},
-    {0, CB12_CA9,    CB10_CA9,    CB11_CA9},
-    {0, CB12_CA10,   CB10_CA10,   CB11_CA10},
-    {0, CB12_CA11,   CB10_CA11,   CB11_CA11},
-    {0, CB12_CA12,   CB10_CA12,   CB11_CA12},
-    {0, CB12_CA14,   CB10_CA14,   CB11_CA14},
+    {0, CB12_CA1,   CB10_CA1,   CB11_CA1},
+    {0, CB12_CA2,   CB10_CA2,   CB11_CA2},
+    {0, CB12_CA3,   CB10_CA3,   CB11_CA3},
+    {0, CB12_CA4,   CB10_CA4,   CB11_CA4},
+    {0, CB12_CA5,   CB10_CA5,   CB11_CA5},
+    {0, CB12_CA6,   CB10_CA6,   CB11_CA6},
+    {0, CB12_CA7,   CB10_CA7,   CB11_CA7},
+    {0, CB12_CA8,   CB10_CA8,   CB11_CA8},
+    {0, CB12_CA9,   CB10_CA9,   CB11_CA9},
+    {0, CB12_CA10,  CB10_CA10,  CB11_CA10},
+    {0, CB12_CA11,  CB10_CA11,  CB11_CA11},
+    {0, CB12_CA12,  CB10_CA12,  CB11_CA12},
+    {0, CB12_CA14,  CB10_CA14,  CB11_CA14},
 
     {0, CB3_CA1,    CB1_CA1,    CB2_CA1},
     {0, CB3_CA3,    CB1_CA3,    CB2_CA3},
@@ -84,12 +84,33 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 
     {0, CB3_CA15,   CB1_CA15,   CB2_CA15},
     {0, CB3_CA16,   CB1_CA16,   CB2_CA16},
-    {0, CB12_CA15,   CB10_CA15,   CB11_CA15},
-    {0, CB12_CA16,   CB10_CA16,   CB11_CA16},
+    {0, CB12_CA15,  CB10_CA15,  CB11_CA15},
+    {0, CB12_CA16,  CB10_CA16,  CB11_CA16},
     {0, CB9_CA15,   CB7_CA15,   CB8_CA15},
     {0, CB9_CA16,   CB7_CA16,   CB8_CA16},
     {0, CB6_CA15,   CB4_CA15,   CB5_CA15},
     {0, CB6_CA16,   CB4_CA16,   CB5_CA16},
 };
 
+// Default Color of Per Key RGB
+#define DC_RED {HSV_RED}
+#define DC_BLU {HSV_BLUE}
+#define DC_YLW {HSV_YELLOW}
+
+HSV default_per_key_led[RGB_MATRIX_LED_COUNT] = {
+    DC_RED, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_RED,
+    DC_YLW,         DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_YLW,
+    DC_YLW, DC_YLW, DC_YLW,                         DC_BLU,                         DC_YLW, DC_YLW, DC_YLW, DC_YLW
+};
+
+// Default mixed RGB region
+uint8_t default_region[RGB_MATRIX_LED_COUNT] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0,
+    0, 0, 0,          0,          0, 0, 0, 0
+};
 #endif

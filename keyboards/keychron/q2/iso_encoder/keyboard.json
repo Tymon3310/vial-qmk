@@ -1,31 +1,29 @@
 {
     "usb": {
         "pid": "0x0113",
-        "device_version": "1.0.0"
+        "device_version": "1.1.0"
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "B5"}
         ]
     },
     "rgb_matrix": {
         "layout": [
-            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1}, 
-            {"matrix": [0, 1], "x": 15, "y": 0, "flags": 4}, 
-            {"matrix": [0, 2], "x": 29, "y": 0, "flags": 4}, 
-            {"matrix": [0, 3], "x": 44, "y": 0, "flags": 4}, 
-            {"matrix": [0, 4], "x": 59, "y": 0, "flags": 4}, 
-            {"matrix": [0, 5], "x": 73, "y": 0, "flags": 4}, 
-            {"matrix": [0, 6], "x": 88, "y": 0, "flags": 4}, 
-            {"matrix": [0, 7], "x": 103, "y": 0, "flags": 4}, 
-            {"matrix": [0, 8], "x": 118, "y": 0, "flags": 4}, 
-            {"matrix": [0, 9], "x": 132, "y": 0, "flags": 4}, 
-            {"matrix": [0, 10], "x": 147, "y": 0, "flags": 4}, 
-            {"matrix": [0, 11], "x": 162, "y": 0, "flags": 4}, 
-            {"matrix": [0, 12], "x": 176, "y": 0, "flags": 4}, 
-            {"matrix": [0, 13], "x": 198, "y": 0, "flags": 1}, 
-            {"matrix": [0, 14], "x": 224, "y": 0, "flags": 1},
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
+            {"matrix": [0, 1], "x": 15, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 29, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 44, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 59, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 73, "y": 0, "flags": 4},
+            {"matrix": [0, 6], "x": 88, "y": 0, "flags": 4},
+            {"matrix": [0, 7], "x": 103, "y": 0, "flags": 4},
+            {"matrix": [0, 8], "x": 118, "y": 0, "flags": 4},
+            {"matrix": [0, 9], "x": 132, "y": 0, "flags": 4},
+            {"matrix": [0, 10], "x": 147, "y": 0, "flags": 4},
+            {"matrix": [0, 11], "x": 162, "y": 0, "flags": 4},
+            {"matrix": [0, 12], "x": 176, "y": 0, "flags": 4},
+            {"matrix": [0, 13], "x": 198, "y": 0, "flags": 1},
 
             {"matrix": [1, 0], "x": 4, "y": 15, "flags": 1},
             {"matrix": [1, 1], "x": 22, "y": 15, "flags": 4},

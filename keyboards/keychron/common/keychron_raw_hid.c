@@ -75,8 +75,6 @@ void get_support_feature(uint8_t *data) {
 }
 
 #    ifdef ANANLOG_MATRIX
-void via_raw_hid_send(uint8_t src, uint8_t *data, uint8_t length);
-
 void send_analog_matrix(uint8_t *data, uint8_t length) {
     uint8_t offset = data[2];
     uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
@@ -94,8 +92,8 @@ void send_analog_matrix(uint8_t *data, uint8_t length) {
 #        endif
         data[i++] = value & 0xFF;
     }
-
-    via_raw_hid_send(RAW_HID_SRC_USB, data, length);
+    /* Response is sent by raw_hid_receive() via via_raw_hid_send().
+     * Do NOT call via_raw_hid_send here — that would cause a double-send. */
 }
 #    endif
 

@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,9 @@
 
 #pragma once
 
-/* We use a pin with a stronger pull resistor than the internal MCU pins */
-// #define MATRIX_UNSELECT_DRIVE_HIGH
-
+/* Set LED Current */
 #define SNLED27351_CURRENT_TUNE \
     { 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44, 0x9D, 0x9D, 0x44 }
 
 /* Enable CapsLock LED */
-#define CAPS_LOCK_LED_INDEX 50
-
+#define CAPS_LOCK_INDEX 50

@@ -1,13 +1,12 @@
 {
     "usb": {
         "pid": "0x010B",
-        "device_version": "2.0.0"
+        "device_version": "2.1.0"
     },
     "features": {
         "encoder": true
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}
         ]
@@ -92,7 +91,7 @@
                 {"matrix":[4,11], "x":11.25, "y":4.25},
                 {"matrix":[4,12], "x":12.25, "y":4.25},
                 {"matrix":[4,13], "x":13.25, "y":4.25},
-                {"matrix":[4,14], "x":14.25, "y":4.5},
+                {"matrix":[4,14], "x":14.25, "y":4.25},
 
                 {"matrix":[5, 0], "x":0, "y":5.25, "w":1.25},
                 {"matrix":[5, 1], "x":1.25, "y":5.25},
@@ -125,7 +124,6 @@
             {"matrix":[0, 11], "flags":1, "x":173, "y":0},
             {"matrix":[0, 12], "flags":1, "x":187, "y":0},
             {"matrix":[0, 13], "flags":1, "x":205, "y":0},
-            {"matrix":[0, 15], "flags":1, "x":224, "y":0},
 
             {"matrix":[1, 0],  "flags":1, "x":0,   "y":15},
             {"matrix":[1, 1],  "flags":4, "x":15,  "y":15},

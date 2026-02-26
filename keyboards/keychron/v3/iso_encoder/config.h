@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,14 +16,16 @@
 
 #pragma once
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS \
-    { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS \
-    { C14, C15, A0, A1, A2, A3, A4, A5, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
-
-/* Encoder Configuration */
-#define ENCODER_DEFAULT_POS 0x3
+/* Shift register configuration for matrix scan */
+#define HC595_STCP B0
+#define HC595_SHCP B1
+#define HC595_DS A7
+#define HC595_START_INDEX 8
+#define HC595_END_INDEX 15
 
 /* Enable caps-lock LED */
-#define CAPS_LOCK_LED_INDEX 49
+#define CAPS_LOCK_INDEX 49
+
+/* Set LED driver current */
+#define SNLED27351_CURRENT_TUNE \
+    { 0x98, 0x98, 0x48, 0x98, 0x98, 0x48, 0x98, 0x98, 0x48, 0x98, 0x98, 0x48 }

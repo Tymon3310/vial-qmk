@@ -19,10 +19,14 @@
 #define ENCODER_MATRIX_ROW 0
 #define ENCODER_MATROX_COL 13
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define VIAL_TAP_DANCE_ENTRIES 4
+#define VIAL_COMBO_ENTRIES 4
+#define VIAL_KEY_OVERRIDE_ENTRIES 4
+
 #ifdef RGB_MATRIX_ENABLE
 /* LED Current Configuration */
-#    define SNLED27351_CURRENT_TUNE \
-        { 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28 }
+#    define SNLED27351_CURRENT_TUNE {0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28}
 
 /* RGB Matrix Configuration */
 #    define RGB_MATRIX_LED_COUNT 109
@@ -31,8 +35,6 @@
 #    define NUM_LOCK_INDEX 37
 #    define CAPS_LOCK_INDEX 62
 
-#    define PROFILE_LED_MATRIX_LIST \
-        { 80, 81, 82 }
+#    define PROFILE_LED_MATRIX_LIST {80, 81, 82}
 
 #endif
-

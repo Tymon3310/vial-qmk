@@ -11,8 +11,5 @@
     "cols": 17
   },
   "layouts": {},
-  "vial": {
-    "version": 0,
-    "vialgui": 0
-  }
+  "vial": {}
 }

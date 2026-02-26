@@ -8,11 +8,11 @@ A customizable 60% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q60/ansi:default
+    make keychron/q60/ansi:keychron
 
 Flashing example for this keyboard:
 
-    make keychron/q60/ansi:default:flash
+    make keychron/q60/ansi:keychron:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

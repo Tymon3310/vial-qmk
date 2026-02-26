@@ -81,7 +81,7 @@ void eeconfig_reset_custom_rgb(void) {
 
     eeprom_update_block(&os_ind_cfg, OFFSET_OS_INDICATOR, sizeof(os_ind_cfg));
     retail_demo_enable = 0;
-    eeprom_read_block(&retail_demo_enable, (uint8_t *)(OFFSET_RETAIL_DEMO), sizeof(retail_demo_enable));
+    eeprom_update_block(&retail_demo_enable, (uint8_t *)(OFFSET_RETAIL_DEMO), sizeof(retail_demo_enable));
     per_key_rgb_type = 0;
     eeprom_update_block(&per_key_rgb_type, OFFSET_PER_KEY_RGB_TYPE, sizeof(per_key_rgb_type));
 

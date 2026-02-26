@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron(https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,22 +16,37 @@
 
 #pragma once
 
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 18
+#include "eeconfig_kb.h"
 
-/* Key matrix pins */
-#define MATRIX_ROW_PINS \
-    { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS \
-    { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
+/* Shift register configuration for matrix scan */
+#define HC595_STCP A0
+#define HC595_SHCP A1
+#define HC595_DS C15
+#define HC595_START_INDEX 10
+#define HC595_END_INDEX 19
 
+#ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix Driver Configuration */
-#define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
-#define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
+#    define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_VDDIO
+#    define SNLED27351_I2C_ADDRESS_2 SNLED27351_I2C_ADDRESS_GND
 
-#define SNLED27351_CURRENT_TUNE \
-    { 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56 }
+/* Increase I2C speed to 1000 KHz */
+#    define I2C1_TIMINGR_PRESC 0U
+#    define I2C1_TIMINGR_SCLDEL 3U
+#    define I2C1_TIMINGR_SDADEL 0U
+#    define I2C1_TIMINGR_SCLH 15U
+#    define I2C1_TIMINGR_SCLL 51U
+
+/* Set LED Current */
+#    define SNLED27351_CURRENT_TUNE \
+        { 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56, 0xB6, 0xB6, 0x56 }
+#endif
 
 /* Encoder Configuration*/
 #define ENCODER_DEFAULT_POS 0x3
+
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(1)
+#define FN_KEY_2 MO(3)

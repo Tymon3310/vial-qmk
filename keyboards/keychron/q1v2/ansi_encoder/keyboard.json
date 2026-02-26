@@ -7,7 +7,6 @@
         "encoder": true
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}
         ]

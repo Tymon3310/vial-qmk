@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2022 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "eeconfig_kb.h"
+
 /* RGB Matrix Driver Configuration */
 #define SNLED27351_I2C_ADDRESS_1 SNLED27351_I2C_ADDRESS_GND
 
@@ -26,7 +28,14 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
+/* Set LED driver current */
 #define SNLED27351_CURRENT_TUNE \
     { 0xD8, 0xD8, 0x60, 0xD8, 0xD8, 0x60, 0xD8, 0xD8, 0x60, 0xD8, 0xD8, 0x60 }
+#define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
+#define CUSTOM_KEYCODES_ENABLE
+
+/* Factory test keys */
+#define FN_KEY_1 MO(2)
+#define BL_CYCLE_KEY KC_B
+#define BL_TRIG_KEY KC_L

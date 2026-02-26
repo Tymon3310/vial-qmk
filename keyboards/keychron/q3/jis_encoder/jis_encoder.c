@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-
+// clang-format off
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
  *   driver
@@ -123,5 +123,4 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
     {1, CB6_CA16,   CB4_CA16,   CB5_CA16}, // Down
     {1, CB3_CA15,   CB1_CA15,   CB2_CA15}, // Right
 };
-
 #endif // RGB_MATRIX_ENABLE

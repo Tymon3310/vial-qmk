@@ -1,28 +1,16 @@
 {
-    "keyboard_name": "Keychron V5",
-    "manufacturer": "Keychron",
-    "url": "https://github.com/Keychron",
-    "maintainer": "lalalademaxiya1",
     "usb": {
-        "vid": "0x3434",
         "pid": "0x0351",
-        "device_version": "1.0.0"
+        "device_version": "2.0.0"
+    },
+    "features": {
+        "encoder": true,
+        "encoder_map": true
     },
     "encoder": {
         "rotary": [
             {"pin_a": "C14", "pin_b": "A2"}
         ]
-    },
-    "processor": "STM32L432",
-    "bootloader": "stm32-dfu",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
-        "rgb_matrix": true,
-        "encoder": true,
-        "dip_switch": true
     },
     "layouts": {
         "LAYOUT_ansi_98": {

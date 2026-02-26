@@ -4,7 +4,7 @@
 
 A customizable 60% keyboard.
 
-Q4 Version 1 uses only 2 ICs for CKLED2001 and Q4 Version 2 uses only one IC.
+Q4 Version 1 uses only 2 LED driver and Q4 Version 2 uses only one.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q4
@@ -12,15 +12,15 @@ Q4 Version 1 uses only 2 ICs for CKLED2001 and Q4 Version 2 uses only one IC.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q4/ansi/v1:default
-    make keychron/q4/ansi/v2:default
-    make keychron/q4/iso:default
+    make keychron/q4/ansi/v1:keychron
+    make keychron/q4/ansi/v2:keychron
+    make keychron/q4/iso:keychron
 
 Flashing example for this keyboard:
 
-    make keychron/q4/ansi/v1:default:flash
-    make keychron/q4/ansi/v2:default:flash
-    make keychron/q4/iso:default:flash
+    make keychron/q4/ansi/v1:keychron:flash
+    make keychron/q4/ansi/v2:keychron:flash
+    make keychron/q4/iso:keychron:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

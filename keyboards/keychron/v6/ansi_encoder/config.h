@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,26 +16,9 @@
 
 #pragma once
 
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
-
-/* Pin connected to DS of 74HC595 */
-#define HC595_DS C15
-/* Pin connected to SH_CP of 74HC595 */
-#define HC595_SHCP A1
-/* Pin connected to ST_CP of 74HC595 */
-#define HC595_STCP A0
-/* Pin used index start of 74HC595 */
-#define HC595_START_INDEX 10
-/* Pin used index end of 74HC595 */
-#define HC595_END_INDEX 19
-
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
 
-/* Enable caps-lock LED*/
-#define CAPS_LOCK_LED_INDEX 61
-
-/* Enable NUM_LOCK_LED_INDEX */
-// #define NUM_LOCK_LED_INDEX 37
+/* Indications */
+#define CAPS_LOCK_INDEX 61
+#define NUM_LOCK_INDEX 37
