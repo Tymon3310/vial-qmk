@@ -329,25 +329,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         rgb_keycode_timer          = 0;
     }
 
-    /* === Caps Lock / Caps Word indicator === */
-    const bool caps_hw   = host_keyboard_led_state().caps_lock;
-    const bool caps_word = is_caps_word_on();
-
-    if (caps_hw || caps_word) {
-        if (CAPS_LOCK_LED_INDEX >= led_min && CAPS_LOCK_LED_INDEX < led_max) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 255, 255); /* Bright white */
-        }
-    }
-
-    //     /* === Num Lock indicator: Red when OFF === */
-    // #    ifdef NUM_LOCK_INDEX
-    //     if (!host_keyboard_led_state().num_lock) {
-    //         if (NUM_LOCK_INDEX >= led_min && NUM_LOCK_INDEX < led_max) {
-    //             RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX, 255, 0, 0);
-    //         }
-    //     }
-    // #    endif
-
     /* === WASD <-> Arrow swap indicator ===
      * When active: Light both WASD and Arrow keys in Cyan
      * This makes it visually clear that they are swapped
