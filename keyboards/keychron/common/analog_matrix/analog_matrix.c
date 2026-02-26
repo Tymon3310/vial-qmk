@@ -17,7 +17,6 @@
 #include "quantum.h"
 #include "analog_matrix.h"
 #include "keymap_introspection.h"
-#include "raw_hid.h"
 #include "eeprom.h"
 #include "eeprom_he.h"
 #include "usb_main.h"
@@ -978,7 +977,8 @@ void analog_matrix_rx(uint8_t *data, uint8_t length) {
             break;
     }
 
-    raw_hid_send(data, length);
+    /* Response is sent by the caller (raw_hid_receive via via_raw_hid_send).
+     * Do NOT call raw_hid_send here — that would cause a double-send. */
 }
 
 void analog_matrix_indicator(void) {
