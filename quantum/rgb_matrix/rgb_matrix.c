@@ -81,6 +81,7 @@ last_hit_t g_last_hit_tracker;
 static bool            suspend_state     = false;
 static uint8_t         rgb_last_enable   = UINT8_MAX;
 static uint8_t         rgb_last_effect   = UINT8_MAX;
+static bool            rgb_force_init    = false;
 static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false, 0};
 static rgb_task_states rgb_task_state    = SYNCING;
 #if RGB_MATRIX_TIMEOUT > 0
@@ -334,14 +335,19 @@ static void rgb_task_start(void) {
 
 static void rgb_task_render(uint8_t effect) {
     bool rendering         = false;
-    rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
-    // reload config if effect changed
-    if (effect != rgb_last_effect) {
+    rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable) || rgb_force_init;
+    // reload config if effect changed or a forced init was requested
+    if (effect != rgb_last_effect || rgb_force_init) {
+        rgb_force_init = false;
         memset(rgb_regions, 0, RGB_MATRIX_LED_COUNT);
         rgb_config_t rgb_cfg;
         eeprom_read_block(&rgb_cfg, EECONFIG_RGB_MATRIX, sizeof(rgb_cfg));
         rgb_matrix_config.hsv = rgb_cfg.hsv;
         rgb_matrix_config.speed = rgb_cfg.speed;
+        // Clear the LED driver buffer so colors from the previous effect
+        // (e.g. per-key or mixed RGB) don't bleed through on the first frame
+        // of the new effect.
+        rgb_matrix_set_color_all(0, 0, 0);
     }
 
     if (rgb_effect_params.flags != rgb_matrix_config.flags) {
@@ -642,6 +648,10 @@ void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
         rgb_matrix_config.mode = mode;
     }
     rgb_task_state = STARTING;
+    // Force one init frame even if mode hasn't changed (e.g. restore while
+    // already on the same effect) so the LED buffer is cleared and per-key
+    // colors don't bleed through.
+    rgb_force_init = true;
     if (write_to_eeprom) {
         uint8_t mode = (rgb_matrix_config.mode << 2) | rgb_matrix_config.enable;
         eeprom_write_byte((uint8_t*)EECONFIG_RGB_MATRIX, mode);
