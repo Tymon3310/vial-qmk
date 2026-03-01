@@ -27,6 +27,22 @@
 
 #define RAW_HID_SRC_WIRELESS (RAW_HID_SRC_USB+1)
 
+/* XOR key for encoding raw HID data over wireless.
+ * The LKBT51 module's proprietary firmware crashes when certain byte values
+ * appear in raw HID packets.  Confirmed problematic: the entire 0xF0-0xFF
+ * range (originally discovered via 0xFE, then 0xFA also caused crashes).
+ * XOR-encoding all bytes with a fixed key avoids these values.
+ *
+ * Key 0x28 is chosen so that no standard VIA/Vial/Keychron command byte
+ * (0x00-0x12, 0xA0-0xAB, 0xFE, 0xFF) maps into the dangerous 0xF0-0xFF
+ * range, and none collide with FR commands (0xB1-0xBA) or state-notify
+ * markers (0xBC, 0xE2).
+ *
+ * The GUI must use the same key when communicating via the bridge dongle. */
+#ifndef WIRELESS_RAW_HID_XOR_KEY
+#    define WIRELESS_RAW_HID_XOR_KEY 0x28
+#endif
+
 /* Low power mode */
 #ifndef LOW_POWER_MODE
 #    ifdef QMK_MCU_SERIES_STM32L4XX

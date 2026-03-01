@@ -551,10 +551,17 @@ void wireless_event_task(void) {
             case EVT_CONECTION_INTERVAL:
                 report_buffer_set_inverval(event.params.interval);
                 break;
-#if defined(RAW_ENABLE) && defined(WILRESS_RAW_ENABLE)
+#if defined(RAW_ENABLE)
             case EVT_RAW_HID:
+                /* XOR-decode incoming wireless raw HID data.
+                 * The GUI XOR-encodes all VIA/Vial data sent through the bridge
+                 * to avoid byte values (e.g. 0xFE) that crash the LKBT51
+                 * wireless module's proprietary firmware. */
+                for (uint8_t i = 0; i < 32; i++) {
+                    event.params.raw_hid_data[i] ^= WIRELESS_RAW_HID_XOR_KEY;
+                }
 #    ifdef VIA_ENABLE
-                via_raw_hid_receive(RAW_HID_SRC_WIRELESS, event.params.raw_hid_data, 32);
+                raw_hid_receive(RAW_HID_SRC_WIRELESS, event.params.raw_hid_data, 32);
 #    else
                 kc_raw_hid_rx(RAW_HID_SRC_WIRELESS, event.params.raw_hid_data, 32);
 #    endif

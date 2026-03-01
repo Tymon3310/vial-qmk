@@ -120,6 +120,12 @@ void kc_raw_hid_send(uint8_t src, uint8_t *data, uint8_t len) {
     else if (wireless_get_state() == WT_CONNECTED) {
         extern wt_func_t wireless_transport;
         if (wireless_transport.send_raw_hid) {
+            /* XOR-encode outgoing response before sending via LKBT51.
+             * Matches the decode in wireless.c EVT_RAW_HID handler
+             * and the encode/decode in the GUI bridge layer. */
+            for (uint8_t i = 0; i < len; i++) {
+                data[i] ^= WIRELESS_RAW_HID_XOR_KEY;
+            }
             wireless_transport.send_raw_hid(data, len);
         }
     }
