@@ -339,10 +339,16 @@ static void rgb_task_render(uint8_t effect) {
     if (effect != rgb_last_effect || rgb_force_init) {
         rgb_force_init = false;
         memset(rgb_regions, 0, RGB_MATRIX_LED_COUNT);
-        rgb_config_t rgb_cfg;
-        eeprom_read_block(&rgb_cfg, EECONFIG_RGB_MATRIX, sizeof(rgb_cfg));
-        rgb_matrix_config.hsv   = rgb_cfg.hsv;
-        rgb_matrix_config.speed = rgb_cfg.speed;
+        // Only reload HSV/speed from EEPROM when the effect actually changed.
+        // When rgb_force_init is set without an effect change (e.g. from
+        // vialrgb_set_value sending the same mode), the in-RAM config set by
+        // _noeeprom functions must be preserved.
+        if (effect != rgb_last_effect) {
+            rgb_config_t rgb_cfg;
+            eeprom_read_block(&rgb_cfg, EECONFIG_RGB_MATRIX, sizeof(rgb_cfg));
+            rgb_matrix_config.hsv   = rgb_cfg.hsv;
+            rgb_matrix_config.speed = rgb_cfg.speed;
+        }
         // Clear the LED driver buffer so colors from the previous effect
         // (e.g. per-key or mixed RGB) don't bleed through on the first frame
         // of the new effect.
