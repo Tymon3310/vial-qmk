@@ -194,8 +194,7 @@ void rgb_matrix_region_set_color(uint8_t region, int index, uint8_t red, uint8_t
 
 void rgb_matrix_region_set_color_all(uint8_t region, uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++)
-        if (((g_led_config.flags[i] & 0xF0) >> 4) == region)
-            rgb_matrix_set_color(i, red, green, blue);
+        if (((g_led_config.flags[i] & 0xF0) >> 4) == region) rgb_matrix_set_color(i, red, green, blue);
 }
 
 __attribute__((weak)) void rgb_matrix_handle_key_event_kb(uint8_t row, uint8_t col, bool pressed) {}
@@ -590,7 +589,7 @@ void rgb_matrix_toggle_eeprom_helper(bool write_to_eeprom) {
     rgb_task_state = STARTING;
     if (write_to_eeprom) {
         uint8_t mode = (rgb_matrix_config.mode << 2) | rgb_matrix_config.enable;
-        eeprom_write_byte((uint8_t*)EECONFIG_RGB_MATRIX, mode);
+        eeprom_write_byte((uint8_t *)EECONFIG_RGB_MATRIX, mode);
     }
     dprintf("rgb matrix toggle [%s]: rgb_matrix_config.enable = %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.enable);
 #ifdef RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL
@@ -609,7 +608,7 @@ void rgb_matrix_toggle(void) {
 void rgb_matrix_enable(void) {
     rgb_matrix_enable_noeeprom();
     uint8_t mode = (rgb_matrix_config.mode << 2) | rgb_matrix_config.enable;
-    eeprom_write_byte((uint8_t*)EECONFIG_RGB_MATRIX, mode);
+    eeprom_write_byte((uint8_t *)EECONFIG_RGB_MATRIX, mode);
 #ifdef RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL
     while (rgb_matrix_config.hsv.v < RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL) {
         rgb_matrix_increase_val_helper(true);
@@ -630,7 +629,7 @@ void rgb_matrix_enable_noeeprom(void) {
 void rgb_matrix_disable(void) {
     rgb_matrix_disable_noeeprom();
     uint8_t mode = (rgb_matrix_config.mode << 2) | rgb_matrix_config.enable;
-    eeprom_write_byte((uint8_t*)EECONFIG_RGB_MATRIX, mode);
+    eeprom_write_byte((uint8_t *)EECONFIG_RGB_MATRIX, mode);
 }
 
 void rgb_matrix_disable_noeeprom(void) {
@@ -660,7 +659,7 @@ void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     rgb_force_init = true;
     if (write_to_eeprom) {
         uint8_t mode = (rgb_matrix_config.mode << 2) | rgb_matrix_config.enable;
-        eeprom_write_byte((uint8_t*)EECONFIG_RGB_MATRIX, mode);
+        eeprom_write_byte((uint8_t *)EECONFIG_RGB_MATRIX, mode);
     }
 #ifdef RGB_MATRIX_MODE_NAME_ENABLE
     dprintf("rgb matrix mode [%s]: %u (%s)\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)rgb_matrix_config.mode, rgb_matrix_get_mode_name(rgb_matrix_config.mode));
@@ -709,7 +708,7 @@ void rgb_matrix_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, boo
     rgb_matrix_config.hsv.s = sat;
     rgb_matrix_config.hsv.v = (val > RGB_MATRIX_MAXIMUM_BRIGHTNESS) ? RGB_MATRIX_MAXIMUM_BRIGHTNESS : val;
     if (write_to_eeprom) {
-        uint8_t *addr = (uint8_t*)EECONFIG_RGB_MATRIX + offsetof(rgb_config_t, hsv);
+        uint8_t *addr = (uint8_t *)EECONFIG_RGB_MATRIX + offsetof(rgb_config_t, hsv);
         eeprom_write_block(&rgb_matrix_config.hsv, addr, sizeof(rgb_matrix_config.hsv));
     }
     dprintf("rgb matrix set hsv [%s]: %u,%u,%u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
@@ -812,7 +811,7 @@ void rgb_matrix_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
 
     rgb_matrix_config.speed = speed;
     if (write_to_eeprom) {
-        uint8_t *addr = (uint8_t*)EECONFIG_RGB_MATRIX + offsetof(rgb_config_t, speed);
+        uint8_t *addr = (uint8_t *)EECONFIG_RGB_MATRIX + offsetof(rgb_config_t, speed);
         eeprom_write_byte(addr, rgb_matrix_config.speed);
     }
     dprintf("rgb matrix set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.speed);
@@ -851,7 +850,7 @@ void rgb_matrix_decrease_speed(void) {
 void rgb_matrix_set_flags_eeprom_helper(led_flags_t flags, bool write_to_eeprom) {
     rgb_matrix_config.flags = flags;
     if (write_to_eeprom) {
-        uint8_t *addr = (uint8_t*)EECONFIG_RGB_MATRIX + offsetof(rgb_config_t, flags);
+        uint8_t *addr = (uint8_t *)EECONFIG_RGB_MATRIX + offsetof(rgb_config_t, flags);
         eeprom_write_byte(addr, rgb_matrix_config.flags);
     }
     dprintf("rgb matrix set flags [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.flags);
