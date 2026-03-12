@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers {
+enum layers{
     MAC_BASE,
     MAC_FN,
     WIN_BASE,
@@ -60,15 +60,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,                      _______,
         _______,  _______,  _______,  _______,                      _______,                      _______,  _______,  _______,  _______,    _______,            _______,  _______,  _______),
 };
-// clang-format on
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
-    return true;
-}
-
-void housekeeping_task_user(void) {
-    keychron_common_task();
-}

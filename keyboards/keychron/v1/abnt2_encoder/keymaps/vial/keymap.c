@@ -69,15 +69,4 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [WIN_FN]   = { ENCODER_CCW_CW(UG_VALD, UG_VALU) },
 };
-#endif // ENCODER_MAP_ENABLE
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
-    return true;
-}
-
-void housekeeping_task_user(void) {
-    keychron_common_task();
-}
+#endif

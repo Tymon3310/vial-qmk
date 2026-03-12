@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 #include "keychron_common.h"
 
 // clang-format off
-
 enum layers {
     MAC_BASE,
     WIN_BASE,
@@ -66,16 +65,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,           _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______,
         _______, _______,  _______,                            _______,                            _______,  _______,  _______,  _______)
 };
-
-// clang-format on
-
-void housekeeping_task_user(void) {
-    keychron_common_task();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
-    return true;
-}

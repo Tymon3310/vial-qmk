@@ -1,4 +1,4 @@
-/* Copyright 2023 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 ~ 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,49 +17,28 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers { _BASE, _FN1, _RESERVED1, _RESERVED2 };
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_numpad_6x4(
-        MO(_FN1), KC_ESC,  KC_BSPC, KC_TAB,
-        KC_NUM, KC_PSLS, KC_PAST,   KC_PMNS,
-        KC_P7,      KC_P8,   KC_P9,
-        KC_P4,      KC_P5,   KC_P6,     KC_PPLS,
-        KC_P1,      KC_P2,   KC_P3,
-        KC_P0,               KC_PDOT,   KC_PENT),
-
-    [_FN1] = LAYOUT_numpad_6x4(
-        _______,    KC_MUTE, KC_VOLD,   KC_VOLU,
-        RGB_MOD,    RGB_VAI, RGB_HUI,   KC_DEL,
-        RGB_RMOD,   RGB_VAD, RGB_HUD,
-        RGB_SAI,    RGB_SPI, KC_MPRV,   _______,
-        RGB_SAD,    RGB_SPD, KC_MPLY,
-        RGB_TOG,             KC_MNXT,   _______),
-
-    [_RESERVED1] = LAYOUT_numpad_6x4(
-        _______,    _______, _______,   _______,
-        _______,    _______, _______,   _______,
-        _______,    _______, _______,
-        _______,    _______, _______,   _______,
-        _______,    _______, _______,
-        _______,             _______,   _______),
-
-    [_RESERVED2] = LAYOUT_numpad_6x4(
-        _______,    _______, _______,   _______,
-        _______,    _______, _______,   _______,
-        _______,    _______, _______,
-        _______,    _______, _______,   _______,
-        _______,    _______, _______,
-        _______,             _______,   _______)
+enum layers {
+    _BASE,
+    _FN1,
 };
 
-void housekeeping_task_user(void) {
-    keychron_common_task();
-}
+// clang-format off
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_BASE] = LAYOUT_numpad_6x4(
+        MO(_FN1), KC_ESC,   KC_BSPC,  KC_TAB,
+        KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,
+        KC_P7,    KC_P8,    KC_P9,
+        KC_P4,    KC_P5,    KC_P6,    KC_PPLS,
+        KC_P1,    KC_P2,    KC_P3,
+        KC_P0,              KC_PDOT,  KC_PENT),
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
-    return true;
-}
+    [_FN1] = LAYOUT_numpad_6x4(
+        _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,
+        UG_NEXT,  UG_VALU,  UG_HUEU,  KC_DEL,
+        UG_PREV,  UG_VALD,  UG_HUED,
+        UG_SATU,  UG_SPDU,  KC_MPRV,  _______,
+        UG_SATD,  UG_SPDD,  KC_MPLY,
+        UG_TOGG,            KC_MNXT,  _______)
+};
+
+
