@@ -104,7 +104,7 @@ void keychron_common_init(void) {
     extern void eeconfig_init_custom_rgb(void);
     eeconfig_init_custom_rgb();
 #endif
-#ifdef ENCODER_ENABLE
+#if defined(ENCODER_ENABLE) && (PAL_USE_CALLBACKS == TRUE)
     encoder_cb_init();
 #endif
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
@@ -337,7 +337,8 @@ void keychron_common_task(void) {
 #endif
 }
 
-#ifdef ENCODER_ENABLE
+
+#if defined(ENCODER_ENABLE) && (PAL_USE_CALLBACKS == TRUE)
 static void encoder_pad_pins(void *param) {
     uint8_t     index = (uint32_t)param;
     extern void encoder_quadrature_handle_inerrupt_read(uint8_t index);

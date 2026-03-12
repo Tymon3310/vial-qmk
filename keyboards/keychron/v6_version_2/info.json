@@ -1,0 +1,62 @@
+{
+    "manufacturer": "Keychron",
+    "keyboard_name": "Keychron V6",
+    "url": "https://github.com/Keychron",
+    "maintainer": "Keychron",
+    "processor": "WB32F3G71",
+    "bootloader": "wb32-dfu",
+    "usb": {
+        "vid": "0x3434"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "raw" : true,
+        "rgb_matrix": true,
+        "dip_switch": true
+    },
+    "matrix_pins": {
+        "cols": ["C6", "C7", "C8", "A13", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3", "B10"],
+        "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
+    },
+    "diode_direction": "ROW2COL",
+    "dip_switch" :{
+        "pins": ["B12"]
+    },
+    "build": {
+        "debounce_type": "custom"
+    },
+    "debounce": 50,
+    "eeprom": {
+        "driver": "i2c"
+    },
+    "rgb_matrix": {
+        "driver": "snled27351_spi",
+        "sleep": true,
+        "animations": {
+            "band_spiral_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "solid_splash": true
+        }
+    }
+}
