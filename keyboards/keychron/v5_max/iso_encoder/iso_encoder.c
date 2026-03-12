@@ -86,7 +86,7 @@ const snled27351_led_t g_snled27351_leds[RGB_MATRIX_LED_COUNT] = {
     {1, CB1_CA13,   CB3_CA13,   CB2_CA13},
     {1, CB1_CA12,   CB3_CA12,   CB2_CA12},
     {1, CB1_CA11,   CB3_CA11,   CB2_CA11},
-    {1, CB1_CA10,   CB3_CA10,   CB2_CA10},
+    {1, CB10_CA10,  CB12_CA10,  CB11_CA10},
     {1, CB1_CA9,    CB3_CA9,    CB2_CA9},
     {1, CB1_CA8,    CB3_CA8,    CB2_CA8},
     {1, CB1_CA7,    CB3_CA7,    CB2_CA7},
@@ -161,5 +161,29 @@ led_config_t g_led_config = {
         1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,    1, 4, 4, 4, 4,
         1, 1, 1,          1,          1, 1, 1, 1, 1, 1, 1, 1
     }
+};
+
+// Default Color of Per Key RGB
+#define DC_RED {HSV_RED}
+#define DC_BLU {HSV_BLUE}
+#define DC_YLW {HSV_YELLOW}
+
+HSV default_per_key_led[RGB_MATRIX_LED_COUNT] = {
+    DC_RED, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW,
+    DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW, DC_YLW, DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_RED, DC_YLW, DC_YLW, DC_YLW, DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_RED,
+    DC_YLW, DC_YLW, DC_YLW, DC_BLU, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW
+};
+
+// Default mixed RGB region
+uint8_t default_region[RGB_MATRIX_LED_COUNT] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 #endif

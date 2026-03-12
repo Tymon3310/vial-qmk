@@ -122,8 +122,12 @@ enum {
 #define KC_TASK KC_WIN_TASK_VIEW
 #define KC_FILE KC_WIN_FILE_EXPLORER
 #else
-
 #include "keycodes_custom.h"
+#if defined(SNAP_CLICK_ENABLE) && !defined(ANANLOG_MATRIX)
+#ifndef SC_TOGG
+#define SC_TOGG NEW_SAFE_RANGE
+#endif
+#endif
 #endif
 
 // clang-format on

@@ -27,6 +27,7 @@
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
 #    include "keychron_wireless_common.h"
 #endif
+__attribute__((weak)) void os_state_indicate(void) {}
 #ifdef LED_MATRIX_ENABLE
 #    include "led_matrix.h"
 #endif
@@ -104,7 +105,7 @@ void keychron_common_init(void) {
     extern void eeconfig_init_custom_rgb(void);
     eeconfig_init_custom_rgb();
 #endif
-#if defined(ENCODER_ENABLE) && (PAL_USE_CALLBACKS == TRUE)
+#if defined(ENCODER_ENABLE) && (PAL_USE_CALLBACKS == TRUE) && !defined(__AVR__)
     encoder_cb_init();
 #endif
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
@@ -359,7 +360,7 @@ void keychron_common_task(void) {
 }
 
 
-#if defined(ENCODER_ENABLE) && (PAL_USE_CALLBACKS == TRUE)
+#if defined(ENCODER_ENABLE) && (PAL_USE_CALLBACKS == TRUE) && !defined(__AVR__)
 static void encoder_pad_pins(void *param) {
     uint8_t     index = (uint32_t)param;
     extern void encoder_quadrature_handle_inerrupt_read(uint8_t index);

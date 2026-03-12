@@ -17,7 +17,6 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-#define KC_FILE LGUI(KC_E)
 
 enum layers { MAC_BASE, MAC_FN, WIN_BASE, WIN_FN };
 
