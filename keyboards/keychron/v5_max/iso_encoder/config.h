@@ -24,6 +24,20 @@
 /* RGB Matrix Configuration */
 #    define RGB_MATRIX_LED_COUNT 98
 
+/* Set to infinit, which is use in USB mode by default */
+#    ifndef RGB_MATRIX_TIMEOUT
+#        define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
+#    endif
+/* Allow shutdown of led driver to save power */
+#    ifndef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+#        define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
+#    endif
+#    define RGB_MATRIX_DRIVER_LOAD_ENABLE
+/* Turn off backlight on low brightness to save power */
+#    ifndef RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL
+#        define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
+#    endif
+
 /* Indications */
 #    define NUM_LOCK_INDEX 30
 #    define CAPS_LOCK_INDEX 51
