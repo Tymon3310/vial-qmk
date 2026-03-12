@@ -17,7 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers {
+enum layers{
     MAC_BASE,
     WIN_BASE,
     MAC_FN1,
@@ -63,26 +63,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         UG_TOGG,  UG_NEXT,  UG_VALU,  UG_HUEU,  UG_SATU,  UG_SPDU,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,
         _______,  UG_PREV,  UG_VALD,  UG_HUED,  UG_SATD,  UG_SPDD,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______),
+        _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______)
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD ,KC_VOLU) },
+    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD ,KC_VOLU) },
     [MAC_FN1]  = { ENCODER_CCW_CW(UG_VALD, UG_VALU) },
     [WIN_FN1]  = { ENCODER_CCW_CW(UG_VALD, UG_VALU) },
-    [FN2]      = { ENCODER_CCW_CW(_______, _______) },
+    [FN2]      = { ENCODER_CCW_CW(_______, _______) }
 };
 #endif // ENCODER_MAP_ENABLE
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
-    return true;
-}
-
-void housekeeping_task_user(void) {
-    keychron_common_task();
-}
