@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "vial_keycodes.h"
 #include "config.h"
 #include "keychron_common.h"
 #include "keychron_rgb_type.h"
@@ -41,11 +42,6 @@ enum layers {
     LAYER_13,
     LAYER_14,
     LAYER_15,
-};
-
-/* Custom keycodes - after SC_TOGG (index 16) */
-enum custom_keycodes {
-    WASD_TOG = QK_KB_17, /* WASD <-> Arrow swap toggle */
 };
 
 /* Track swap-hands state for LED indication */
@@ -268,12 +264,18 @@ const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 0 };
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
+    /* Map Vial USER codes back to Keychron QK_KB codes for common processing */
+    uint16_t translated_keycode = keycode;
+    if (keycode >= USER00 && keycode <= WASD_TOG) {
+        translated_keycode = QK_KB_0 + (keycode - USER00);
+    }
+
+    if (!process_record_keychron_common(translated_keycode, record)) {
         return false;
     }
 
     if (record->event.pressed) {
-        switch (keycode) {
+        switch (translated_keycode) {
             /* Temporarily disable layer coloring when RGB keys are used */
             case RGB_TOG:
             case RGB_MOD:
@@ -290,8 +292,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_layer_coloring_enabled = false;
                 break;
 
-            /* WASD <-> Arrow swap toggle */
-            case WASD_TOG:
+            /* WASD <-> Arrow swap toggle - use the translated Keychron code */
+            case QK_KB_17: // WASD_TOG translated
                 swap_hands_toggle();
                 wasd_swap_active = is_swap_hands_on();
 #ifdef RGB_MATRIX_ENABLE
