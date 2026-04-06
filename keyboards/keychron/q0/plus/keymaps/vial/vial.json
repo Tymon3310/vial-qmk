@@ -60,13 +60,12 @@
       "shortName": "Cortana"
     }
   ],
-  "matrix": {"rows": 6, "cols": 5},
+  "matrix": {
+    "rows": 6,
+    "cols": 5
+  },
   "layouts": {
     "keymap": [
-      [
-        "0,0\n\n\n\n\n\n\n\n\ne",
-        "0,1\n\n\n\n\n\n\n\n\ne"
-      ],
       [
         {
           "x": 0.5

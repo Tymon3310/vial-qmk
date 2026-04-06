@@ -9,7 +9,11 @@
       "title": "Mission Control in macOS",
       "shortName": "MCtrl"
     },
-    {"name": "Launch Pad", "title": "Launch Pad in macOS", "shortName": "LPad"},
+    {
+      "name": "Launch Pad",
+      "title": "Launch Pad in macOS",
+      "shortName": "LPad"
+    },
     {
       "name": "Left Option",
       "title": "Left Option in macOS",
@@ -20,14 +24,26 @@
       "title": "Right Option in macOS",
       "shortName": "ROpt"
     },
-    {"name": "Left Cmd", "title": "Left Command in macOS", "shortName": "LCmd"},
+    {
+      "name": "Left Cmd",
+      "title": "Left Command in macOS",
+      "shortName": "LCmd"
+    },
     {
       "name": "Right Cmd",
       "title": "Right Command in macOS",
       "shortName": "RCmd"
     },
-    {"name": "Siri", "title": "Siri in macOS", "shortName": "Siri"},
-    {"name": "Task View", "title": "Task View in windows", "shortName": "Task"},
+    {
+      "name": "Siri",
+      "title": "Siri in macOS",
+      "shortName": "Siri"
+    },
+    {
+      "name": "Task View",
+      "title": "Task View in windows",
+      "shortName": "Task"
+    },
     {
       "name": "File Explorer",
       "title": "File Explorer in windows",
@@ -38,15 +54,18 @@
       "title": "Screenshot in macOS",
       "shortName": "SShot"
     },
-    {"name": "Cortana", "title": "Cortana in windows", "shortName": "Cortana"}
+    {
+      "name": "Cortana",
+      "title": "Cortana in windows",
+      "shortName": "Cortana"
+    }
   ],
-  "matrix": {"rows": 6, "cols": 16},
+  "matrix": {
+    "rows": 6,
+    "cols": 16
+  },
   "layouts": {
     "keymap": [
-      [
-        "0,0\n\n\n\n\n\n\n\n\ne",
-        "0,1\n\n\n\n\n\n\n\n\ne"
-      ],
       [
         {
           "x": 0.5
@@ -76,7 +95,12 @@
         {
           "x": 0.25
         },
-        "0,15"
+        "0,15",
+        {
+          "x": 0.25
+        },
+        "0,0\n\n\n\n\n\n\n\n\ne",
+        "0,1\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {

@@ -20,8 +20,8 @@
 
 #define VIAL_KEYBOARD_UID {0x89, 0xE8, 0x78, 0xD3, 0xEF, 0xCB, 0x6E, 0xA8}
 
-#define VIAL_UNLOCK_COMBO_ROWS {0, 2}
-#define VIAL_UNLOCK_COMBO_COLS {0, 13}
+#define VIAL_UNLOCK_COMBO_ROWS { 0, 2 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 13 }
 
 /* Set dynamic keymap layer counts to 5 */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
