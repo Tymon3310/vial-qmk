@@ -3,7 +3,10 @@
   "vendorId": "0x3434",
   "productId": "0x0113",
   "lighting": "vialrgb",
-  "matrix": {"rows": 5, "cols": 15},
+  "matrix": {
+    "rows": 5,
+    "cols": 15
+  },
   "customKeycodes": [
     {
       "name": "Mission Control",
@@ -65,13 +68,6 @@
     "keymap": [
       [
         {
-          "x": 14.75
-        },
-        "0,0\n\n\n\n\n\n\n\n\ne",
-        "0,1\n\n\n\n\n\n\n\n\ne"
-      ],
-      [
-        {
           "x": 15.25,
           "c": "#aaaaaa"
         },
@@ -108,7 +104,12 @@
           "c": "#aaaaaa",
           "w": 2
         },
-        "0,13"
+        "0,13",
+        {
+          "x": 0.25
+        },
+        "0,0\n\n\n\n\n\n\n\n\ne",
+        "0,1\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {

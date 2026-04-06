@@ -4,19 +4,66 @@
   "productId": "0x0381",
   "lighting": "vialrgb",
   "customKeycodes": [
-    {"name": "Mission Control", "title": "Mission Control in macOS", "shortName": "MCtrl"},
-    {"name": "Launch Pad",      "title": "Launch Pad in macOS",      "shortName": "LPad"},
-    {"name": "Left Option",     "title": "Left Option in macOS",     "shortName": "LOpt"},
-    {"name": "Right Option",    "title": "Right Option in macOS",    "shortName": "ROpt"},
-    {"name": "Left Cmd",        "title": "Left Command in macOS",    "shortName": "LCmd"},
-    {"name": "Right Cmd",       "title": "Right Command in macOS",   "shortName": "RCmd"},
-    {"name": "Siri",            "title": "Siri in macOS",            "shortName": "Siri"},
-    {"name": "Task View",       "title": "Task View in windows",     "shortName": "Task"},
-    {"name": "File Explorer",   "title": "File Explorer in windows", "shortName": "File"},
-    {"name": "Screen Shot",     "title": "Screenshot in macOS",      "shortName": "SShot"},
-    {"name": "Cortana",         "title": "Cortana in windows",       "shortName": "Cortana"}
+    {
+      "name": "Mission Control",
+      "title": "Mission Control in macOS",
+      "shortName": "MCtrl"
+    },
+    {
+      "name": "Launch Pad",
+      "title": "Launch Pad in macOS",
+      "shortName": "LPad"
+    },
+    {
+      "name": "Left Option",
+      "title": "Left Option in macOS",
+      "shortName": "LOpt"
+    },
+    {
+      "name": "Right Option",
+      "title": "Right Option in macOS",
+      "shortName": "ROpt"
+    },
+    {
+      "name": "Left Cmd",
+      "title": "Left Command in macOS",
+      "shortName": "LCmd"
+    },
+    {
+      "name": "Right Cmd",
+      "title": "Right Command in macOS",
+      "shortName": "RCmd"
+    },
+    {
+      "name": "Siri",
+      "title": "Siri in macOS",
+      "shortName": "Siri"
+    },
+    {
+      "name": "Task View",
+      "title": "Task View in windows",
+      "shortName": "Task"
+    },
+    {
+      "name": "File Explorer",
+      "title": "File Explorer in windows",
+      "shortName": "File"
+    },
+    {
+      "name": "Screen Shot",
+      "title": "Screenshot in macOS",
+      "shortName": "SShot"
+    },
+    {
+      "name": "Cortana",
+      "title": "Cortana in windows",
+      "shortName": "Cortana"
+    }
   ],
-  "matrix": {"rows": 5, "cols": 15},
+  "matrix": {
+    "rows": 5,
+    "cols": 15
+  },
   "layouts": {
     "keymap": [
       [
@@ -36,9 +83,7 @@
         {
           "x": 0.14999999999999858,
           "c": "#cccccc"
-        },
-        "0,0\n\n\n\n\n\n\n\n\ne",
-        "0,1\n\n\n\n\n\n\n\n\ne"
+        }
       ],
       [
         {
@@ -83,7 +128,12 @@
         {
           "w": 1.5
         },
-        "1,13"
+        "1,13",
+        {
+          "x": 0.25
+        },
+        "0,0\n\n\n\n\n\n\n\n\ne",
+        "0,1\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {
