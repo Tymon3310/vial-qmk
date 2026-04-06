@@ -535,7 +535,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
 /*
  * Configuration descriptors
  */
-const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
+USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .Config = {
         .Header = {
             .Size               = sizeof(USB_Descriptor_Configuration_Header_t),
@@ -1263,7 +1263,7 @@ const USB_Descriptor_String_t PROGMEM MsOsString = {
     .UnicodeString              = { 'M' ,'S' ,'F' ,'T' ,'1' ,'0' ,'0', USB_REQ_GET_MS_DESCRIPTOR }
 };
 
-const uint8_t PROGMEM compatIdDescriptor[] =
+PROGMEM uint8_t compatIdDescriptor[] =
 {
     0x28, 0x00, 0x00, 0x00,    // dwLength
     0x00, 0x01,                // bcdVersion: 1.00
@@ -1283,7 +1283,7 @@ const uint8_t PROGMEM compatIdDescriptor[] =
 //    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,              // reserved
 };
 
-const uint8_t PROGMEM extendedPropertiesDescriptor[0x92] =
+PROGMEM uint8_t extendedPropertiesDescriptor[0x92] =
 {
     0x92, 0x00, 0x00, 0x00,    // dwLength
     0x00, 0x01,                // bcdVersion: 1.00
