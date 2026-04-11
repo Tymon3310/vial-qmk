@@ -212,6 +212,13 @@ void raw_hid_receive(uint8_t src, uint8_t *data, uint8_t length) {
     }
 #endif
 
+    /* Early dispatch: Keychron commands (0xA0-0xAB) bypass VIA switch statement */
+    /* This reduces latency for Keychron keyboards by avoiding the full switch fallthrough */
+    if (*command_id >= 0xA0 && *command_id <= 0xAB) {
+        raw_hid_receive_kb(data, length);
+        return;
+    }
+
     switch (*command_id) {
         case id_get_protocol_version: {
             command_data[0] = VIA_PROTOCOL_VERSION >> 8;
