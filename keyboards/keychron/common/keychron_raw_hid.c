@@ -26,6 +26,9 @@
 #ifdef ANANLOG_MATRIX
 #    include "analog_matrix.h"
 #endif
+#if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
+#    include "battery.h"
+#endif
 #ifdef DYNAMIC_DEBOUNCE_ENABLE
 #    include "keychron_debounce.h"
 #endif
@@ -169,6 +172,19 @@ bool kc_raw_hid_rx(uint8_t src, uint8_t *data, uint8_t length) {
 
         case KC_GET_DEFAULT_LAYER:
             data[1] = get_highest_layer(default_layer_state);
+            break;
+
+        case KC_GET_BATTERY_LEVEL:
+#if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
+            if (src == RAW_HID_SRC_USB) {
+                /* Only report battery when keyboard is connected wirelessly */
+                data[1] = 0; /* Not on wireless */
+            } else {
+                data[1] = battery_get_percentage();
+            }
+#else
+            data[1] = 0; /* Wireless not supported */
+#endif
             break;
 
         case KC_MISC_CMD_GROUP:
