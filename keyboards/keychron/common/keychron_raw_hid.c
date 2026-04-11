@@ -176,11 +176,11 @@ bool kc_raw_hid_rx(uint8_t src, uint8_t *data, uint8_t length) {
 
         case KC_GET_BATTERY_LEVEL:
 #if defined(LK_WIRELESS_ENABLE) || defined(KC_BLUETOOTH_ENABLE)
-            if (src == RAW_HID_SRC_USB) {
-                /* Only report battery when keyboard is connected wirelessly */
-                data[1] = 0; /* Not on wireless */
-            } else {
+            /* Report battery only when keyboard is actually on wireless connection */
+            if (wireless_get_state() == WT_CONNECTED) {
                 data[1] = battery_get_percentage();
+            } else {
+                data[1] = 0; /* On USB, no battery */
             }
 #else
             data[1] = 0; /* Wireless not supported */
