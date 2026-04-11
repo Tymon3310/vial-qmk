@@ -11,11 +11,11 @@ This conversion kit allows you to replace your IBM Model M's original internal c
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ibm/model_m/modelh:vial
+    make ibm/model_m/modelh:default
 
 Flashing example for this keyboard:
 
-    make ibm/model_m/modelh:vial:flash
+    make ibm/model_m/modelh:default:flash
 
 For IBM Wheelwriter 10/15/1000 modules (ISO), you can try the `wheelwriter_1x_iso` keymap:
 

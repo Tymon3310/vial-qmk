@@ -2,16 +2,15 @@
 
 60% MX Hot-Swap Tsangan PCB
 
-![kt60HS-T image](https://live.staticflickr.com/65535/54942233930_c83933dd23_b.jpg)
+![kt60HS-T image](https://i.imgur.com/vM32aoX.jpeg)
 
 Supports:
 1. Split Backspace
 2. Stepped Caps Lock
 
-There are three versions of the PCB available.
+There are two versions of the PCB available.
 
-|Version|                         Features                        |
-|-------|---------------------------------------------------------|
-|v1     |Blue/Purple PCB / ARM STM32F401 controller               |
-|v2     |Purple PCB / ARM STM32F072 controller                    |
-|v3     |Purple PCB / ARM STM32F072 controller, different routing |
+|Version|                 Features                  |
+|-------|-------------------------------------------|
+|v1     |Blue/Purple PCB / ARM STM32F401 controller |
+|v2     |Purple PCB / ARM STM32F072 controller      |
