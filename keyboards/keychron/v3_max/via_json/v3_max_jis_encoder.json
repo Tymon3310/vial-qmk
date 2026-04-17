@@ -76,7 +76,7 @@
     {"name": "Task View", "title": "Task View on Windows", "shortName": "Task"},
     {"name": "File Explorer", "title": "File Explorer on Windows", "shortName": "File"},
     {"name": "Screen shot", "title": "Screenshot on macOS", "shortName": "SShot"},
-    {"name": "Cortana", "title": "Cortana on Windows", "shortName": "Cortana"},
+    {"name": "Cortana", "title": "Cortana on Windows 10", "shortName": "Cortana"},
     {"name": "Siri", "title": "Siri on macOS", "shortName": "Siri"},
     {"name": "Bluetooth Host 1", "title": "Bluetooth Host 1", "shortName": "BTH1"},
     {"name": "Bluetooth Host 2", "title": "Bluetooth Host 2", "shortName": "BTH2"},
