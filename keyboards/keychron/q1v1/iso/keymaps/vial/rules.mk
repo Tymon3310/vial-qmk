@@ -1,5 +1,10 @@
 VIA_ENABLE = yes
 VIAL_ENABLE = yes
+LTO_ENABLE = yes
+COMMAND_ENABLE = no
+CONSOLE_ENABLE = no
+BOOTMAGIC_ENABLE = lite
+MOUSEKEY_ENABLE = no
 
 SRC += keyboards/keychron/common/keychron_common.c
 EXTRAINCDIRS += keyboards/keychron/common
