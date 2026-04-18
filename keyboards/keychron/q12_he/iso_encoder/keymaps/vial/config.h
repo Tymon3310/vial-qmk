@@ -5,4 +5,4 @@
 #define VIAL_KEYBOARD_UID {0x19, 0x6E, 0x81, 0x57, 0x62, 0xCA, 0x88, 0xC8}
 
 #define VIAL_UNLOCK_COMBO_ROWS { 0, 2 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 17 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 3 }
