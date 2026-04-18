@@ -10,13 +10,13 @@
     },
     "features": {
         "bootmagic": false,
-        "extrakey" : true,
-        "mousekey" : true,
-        "dip_switch" : true,
-        "nkro" : true,
+        "extrakey": true,
+        "mousekey": true,
+        "dip_switch": true,
+        "nkro": true,
         "rgb_matrix": true,
-        "raw" : true,
-        "send_string" : true
+        "raw": true,
+        "send_string": true
     },
     "matrix_pins": {
         "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null],
@@ -25,7 +25,7 @@
         "custom_lite": true
     },
     "diode_direction": "ROW2COL",
-    "dip_switch" :{
+    "dip_switch": {
         "pins": ["B12"]
     },
     "rgb_matrix": {

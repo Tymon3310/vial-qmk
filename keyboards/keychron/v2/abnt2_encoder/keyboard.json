@@ -18,7 +18,7 @@
             {"pin_a": "B14", "pin_b": "B15"}
         ]
     },
-    "dip_switch" :{
+    "dip_switch": {
         "pins": ["B10"]
     },
     "eeprom": {

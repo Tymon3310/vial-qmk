@@ -107,7 +107,7 @@
     },
     "rgb_matrix": {
         "driver": "snled27351_spi",
-        "sleep":true,
+        "sleep": true,
         "animations": {
             "breathing": true,
             "band_spiral_val": true,

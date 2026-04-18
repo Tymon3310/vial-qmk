@@ -5,8 +5,8 @@
     },
     "features": {
         "encoder": true,
-        "encoder_map":true,
-        "send_string" : true
+        "encoder_map": true,
+        "send_string": true
     },
     "encoder": {
         "rotary": [

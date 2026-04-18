@@ -12,7 +12,7 @@
     "bootloader": "stm32-dfu",
     "features": {
         "encoder": true,
-        "encoder_map":true
+        "encoder_map": true
     },
     "dip_switch": {
         "matrix_grid": [ [5, 4] ]

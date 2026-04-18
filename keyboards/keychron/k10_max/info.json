@@ -22,7 +22,7 @@
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
-    "dip_switch" :{
+    "dip_switch": {
         "pins": ["B12"]
     },
     "dynamic_keymap": {

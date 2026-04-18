@@ -10,19 +10,19 @@
     },
     "features": {
         "bootmagic": true,
-        "extrakey" : true,
-        "mousekey" : true,
-        "dip_switch" : true,
-        "nkro" : true,
+        "extrakey": true,
+        "mousekey": true,
+        "dip_switch": true,
+        "nkro": true,
         "rgb_matrix": true,
-        "send_string" : true
+        "send_string": true
     },
     "matrix_pins": {
         "cols": ["C6", "C7", "C8", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", "C3", "A0", "A1", "A2", "A3", "C9"],
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
-    "dip_switch" :{
+    "dip_switch": {
         "pins": ["A8"]
     },
     "encoder": {

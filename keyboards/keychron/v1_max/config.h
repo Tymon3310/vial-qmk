@@ -7,11 +7,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -61,16 +61,16 @@
 
 #    if defined(RGB_MATRIX_ENABLE)
 
-#    define BT_INDCATION_LED_MATRIX_LIST \
-        { 15, 16, 17 }
+#        define BT_INDCATION_LED_MATRIX_LIST \
+            { 15, 16, 17 }
 
-#    define P24G_INDICATION_LED_INDEX 18
+#        define P24G_INDICATION_LED_INDEX 18
 
-#    define BAT_LEVEL_LED_LIST \
-        { 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 }
+#        define BAT_LEVEL_LED_LIST \
+            { 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 }
 
 /* Reinit LED driver on tranport changed */
-#    define LED_DRIVER_REINIT_ON_TRANSPORT_CHANGE
+#        define LED_DRIVER_REINIT_ON_TRANSPORT_CHANGE
 #    endif
 
 /* Keep USB connection in wireless mode */

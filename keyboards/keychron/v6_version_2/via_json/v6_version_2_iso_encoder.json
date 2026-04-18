@@ -66,17 +66,17 @@
   ],
   "matrix": {"rows": 6, "cols": 20},
   "customKeycodes": [
-   {"name": "Misson Control", "title": "Misson Control in macOS", "shortName": "MCtl"},
-    {"name": "Launch pad", "title": "Launch pad in macOS", "shortName": "LPad"},
+   {"name": "Misson Control", "title": "Misson Control on macOS", "shortName": "MCtl"},
+    {"name": "Launch pad", "title": "Launch pad on macOS", "shortName": "LPad"},
     {"name": "Left Option", "title": "Left Option", "shortName": "LOpt"},
     {"name": "Right Option", "title": "Right Option", "shortName": "ROpt"},
     {"name": "Left Cmd", "title": "Left Command", "shortName": "LCmd"},
     {"name": "Right Cmd", "title": "Right Command", "shortName": "RCmd"},
-    {"name": "Siri", "title": "Siri in macOS", "shortName": "Siri"},
-    {"name": "Task View", "title": "Task View in Windows", "shortName": "Task"},
-    {"name": "File Explorer", "title": "File Explorer in Windows", "shortName": "File"},
-    {"name": "Screen shot", "title": "Screenshot in macOS", "shortName": "SShot"},
-    {"name": "Cortana", "title": "Cortana in Windows", "shortName": "Cortana"}
+    {"name": "Siri", "title": "Siri on macOS", "shortName": "Siri"},
+    {"name": "Task View", "title": "Task View on Windows", "shortName": "Task"},
+    {"name": "File Explorer", "title": "File Explorer on Windows", "shortName": "File"},
+    {"name": "Screen shot", "title": "Screenshot on macOS", "shortName": "SShot"},
+    {"name": "Cortana", "title": "Cortana on Windows 10", "shortName": "Cortana"}
   ],
   "layouts": {
     "keymap": [

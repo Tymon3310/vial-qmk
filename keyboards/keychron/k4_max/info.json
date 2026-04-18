@@ -17,7 +17,7 @@
         "raw": true,
         "send_string": true
     },
-    "dip_switch" :{
+    "dip_switch": {
        "pins": ["B12"]
     },
     "dynamic_keymap": {

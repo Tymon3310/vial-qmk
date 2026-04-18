@@ -10,12 +10,12 @@
     },
     "features": {
         "bootmagic": true,
-        "extrakey" : true,
-        "mousekey" : true,
-        "dip_switch" : true,
+        "extrakey": true,
+        "mousekey": true,
+        "dip_switch": true,
         "encoder": true,
         "encoder_map": true,
-        "nkro" : true,
+        "nkro": true,
         "rgb_matrix": true,
         "raw": true,
         "send_string": true
@@ -35,7 +35,7 @@
             }
         ]
     },
-    "dip_switch" :{
+    "dip_switch": {
         "pins": ["B12"]
     },
     "rgb_matrix": {

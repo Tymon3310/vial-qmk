@@ -7,7 +7,7 @@
     },
     "features": {
         "encoder": true,
-        "encoder_map":true
+        "encoder_map": true
     },
     "encoder": {
         "rotary": [

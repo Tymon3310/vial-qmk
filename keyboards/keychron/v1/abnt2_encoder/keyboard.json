@@ -5,7 +5,7 @@
     },
     "features": {
         "encoder": true,
-        "encoder_map":true
+        "encoder_map": true
     },
     "encoder": {
         "rotary": [
@@ -172,7 +172,7 @@
             {"matrix":[3, 15], "flags": 1, "x":224, "y": 40},
 
             {"matrix":[4, 0], "flags": 1, "x":9, "y": 52},
-            {"matrix":[4, 1], "flags": 1, "x":18, "y" :52},
+            {"matrix":[4, 1], "flags": 1, "x":18, "y": 52},
             {"matrix":[4, 2], "flags": 4, "x":33, "y": 52},
             {"matrix":[4, 3], "flags": 4, "x":48, "y": 52},
             {"matrix":[4, 4], "flags": 4, "x":59, "y": 52},

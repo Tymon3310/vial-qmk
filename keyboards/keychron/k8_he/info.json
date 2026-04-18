@@ -10,10 +10,10 @@
     },
     "features": {
         "bootmagic": true,
-        "extrakey" : true,
-        "mousekey" : true,
-        "dip_switch" : true,
-        "nkro" : true,
+        "extrakey": true,
+        "mousekey": true,
+        "dip_switch": true,
+        "nkro": true,
         "rgb_matrix": true,
         "raw": true,
         "send_string": true
@@ -29,7 +29,7 @@
         "caps_lock": "B14",
         "on_state": 1
     },
-    "dip_switch" :{
+    "dip_switch": {
         "pins": ["B12"]
     },
     "rgb_matrix": {

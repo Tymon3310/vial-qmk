@@ -56,7 +56,7 @@
             "pin": "A9"
         },
         "transport": {
-            "sync" :{
+            "sync": {
                 "matrix_state": true
             }
         },
