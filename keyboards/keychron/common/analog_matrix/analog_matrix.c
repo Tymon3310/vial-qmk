@@ -595,6 +595,7 @@ void analog_matrix_eeconfig_init(void) {
     profile_init(reset_profiles);
 
     uint8_t *buf = (uint8_t *)malloc(EECONFIG_SIZE_ANALOG_MATRIX);
+    if (buf == NULL) return;
     memset(buf, 0, EECONFIG_SIZE_ANALOG_MATRIX);
 
     eeprom_read_block(buf, (void *)EECONFIG_BASE_ANALOG_MATRIX, EECONFIG_SIZE_ANALOG_MATRIX);

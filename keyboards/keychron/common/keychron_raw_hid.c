@@ -294,6 +294,9 @@ bool kc_raw_hid_rx(uint8_t src, uint8_t *data, uint8_t length) {
 /* Override raw_hid_receive_kb to handle Keychron-specific commands */
 /* VIA will send the response for us, so we just modify data[] */
 void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
+#        ifdef VIAL_ENABLE
+    if (data[0] == 0xFE) return;
+#        endif
     /* Try to handle as Keychron command, if not handled set id_unhandled */
     if (!kc_raw_hid_rx(RAW_HID_SRC_USB, data, length)) {
         data[0] = 0xFF; /* id_unhandled */

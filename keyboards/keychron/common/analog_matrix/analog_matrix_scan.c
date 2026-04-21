@@ -286,6 +286,8 @@ void matrix_init_custom(void) {
     // Refer to STM32 AN4073 Option 2
     SYSCFG->PMC |= SYSCFG_PMC_ADC1DC2;
 
+    analog_matrix_init();
+
     // Value of initial ADC seems abnormal, scan to skip/drop i
     for (uint8_t i = 0; i < 5; i++)
         for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
@@ -296,8 +298,6 @@ void matrix_init_custom(void) {
         analog_raw_matrix[i] = 0;
         changed_matrix[i]    = 0;
     }
-
-    analog_matrix_init();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
