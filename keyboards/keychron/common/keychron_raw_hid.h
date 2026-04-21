@@ -87,3 +87,4 @@ enum {
 };
 
 void kc_raw_hid_send(uint8_t src, uint8_t *data, uint8_t len);
+bool kc_raw_hid_rx(uint8_t src, uint8_t *data, uint8_t length);

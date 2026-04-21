@@ -7,17 +7,16 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include QMK_KEYBOARD_H
-#include "keychron_common.h"
 
-enum layers {
+enum layers{
     MAC_BASE,
     MAC_FN,
     WIN_BASE,
@@ -59,30 +58,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,  _______,  _______,  _______),
 };
 
-// clang-format on
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron_common(keycode, record)) {
-        return false;
-    }
-    return true;
-}
-
-void keyboard_post_init_user(void) {
-    gpio_set_pin_output(LED_MAC_OS_PIN);
-    gpio_set_pin_output(LED_WIN_OS_PIN);
-    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-}
-
-void housekeeping_task_user(void) {
-    keychron_common_task();
-
-    if (default_layer_state == (1U << 0)) {
-        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
-        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
-    } else if (default_layer_state == (1U << 2)) {
-        gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
-        gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
-    }
-}

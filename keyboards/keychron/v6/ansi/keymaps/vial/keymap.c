@@ -1,4 +1,4 @@
-/* Copyright 2021 ~ 2025 @ Keychron (https://www.keychron.com)
+/* Copyright 2025 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -7,26 +7,27 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
 
-enum layers {
-    MAC_BASE,
-    MAC_FN,
-    WIN_BASE,
-    WIN_FN,
+// clang-format off
+enum layers{
+  MAC_BASE,
+  MAC_FN,
+  WIN_BASE,
+  WIN_FN
 };
 
 #define FN_MAC MO(MAC_FN)
 #define FN_WIN MO(WIN_FN)
-// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_108(
         KC_ESC,             KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  UG_VALD,  UG_VALU,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_SNAP,  KC_SIRI,  UG_NEXT,  KC_F13,   KC_F14,   KC_F15,   KC_F16,
