@@ -654,8 +654,6 @@ void analog_matrix_eeconfig_init(void) {
 
     auto_calibration_init();
     cali_state = CALIB_ZERO_TRAVEL_POWER_ON;
-
-    free(buf);
 }
 
 void analog_matrix_init(void) {
