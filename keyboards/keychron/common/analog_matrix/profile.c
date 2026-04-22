@@ -112,19 +112,13 @@ void profile_init(bool reset) {
         for (uint8_t i = 0; i < PROFILE_COUNT; i++)
             profile_reset(i);
     } else {
-        uint8_t *buf = (uint8_t *)malloc(EECONFIG_SIZE_ANALOG_MATRIX);
-        if (buf == NULL) return;
-        memset(buf, 0, EECONFIG_SIZE_ANALOG_MATRIX);
-
-        eeprom_read_block(buf, (void *)EECONFIG_BASE_ANALOG_MATRIX, EECONFIG_SIZE_ANALOG_MATRIX);
-
-        current_profile_index = buf[OFFSET_CURRENT_PROFILE];
+        eeprom_read_block(&current_profile_index, (void *)(EECONFIG_BASE_ANALOG_MATRIX + OFFSET_CURRENT_PROFILE), 1);
         if (current_profile_index >= PROFILE_COUNT) current_profile_index = 0;
 
         cur_prof = &profile[current_profile_index];
 
         // Load profile data
-        memcpy(profile, buf + OFFSET_PROFILES_START, PROFILE_SIZE * PROFILE_COUNT);
+        eeprom_read_block(profile, (void *)(EECONFIG_BASE_ANALOG_MATRIX + OFFSET_PROFILES_START), PROFILE_SIZE * PROFILE_COUNT);
 
         for (uint8_t i = 0; i < PROFILE_COUNT; i++) {
             if (profile[i].global.mode == 0) profile[i].global.mode = profile_gobal_mode[i]; // global mode can't be 0
@@ -134,8 +128,6 @@ void profile_init(bool reset) {
             if (profile[i].global.rpd_trig_sen == 0 || profile[i].global.rpd_trig_sen > 39) profile[i].global.rpd_trig_sen = DEFAULT_RAPID_TRIGGER_SENSITIVITY;
             if (profile[i].global.rpd_trig_sen_deact == 0 || profile[i].global.rpd_trig_sen > 39) profile[i].global.rpd_trig_sen_deact = profile[i].global.rpd_trig_sen;
         }
-
-        free(buf);
     }
 }
 

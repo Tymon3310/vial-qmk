@@ -596,41 +596,38 @@ void analog_matrix_eeconfig_init(void) {
 
     profile_init(reset_profiles);
 
-    uint8_t *buf = (uint8_t *)malloc(EECONFIG_SIZE_ANALOG_MATRIX);
-    if (buf == NULL) return;
-    memset(buf, 0, EECONFIG_SIZE_ANALOG_MATRIX);
-
-    eeprom_read_block(buf, (void *)EECONFIG_BASE_ANALOG_MATRIX, EECONFIG_SIZE_ANALOG_MATRIX);
-
     // Load curve points
     point_t curve[CURVE_POINTS_COUNT];
-    memcpy(curve, buf + OFFSET_CURVE_PTS_START, CURVE_POINTS_COUNT * SIZE_OF_POINT_T);
+    eeprom_read_block(curve, (void *)(EECONFIG_BASE_ANALOG_MATRIX + OFFSET_CURVE_PTS_START), CURVE_POINTS_COUNT * SIZE_OF_POINT_T);
     game_controller_curve_init(curve);
-    game_controller_mode_init(buf[OFFSET_GAME_CONTROLLER_MODE_START]);
+
+    uint8_t gc_mode;
+    eeprom_read_block(&gc_mode, (void *)(EECONFIG_BASE_ANALOG_MATRIX + OFFSET_GAME_CONTROLLER_MODE_START), 1);
+    game_controller_mode_init(gc_mode);
 
     // Load calibration data
-    calibrated = buf[OFFSET_CALIBRATION];
+    eeprom_read_block(&calibrated, (void *)(EECONFIG_BASE_ANALOG_MATRIX + OFFSET_CALIBRATION), 1);
     memset(calib_values, 0, sizeof(calib_values));
     memset(saved_calib_values, 0, sizeof(saved_calib_values));
 
     if (calibrated) {
-        memcpy(saved_calib_values, buf + OFFSET_CALIBRATED_DATA_START, sizeof(saved_calib_values));
+        eeprom_read_block(saved_calib_values, (void *)(EECONFIG_BASE_ANALOG_MATRIX + OFFSET_CALIBRATED_DATA_START), sizeof(saved_calib_values));
     } else {
-        uint32_t buf;
-        he_eeprom_read_block(&buf, 0, 4); // Magic number
+        uint32_t magic;
+        he_eeprom_read_block(&magic, 0, 4); // Magic number
 
-        if (buf != VENDOR_ID) {
+        if (magic != VENDOR_ID) {
             he_eeprom_driver_erase();
-            buf = VENDOR_ID;
-            he_eeprom_write_block(&buf, 0, 4);
+            magic = VENDOR_ID;
+            he_eeprom_write_block(&magic, 0, 4);
             // cali_state = CALIB_ZERO_TRAVEL;
         } else {
             he_eeprom_read_block(&calibrated, (void *)(EXTERNAL_EEPROM_OFFSET + OFFSET_CALIBRATION), 1);
             if (calibrated) {
-                he_eeprom_read_block(saved_calib_values, (void *)(EXTERNAL_EEPROM_OFFSET + OFFSET_CALIBRATED_DATA_START), sizeof(calib_values));
+                he_eeprom_read_block(saved_calib_values, (void *)(EXTERNAL_EEPROM_OFFSET + OFFSET_CALIBRATED_DATA_START), sizeof(saved_calib_values));
                 // Save to emulated EEPROM
-                analog_matrix_eeprom_update(&calibrated, OFFSET_CALIBRATION, 1);
-                analog_matrix_eeprom_update(saved_calib_values, (uint8_t *)OFFSET_CALIBRATED_DATA_START, sizeof(saved_calib_values));
+                analog_matrix_eeprom_update(&calibrated, (void *)OFFSET_CALIBRATION, 1);
+                analog_matrix_eeprom_update(saved_calib_values, (void *)OFFSET_CALIBRATED_DATA_START, sizeof(saved_calib_values));
             }
         }
     }
