@@ -590,6 +590,8 @@ void analog_matrix_eeconfig_init(void) {
         // KB EEPROM version mismatch (e.g. upgrading from stock to Vial firmware):
         // reset profiles to defaults so stale per-key mode bytes don't silence the keyboard.
         reset_profiles = true;
+        // Also update the version word so we don't reset every boot.
+        eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
     }
 
     profile_init(reset_profiles);

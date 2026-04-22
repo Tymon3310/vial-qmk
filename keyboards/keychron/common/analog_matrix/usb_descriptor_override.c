@@ -116,16 +116,19 @@ void get_usb_descriptor_kb(const uint16_t wValue, const uint16_t wIndex, const u
                         static uint8_t *input_mode_rpt_desc = NULL;
                         if (input_mode_rpt_desc == NULL) {
                             input_mode_rpt_desc = (uint8_t *)malloc(original_hid_rpt_len);
+                            if (input_mode_rpt_desc != NULL) {
+                                memcpy(input_mode_rpt_desc, &SharedReport, original_hid_rpt_len);
 
-                            memcpy(input_mode_rpt_desc, &SharedReport, original_hid_rpt_len);
-
-                            if (pos_begin < original_hid_rpt_len - 4 && pos_end < original_hid_rpt_len - 2) {
-                                // Move xinput descriptor
-                                memcpy(input_mode_rpt_desc + pos_begin, input_mode_rpt_desc + pos_end, original_hid_rpt_len - pos_end);
+                                if (pos_begin < original_hid_rpt_len - 4 && pos_end < original_hid_rpt_len - 2) {
+                                    // Move xinput descriptor
+                                    memcpy(input_mode_rpt_desc + pos_begin, input_mode_rpt_desc + pos_end, original_hid_rpt_len - pos_end);
+                                }
                             }
                         }
-                        *DescriptorAddress = input_mode_rpt_desc;
-                        *size              = len;
+                        if (input_mode_rpt_desc != NULL) {
+                            *DescriptorAddress = input_mode_rpt_desc;
+                            *size              = len;
+                        }
                     }
                     break;
 #    endif
