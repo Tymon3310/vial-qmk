@@ -21,11 +21,11 @@
 #include <stdio.h>
 #include "game_controller_common.h"
 
-extern USB_Descriptor_Configuration_t PROGMEM            ConfigurationDescriptor[];
+extern const USB_Descriptor_Configuration_t PROGMEM      ConfigurationDescriptor;
 extern const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[];
 
 bool get_joy_stick_report_descriptor_info(uint16_t *pos_begin, uint16_t *pos_end) {
-    uint16_t share_report_len             = ConfigurationDescriptor->Shared_HID.HIDReportLength;
+    uint16_t share_report_len             = ConfigurationDescriptor.Shared_HID.HIDReportLength;
     uint8_t  joystick_report_key_begin[4] = {0x05, 0x01, 0x09, 0x04};
     bool     find                         = false;
 
@@ -52,11 +52,14 @@ void get_usb_descriptor_kb(const uint16_t wValue, const uint16_t wIndex, const u
 
     const uint8_t   DescriptorType  = (wValue >> 8);
     const uint8_t   DescriptorIndex = (wValue & 0xFF);
-    static bool     recal           = false;
+    static USB_Descriptor_Configuration_t config_desc;
     static uint16_t pos_begin, pos_end;
     static uint16_t original_hid_rpt_len = 0;
 
-    if (original_hid_rpt_len == 0) original_hid_rpt_len = ConfigurationDescriptor->Shared_HID.HIDReportLength;
+    if (original_hid_rpt_len == 0) original_hid_rpt_len = ConfigurationDescriptor.Shared_HID.HIDReportLength;
+    if ((pos_begin == 0 && pos_end == 0) && original_hid_rpt_len != 0) {
+        get_joy_stick_report_descriptor_info(&pos_begin, &pos_end);
+    }
 
     switch (DescriptorType) {
         case DTYPE_String:
@@ -71,16 +74,19 @@ void get_usb_descriptor_kb(const uint16_t wValue, const uint16_t wIndex, const u
         case DTYPE_Configuration:
 #    if defined(JOYSTICK_SHARED_EP)
         {
+            memcpy(&config_desc, &ConfigurationDescriptor, sizeof(config_desc));
+            *DescriptorAddress = &config_desc;
+            *size              = sizeof(config_desc);
+
             if (game_controller_xinput_enabled()) {
-                if (!recal && get_joy_stick_report_descriptor_info(&pos_begin, &pos_end)) {
-                    ConfigurationDescriptor->Shared_HID.HIDReportLength -= (pos_end - pos_begin);
-                    recal = true;
+                if (pos_end > pos_begin) {
+                    config_desc.Shared_HID.HIDReportLength -= (pos_end - pos_begin);
                 }
             } else {
                 uint8_t xinput_desc_len                                = sizeof(USB_Descriptor_Interface_t) + 0x11 + sizeof(USB_Descriptor_Endpoint_t) * 2;
-                ConfigurationDescriptor->Config.TotalInterfaces        = TOTAL_INTERFACES - 1;
-                ConfigurationDescriptor->Config.TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t) - xinput_desc_len;
-                *size                                                  = sizeof(USB_Descriptor_Configuration_t) - xinput_desc_len;
+                config_desc.Config.TotalInterfaces                     = TOTAL_INTERFACES - 1;
+                config_desc.Config.TotalConfigurationSize              = sizeof(USB_Descriptor_Configuration_t) - xinput_desc_len;
+                *size                                                  = config_desc.Config.TotalConfigurationSize;
             }
         }
 #    else
@@ -110,7 +116,11 @@ void get_usb_descriptor_kb(const uint16_t wValue, const uint16_t wIndex, const u
                 case SHARED_INTERFACE:
 
                     *DescriptorAddress = &SharedReport;
-                    uint16_t len       = ConfigurationDescriptor->Shared_HID.HIDReportLength;
+                    uint16_t len       = original_hid_rpt_len;
+
+                    if (game_controller_xinput_enabled() && pos_end > pos_begin) {
+                        len -= (pos_end - pos_begin);
+                    }
 
                     if (game_controller_xinput_enabled()) {
                         static uint8_t *input_mode_rpt_desc = NULL;
