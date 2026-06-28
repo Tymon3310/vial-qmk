@@ -52,10 +52,24 @@ void    wireless_send_keyboard(report_keyboard_t *report);
 void    wireless_send_nkro(report_nkro_t *report);
 void    wireless_send_mouse(report_mouse_t *report);
 void    wireless_send_extra(report_extra_t *report);
+void    wireless_send_joystick(report_joystick_t *report);
+void    wireless_send_xinput(report_xinput_t *report);
+void    wireless_send_raw_hid(uint8_t *data, uint8_t len);
 bool    process_record_wireless(uint16_t keycode, keyrecord_t *record);
 
 /* host struct */
-host_driver_t wireless_driver = {wreless_keyboard_leds, wireless_send_keyboard, wireless_send_nkro, wireless_send_mouse, wireless_send_extra};
+host_driver_t wireless_driver = {
+    wreless_keyboard_leds,  wireless_send_keyboard, wireless_send_nkro, wireless_send_mouse, wireless_send_extra,
+#ifdef JOYSTICK_ENABLE
+    wireless_send_joystick,
+#endif
+#ifdef XINPUT_ENABLE
+    wireless_send_xinput,
+#endif
+#ifdef RAW_ENABLE
+    wireless_send_raw_hid,
+#endif
+};
 
 #define WT_EVENT_QUEUE_SIZE 16
 wireless_event_t wireless_event_queue[WT_EVENT_QUEUE_SIZE];
@@ -350,12 +364,11 @@ bool is_wireless_pin_code_entry(void) {
 static void wireless_enter_sleep(void) {
     kc_printf("wireless_enter_sleep %d\n\r", wireless_state);
     uint8_t prev_state = wireless_state;
-    led_state = 0;
+    led_state          = 0;
     if (get_transport() & TRANSPORT_WIRELESS) led_update_kb((led_t)led_state);
 
     wireless_state = WT_SUSPEND;
     if (prev_state == WT_CONNECTED || prev_state == WT_PARING) {
-
         kc_printf("WT_SUSPEND\n\r");
         lpm_timer_reset();
 
@@ -484,6 +497,48 @@ void wireless_send_extra(report_extra_t *report) {
     } else if (report->report_id == REPORT_ID_CONSUMER) {
         wireless_send_consumer(report->usage);
     }
+}
+
+void wireless_send_joystick(report_joystick_t *report) {
+#ifdef JOYSTICK_ENABLE
+    if (battery_is_critical_low()) return;
+
+    if (wireless_state == WT_CONNECTED) {
+        if (wireless_transport.send_joystick) {
+            wireless_transport.send_joystick((uint8_t *)(report->axes));
+        }
+    } else if (wireless_state != WT_RESET) {
+        wireless_connect();
+    }
+#endif
+}
+
+void wireless_send_xinput(report_xinput_t *report) {
+#ifdef XINPUT_ENABLE
+    if (battery_is_critical_low()) return;
+
+    if (wireless_state == WT_CONNECTED) {
+        if (wireless_transport.send_xinput) {
+            wireless_transport.send_xinput((uint8_t *)report);
+        }
+    } else if (wireless_state != WT_RESET) {
+        wireless_connect();
+    }
+#endif
+}
+
+void wireless_send_raw_hid(uint8_t *data, uint8_t len) {
+#ifdef RAW_ENABLE
+    if (battery_is_critical_low()) return;
+
+    if (wireless_state == WT_CONNECTED) {
+        if (wireless_transport.send_raw_hid) {
+            wireless_transport.send_raw_hid(data, len);
+        }
+    } else if (wireless_state != WT_RESET) {
+        wireless_connect();
+    }
+#endif
 }
 
 void wireless_low_battery_shutdown(void) {
@@ -641,7 +696,7 @@ bool wireless_lpm_set(uint8_t *data) {
         indicator_set_backlit_timeout(backlit_disable_time * 1000);
         indicator_reset_backlit_time();
 
-#ifdef MOUSEKEY_ENABLE
+#    ifdef MOUSEKEY_ENABLE
         // Wiggle mouse to reset bluetooth module timer
         mousekey_on(MS_LEFT);
         mousekey_send();
@@ -652,21 +707,21 @@ bool wireless_lpm_set(uint8_t *data) {
         mousekey_off(MS_RGHT);
         mousekey_send();
         wait_ms(10);
-#else
+#    else
         set_mods(0x02);
         send_keyboard_report();
         wait_ms(10);
         del_mods(0x02);
         send_keyboard_report();
-#endif
+#    endif
     }
 
     // Update bluetooth module param
-#if defined(LK_WIRELESS_ENABLE)
+#    if defined(LK_WIRELESS_ENABLE)
     lkbt51_param_init();
-#elif defined(KC_BLUETOOTH_ENABLE)
+#    elif defined(KC_BLUETOOTH_ENABLE)
     ckbt51_param_init();
-#endif
+#    endif
     return true;
 }
 

@@ -41,9 +41,6 @@
 /* Use local kecodes file */
 #define CUSTOM_KEYCODES_ENABLE
 
-/* WB32 UID reg address */
-#define UID_BASE (0x1FFFF204UL)
-
 /* Factory test keys */
 #define FN_KEY_1 MO(1)
 #define FN_KEY_2 MO(3)

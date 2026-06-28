@@ -29,14 +29,14 @@ typedef struct {
     void (*send_nkro)(report_nkro_t *);
     void (*send_mouse)(report_mouse_t *);
     void (*send_extra)(report_extra_t *);
-#ifdef RAW_ENABLE
-    void (*send_raw_hid)(uint8_t *, uint8_t);
-#endif
 #ifdef JOYSTICK_ENABLE
-   void (*send_joystick)(report_joystick_t *);
+    void (*send_joystick)(report_joystick_t *);
 #endif
 #ifdef XINPUT_ENABLE
-   void (*send_xinput)(report_xinput_t *);
+    void (*send_xinput)(report_xinput_t *);
+#endif
+#ifdef RAW_ENABLE
+    void (*send_raw_hid)(uint8_t *, uint8_t);
 #endif
 } host_driver_t;
 

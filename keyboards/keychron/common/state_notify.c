@@ -19,16 +19,25 @@
 #include "raw_hid.h"
 #include "usb_descriptor.h"
 
-layer_state_t default_layer_state_set_kb(layer_state_t state) {
+static void layer_changed_nofity(layer_state_t default_layer, layer_state_t layer) {
 #ifdef RAW_ENABLE
     uint8_t buf[RAW_EPSIZE] = {0};
 
     buf[0] = KC_GET_DEFAULT_LAYER;
-    buf[1] = get_highest_layer(state);
-
+    buf[1] = get_highest_layer(default_layer);
+    buf[2] = get_highest_layer(layer);
     raw_hid_send(buf, RAW_EPSIZE);
 #endif
+}
+
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+    layer_changed_nofity(state, layer_state);
     return default_layer_state_set_user(state);
+}
+
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    layer_changed_nofity(default_layer_state, state);
+    return layer_state_set_user(state);
 }
 
 void factory_reset_nofity(void) {

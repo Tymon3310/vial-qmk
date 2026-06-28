@@ -74,14 +74,14 @@ host_driver_t chibios_driver = {
     .send_nkro     = send_nkro,
     .send_mouse    = send_mouse,
     .send_extra    = send_extra,
-#ifdef RAW_ENABLE
-    .send_raw_hid = send_raw_hid,
-#endif
 #ifdef JOYSTICK_ENABLE
-    .send_joystick= send_joystick,
+    .send_joystick = send_joystick,
 #endif
 #ifdef XINPUT_ENABLE
     .send_xinput = send_xinput,
+#endif
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
 #endif
 };
 
@@ -201,7 +201,7 @@ void protocol_pre_task(void) {
                 wait_ms(USB_SUSPEND_WAKEUP_DELAY);
 #    endif
                 wait_ms(300);
-#ifdef MOUSEKEY_ENABLE
+#    ifdef MOUSEKEY_ENABLE
                 // Wiggle to wakeup
                 mousekey_on(MS_LEFT);
                 mousekey_send();
@@ -211,7 +211,7 @@ void protocol_pre_task(void) {
                 wait_ms(10);
                 mousekey_off((MS_RGHT));
                 mousekey_send();
-#endif
+#    endif
             }
         }
         /* Woken up */

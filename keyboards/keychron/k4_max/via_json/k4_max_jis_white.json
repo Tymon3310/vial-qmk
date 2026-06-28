@@ -8,8 +8,8 @@
     {"name": "Right Option", "title": "Right Option", "shortName": "ROpt"},
     {"name": "Left Cmd", "title": "Left Command", "shortName": "LCmd"},
     {"name": "Right Cmd", "title": "Right Command", "shortName": "RCmd"},
-    {"name": "Misson Control", "title": "Misson Control on macOS", "shortName": "MCtl"},
-    {"name": "Launch Pad", "title": "Launch Pad on macOS", "shortName": "LPad"},
+    {"name": "Mission Control", "title": "Mission Control on macOS", "shortName": "MCtl"},
+    {"name": "Launchpad", "title": "Launchpad on macOS", "shortName": "LPad"},
     {"name": "Task View", "title": "Task View on Windows", "shortName": "Task"},
     {"name": "File Explorer", "title": "File Explorer on Windows", "shortName": "File"},
     {"name": "Screen shot", "title": "Screenshot on macOS", "shortName": "SShot"},
@@ -23,7 +23,7 @@
     {"name": "Effect Speed+", "title": "BL_SPI", "shortName": "BL_SPI"},
     {"name": "Effect Speed-", "title": "BL_SPD", "shortName": "BL_SPD"}
   ],
-  "matrix": {"rows": 6, "cols" : 18},
+  "matrix": {"rows": 6, "cols": 18},
   "layouts": {
     "keymap": [
         [
@@ -231,7 +231,7 @@
          "5,9",
          "5,10",
          {
-           "w" :1.25
+           "w": 1.25
          },
          "5,11",
          "5,12",

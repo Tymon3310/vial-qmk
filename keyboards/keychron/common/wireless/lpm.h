@@ -22,6 +22,9 @@
 #if defined(QMK_MCU_SERIES_STM32F4XX)
 #    include "lpm_stm32f401.h"
 #endif
+#if defined(QMK_MCU_SERIES_WB32F3G71XX)
+#    include "lpm_wb32f3g71.h"
+#endif
 
 #ifndef DEFAULT_PROCESS_TIME
 #    define DEFAULT_PROCESS_TIME 3000

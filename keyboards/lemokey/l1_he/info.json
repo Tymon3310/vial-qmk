@@ -10,14 +10,14 @@
     },
     "features": {
         "bootmagic": true,
-        "extrakey" : true,
-        "mousekey" : true,
+        "extrakey": true,
+        "mousekey": true,
         "encoder": true,
         "encoder_map": true,
-        "nkro" : true,
+        "nkro": true,
         "rgb_matrix": true,
-        "raw" : true,
-        "send_string" : true
+        "raw": true,
+        "send_string": true
     },
     "matrix_pins": {
         "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
