@@ -25,7 +25,7 @@
 #    define kc_printf(format, ...)
 #endif
 
-#define RAW_HID_SRC_WIRELESS (RAW_HID_SRC_USB+1)
+#define RAW_HID_SRC_WIRELESS (RAW_HID_SRC_USB + 1)
 
 /* XOR key for encoding raw HID data over wireless.
  * The LKBT51 module's proprietary firmware crashes when certain byte values
@@ -81,7 +81,15 @@ typedef struct {
     void (*send_consumer)(uint16_t);
     void (*send_system)(uint16_t);
     void (*send_mouse)(uint8_t *);
+#ifdef JOYSTICK_ENABLE
+    void (*send_joystick)(uint8_t *);
+#endif
+#ifdef XINPUT_ENABLE
+    void (*send_xinput)(uint8_t *);
+#endif
+#ifdef RAW_ENABLE
     void (*send_raw_hid)(uint8_t *, uint8_t);
+#endif
     void (*update_bat_level)(uint8_t);
     void (*task)(void);
 } wt_func_t;

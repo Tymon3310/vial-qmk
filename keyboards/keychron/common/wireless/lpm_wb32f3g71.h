@@ -1,4 +1,4 @@
-/* Copyright 2024 ~ 2026 @ Keychron (https://www.keychron.com)
+/* Copyright 2024 ~ 2026 @ lokher (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,23 +16,9 @@
 
 #pragma once
 
-#ifdef LED_MATRIX_ENABLE
-/* LED matrix driver configuration */
-#    define SNLED27351_SELECT_PINS \
-        { B9 }
-
-/* LED Matrix Current Configuration */
-#    define SNLED27351_PHASE_CHANNEL SNLED27351_SCAN_PHASE_7_CHANNEL
-#    define SNLED27351_CURRENT_TUNE \
-        { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
-
-/* LED Matrix Configuration */
-#    define LED_MATRIX_LED_COUNT 100
-
-/* Indications */
-#    define CAPS_LOCK_INDEX 54
-#    define NUM_LOCK_INDEX 32
-#    define LOW_BAT_IND_INDEX \
-        { 91 }
-
-#endif
+typedef enum {
+    PM_RUN,
+    PM_SLEEP,
+    PM_STOP,
+    PM_STANDBY,
+} pm_t;

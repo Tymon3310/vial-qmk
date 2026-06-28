@@ -110,13 +110,16 @@ void lkbt51_send_nkro(uint8_t* report);
 void lkbt51_send_consumer(uint16_t report);
 void lkbt51_send_system(uint16_t report);
 void lkbt51_send_mouse(uint8_t* report);
-void lkbt51_send_raw_hid(uint8_t *data, uint8_t len);
+void lkbt51_send_joysticks(uint8_t* report);
+void lkbt51_send_xinput(uint8_t* report);
+void lkbt51_send_raw_hid(uint8_t* data, uint8_t len);
 
 void lkbt51_become_discoverable(uint8_t host_idx, void* param);
 void lkbt51_connect(uint8_t hostIndex, uint16_t timeout);
 void lkbt51_disconnect(void);
 void lkbt51_switch_host(uint8_t hostIndex);
 void lkbt51_read_state_reg(uint8_t reg, uint8_t len);
+void lkbt51_set_xinput_mode(bool enable);
 
 void lkbt51_update_bat_lvl(uint8_t bat_lvl);
 void lkbt51_update_bat_state(uint8_t bat_state);

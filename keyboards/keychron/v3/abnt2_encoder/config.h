@@ -47,5 +47,3 @@
 #    define RGB_MATRIX_LED_COUNT 89
 #    define CAPS_LOCK_INDEX 50
 #endif
-
-#define UID_BASE (0x1FFFF204UL)

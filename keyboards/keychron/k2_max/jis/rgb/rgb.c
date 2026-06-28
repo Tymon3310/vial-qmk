@@ -136,7 +136,7 @@ led_config_t g_led_config = {
         {0, 0}, {15, 0}, {30, 0}, {45, 0}, {60, 0}, {75, 0}, { 90, 0}, {105, 0}, {119, 0}, {134, 0}, {149, 0}, {164, 0}, {179, 0}, {194, 0}, {209, 0}, {224, 0},
         {0,13}, {15,13}, {30,13}, {45,13}, {60,13}, {75,13}, { 90,13}, {105,13}, {119,13}, {134,13}, {149,13}, {164,13}, {179,13}, {194,13}, {209,13}, {224,13},
         {4,26}, {22,26}, {37,26}, {52,26}, {67,26}, {82,26}, { 97,26}, {112,26}, {127,26}, {142,26}, {157,26}, {172,26}, {187,26},           {207,32}, {224,26},
-        {6,38}, {26,38}, {41,38}, {56,38}, {71,38}, {86,38}, {101,38}, {116,38}, {131,38}, {146,38}, {161,38}, {175,38},           {190,38},           {224,38},
+        {6,38}, {26,38}, {41,38}, {56,38}, {71,38}, {86,38}, {101,38}, {116,38}, {131,38}, {146,38}, {161,38}, {175,38}, {190,38},                     {224,38},
         {9,51},          {34,51}, {49,51}, {64,51}, {78,51}, { 93,51}, {108,51}, {123,51}, {138,51}, {153,51}, {168,51},           {183,51}, {203,51}, {224,51},
         {0,64}, {15,64}, {30,64}, {45,64},                   { 90,64},                     {134,64}, {149,64}, {164,64}, {179,64}, {194,64}, {209,64}, {224,64}
     },
@@ -145,7 +145,7 @@ led_config_t g_led_config = {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    1,    1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,       1,
         1,    1, 1, 1, 1, 1, 1, 1, 1, 1, 1,    1, 1, 1,
         1, 1, 1, 1,       1,       1, 1, 1, 1, 1, 1, 1
     }
@@ -159,8 +159,8 @@ led_config_t g_led_config = {
 HSV default_per_key_led[RGB_MATRIX_LED_COUNT] = {
     DC_RED, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW,
     DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_YLW, DC_YLW,
-    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_YLW, DC_YLW,
-    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_RED,         DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_RED, DC_YLW,
+    DC_YLW, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,                 DC_YLW,
     DC_YLW,         DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU, DC_BLU,         DC_YLW, DC_YLW, DC_YLW,
     DC_YLW, DC_YLW, DC_YLW, DC_YLW,                 DC_BLU,                 DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW, DC_YLW
 };
@@ -170,7 +170,7 @@ uint8_t default_region[RGB_MATRIX_LED_COUNT] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0, 0,
-    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,    0,    0,
+    0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,       0,
     0,    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    0, 0, 0,
     0, 0, 0, 0,       0,       0, 0, 0, 0, 0, 0, 0
 };

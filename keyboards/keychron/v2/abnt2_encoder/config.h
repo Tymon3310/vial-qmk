@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* UID ADDRESS */
-#define UID_BASE (0x1FFFF204UL)
-
 /* I2C Driver Configuration */
 #define I2C1_SCL_PIN B8
 #define I2C1_SDA_PIN B9

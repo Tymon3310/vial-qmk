@@ -172,6 +172,7 @@ bool kc_raw_hid_rx(uint8_t src, uint8_t *data, uint8_t length) {
 
         case KC_GET_DEFAULT_LAYER:
             data[1] = get_highest_layer(default_layer_state);
+            data[2] = get_highest_layer(layer_state);
             break;
 
         case KC_GET_BATTERY_LEVEL:
