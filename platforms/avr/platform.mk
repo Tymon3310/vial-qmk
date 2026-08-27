@@ -12,6 +12,15 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
+ifneq ($(wildcard /usr/lib/avr/include),)
+    EXTRAINCDIRS += /usr/lib/avr/include
+endif
+CFLAGS += $(call cc-option,-Wno-strict-prototypes)
+CFLAGS += $(call cc-option,-Wno-array-bounds)
+CFLAGS += $(call cc-option,-Wno-error=strict-prototypes)
+CFLAGS += $(call cc-option,-Wno-unused-but-set-variable)
+CFLAGS += $(call cc-option,-Wno-error=unused-but-set-variable)
+CFLAGS += $(call cc-option,-Wno-error)
 COMPILEFLAGS += $(call cc-option,--param=min-pagesize=0)
 
 # Fix ICE's: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116389
@@ -63,6 +72,10 @@ MCUFLAGS = -mmcu=$(MCU)
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
+ifneq ($(wildcard /usr/lib/avr/lib),)
+    EXTRALIBDIRS += /usr/lib/avr/lib
+    LDFLAGS += -B/usr/lib/avr/lib
+endif
 
 
 #---------------- External Memory Options ----------------
@@ -224,3 +237,7 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
+
+CFLAGS += $(call cc-option,-Wno-error)
+CXXFLAGS += $(call cc-option,-Wno-error)
+

@@ -22,8 +22,7 @@
         "matrix_grid": [ [5, 4] ]
     },
     "rgb_matrix": {
-        "driver": "snled27351",
-    },
+        "driver": "snled27351"},
     "layouts": {
         "LAYOUT_iso_109": {
             "layout": [
