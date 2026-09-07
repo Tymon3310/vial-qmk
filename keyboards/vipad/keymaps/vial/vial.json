@@ -1,0 +1,130 @@
+{
+  "name": "Vipad",
+  "vendorId": "0xFEED",
+  "productId": "0x3310",
+  "lighting": {
+    "extends": "qmk_rgb_matrix",
+    "underglowEffects": [
+      [
+        "00. None",
+        0
+      ],
+      [
+        "01. Solid Color",
+        1
+      ],
+      [
+        "02. Breathing",
+        2
+      ],
+      [
+        "03. Band Spiral Val",
+        3
+      ],
+      [
+        "04. Cycle All",
+        4
+      ],
+      [
+        "05. Cycle Left Right",
+        5
+      ],
+      [
+        "06. Cycle Up Down",
+        6
+      ],
+      [
+        "07. Rainbow Moving Chevron",
+        7
+      ],
+      [
+        "08. Cycle Out In",
+        8
+      ],
+      [
+        "09. Cycle Out In Dual",
+        9
+      ],
+      [
+        "10. Cycle Pinwheel",
+        10
+      ],
+      [
+        "11. Cycle Spiral",
+        11
+      ],
+      [
+        "12. Dual Beacon",
+        12
+      ],
+      [
+        "13. Rainbow Beacon",
+        13
+      ],
+      [
+        "14. Jellybean Raindrops",
+        14
+      ],
+      [
+        "15. Pixel Rain",
+        15
+      ],
+      [
+        "16. Typing Heatmap",
+        16
+      ],
+      [
+        "17. Digital Rain",
+        17
+      ],
+      [
+        "18. Reactive Simple",
+        18
+      ],
+      [
+        "19. Reactive Multiwide",
+        19
+      ],
+      [
+        "20. Reactive Multinexus",
+        20
+      ],
+      [
+        "21. Splash",
+        21
+      ],
+      [
+        "22. Solid Splash",
+        22
+      ]
+    ]
+  },
+  "matrix": {
+    "rows": 5,
+    "cols": 4
+  },
+  "layouts": {
+    "keymap": [
+      [
+        {"w": 0.5},
+        "0,0\n\n\n\n\n\n\n\n\ne",
+        {"w": 0.5},
+        "0,1\n\n\n\n\n\n\n\n\ne",
+        {"x": 2, "w": 0.5},
+        "1,0\n\n\n\n\n\n\n\n\ne",
+        {"w": 0.5},
+        "1,1\n\n\n\n\n\n\n\n\ne"
+      ],
+      [
+        "4,0",
+        {"w": 2, "d": true},
+        "OLED",
+        "4,1"
+      ],
+      ["0,0", "0,1", "0,2", "0,3"],
+      ["1,0", "1,1", "1,2", "1,3"],
+      ["2,0", "2,1", "2,2", "2,3"],
+      ["3,0", "3,1", "3,2", "3,3"]
+    ]
+  }
+}
