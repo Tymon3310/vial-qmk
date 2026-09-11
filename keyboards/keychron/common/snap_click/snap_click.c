@@ -75,12 +75,16 @@ bool process_record_snap_click(uint16_t keycode, keyrecord_t *record) {
                             register_code(p->key[index]);
                             break;
                         case SNAP_CLICK_TYPE_FIRST_KEY:
-                            unregister_code(p->key[1]);
-                            register_code(p->key[0]);
+                            if (keycode == p->key[0]) {
+                                unregister_code(p->key[1]);
+                                register_code(p->key[0]);
+                            }
                             break;
                         case SNAP_CLICK_TYPE_SECOND_KEY:
-                            unregister_code(p->key[0]);
-                            register_code(p->key[1]);
+                            if (keycode == p->key[1]) {
+                                unregister_code(p->key[0]);
+                                register_code(p->key[1]);
+                            }
                             break;
                         case SNAP_CLICK_TYPE_NEUTRAL:
                             unregister_code(p->key[1 - index]);
