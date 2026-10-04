@@ -1,0 +1,49 @@
+{
+    "keyboard_name": "Keychron K10 Max",
+    "manufacturer": "Keychron",
+    "url": "https://github.com/Keychron",
+    "maintainer": "Keychron",
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "usb": {
+        "vid": "0x3434"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "dip_switch": true,
+        "nkro": true,
+        "raw": true,
+        "send_string": true
+    },
+    "matrix_pins": {
+        "cols": ["B15","C6", "A13", "A14", "A15", "C10", "C11", "C13", "C14", "C15", "C0", "C1", "C2", null, null, null, null, null, null, null, null],
+        "rows": ["C12", "D2", "B3", "B4", "B5", "B6"],
+        "custom": true,
+        "custom_lite": true
+    },
+    "diode_direction": "ROW2COL",
+    "dip_switch" :{
+        "pins": ["B14"]
+    },
+    "dynamic_keymap": {
+        "layer_count": 4
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "num_lock": "A1",
+        "on_state": 1
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "driver": "embedded_flash",
+            "logical_size": 2048,
+            "backing_size": 4096
+        }
+    },
+    "build": {
+        "debounce_type": "custom"
+    },
+    "debounce": 50
+}
