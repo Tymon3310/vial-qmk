@@ -458,12 +458,8 @@ void indicator_set(wt_state_t state, uint8_t host_index) {
                 indicator_timer_cb((void *)&indicator_config.type);
             }
 #if defined(LED_MATRIX_ENABLE) || defined(RGB_MATRIX_ENABLE)
-#    ifdef KEYCOMBO_CONN_SWITCH_ENABLE
-            if (host_index & USB_IND_MASK)
-                indicator_set_backlit_timeout(DECIDE_TIME(0, 0));
-            else
-#    endif
-                indicator_set_backlit_timeout(DECIDE_TIME(backlit_disable_time * 1000, indicator_config.duration));
+            /* Same "backlight off after" timeout on USB as on wireless (USB used to stay on forever) */
+            indicator_set_backlit_timeout(DECIDE_TIME(backlit_disable_time * 1000, indicator_config.duration));
 #endif
 #if defined WIN_LOCK_LED_PIN
             gpio_write_pin(WIN_LOCK_LED_PIN, keymap_config.no_gui ? WIN_LOCK_LED_PIN_ON_STATE : !WIN_LOCK_LED_PIN_ON_STATE);

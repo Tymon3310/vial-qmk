@@ -215,6 +215,8 @@ static void reinit_led_drvier(void) {
 }
 #endif
 
+extern uint16_t backlit_disable_time;
+
 void transport_changed(transport_t new_transport) {
     kc_printf("transport_changed %d\n\r", new_transport);
 #ifdef KEYCOMBO_CONN_SWITCH_ENABLE
@@ -236,13 +238,15 @@ void transport_changed(transport_t new_transport) {
 
 #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_TIMEOUT)
 #    if (RGB_MATRIX_TIMEOUT > 0)
-    rgb_matrix_disable_timeout_set(RGB_MATRIX_TIMEOUT_INFINITE);
+    /* On USB, also honour the "backlight off after" setting (it used to stay on forever) */
+    rgb_matrix_disable_timeout_set(new_transport == TRANSPORT_USB ? (uint32_t)backlit_disable_time * 1000 : RGB_MATRIX_TIMEOUT_INFINITE);
     rgb_matrix_disable_time_reset();
 #    endif
 #endif
 #if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_TIMEOUT)
 #    if (LED_MATRIX_TIMEOUT > 0)
-    led_matrix_disable_timeout_set(LED_MATRIX_TIMEOUT_INFINITE);
+    /* On USB, also honour the "backlight off after" setting (it used to stay on forever) */
+    led_matrix_disable_timeout_set(new_transport == TRANSPORT_USB ? (uint32_t)backlit_disable_time * 1000 : LED_MATRIX_TIMEOUT_INFINITE);
     led_matrix_disable_time_reset();
 #    endif
 #endif

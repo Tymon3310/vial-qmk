@@ -693,6 +693,12 @@ bool wireless_lpm_set(uint8_t *data) {
     wireless_config_save();
 
     // Reset backlight timeout
+#    if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_TIMEOUT) && (RGB_MATRIX_TIMEOUT > 0)
+    if (get_transport() == TRANSPORT_USB) rgb_matrix_disable_timeout_set((uint32_t)backlit_disable_time * 1000);
+#    endif
+#    if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_TIMEOUT) && (LED_MATRIX_TIMEOUT > 0)
+    if (get_transport() == TRANSPORT_USB) led_matrix_disable_timeout_set((uint32_t)backlit_disable_time * 1000);
+#    endif
     if ((get_transport() & TRANSPORT_WIRELESS) && wireless_state == WT_CONNECTED) {
         indicator_set_backlit_timeout(backlit_disable_time * 1000);
         indicator_reset_backlit_time();
