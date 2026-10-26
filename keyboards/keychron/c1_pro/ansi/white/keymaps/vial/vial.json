@@ -2,10 +2,9 @@
   "name": "Keychron C1 Pro",
   "vendorId": "0x3434",
   "productId": "0x0513",
-  "keycodes": [
-    "qmk_lighting"
-  ],
-  "menus": null,
+  "lighting": {
+    "extends": "qmk_backlight"
+  },
   "matrix": {
     "rows": 6,
     "cols": 17

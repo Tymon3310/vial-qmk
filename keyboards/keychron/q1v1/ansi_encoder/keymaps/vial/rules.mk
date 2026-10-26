@@ -5,7 +5,7 @@ SRC += keyboards/keychron/common/keychron_common.c
 EXTRAINCDIRS += keyboards/keychron/common
 
 
-VIALRGB_ENABLE = no
+VIALRGB_ENABLE = yes
 
 QMK_SETTINGS = no
 TAP_DANCE_ENABLE = no

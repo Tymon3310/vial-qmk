@@ -241,16 +241,6 @@
       "shortName": "LPad"
     },
     {
-      "name": "Globe /Fn",
-      "title": "Globe/Fn on macOS",
-      "shortName": "Glob"
-    },
-    {
-      "name": "Focus Mode",
-      "title": "Toggle focus mode on macOS",
-      "shortName": "Focus"
-    },
-    {
       "name": "Task View",
       "title": "Task View on Windows",
       "shortName": "Task"
@@ -269,11 +259,6 @@
       "name": "Cortana",
       "title": "Cortana on Windows 10",
       "shortName": "Cortana"
-    },
-    {
-      "name": "Voice Input",
-      "title": "Voice Input on Windows",
-      "shortName": "Voice"
     },
     {
       "name": "Siri",
@@ -319,16 +304,6 @@
       "name": "Profile 3",
       "title": "Profile 3",
       "shortName": "PROF3"
-    },
-    {
-      "name": "Launcher (Mac)",
-      "title": "Open Keychron Launcher on macOS",
-      "shortName": "MCHR"
-    },
-    {
-      "name": "Launcher (Win)",
-      "title": "Open Keychron Launcher on Windows",
-      "shortName": "WCHR"
     }
   ]
 }

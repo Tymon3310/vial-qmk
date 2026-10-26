@@ -2,10 +2,9 @@
   "name": "Lemokey X0",
   "vendorId": "0x362D",
   "productId": "0x0200",
-  "keycodes": [
-    "qmk_lighting"
-  ],
-  "menus": null,
+  "lighting": {
+    "extends": "qmk_backlight"
+  },
   "matrix": {
     "rows": 6,
     "cols": 17

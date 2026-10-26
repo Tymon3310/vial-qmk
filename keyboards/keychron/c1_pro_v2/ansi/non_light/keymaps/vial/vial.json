@@ -2,8 +2,7 @@
   "name": "c1_pro_v2",
   "vendorId": "0x3434",
   "productId": "0x051C",
-  "keycodes": [],
-  "menus": null,
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 17
@@ -183,5 +182,6 @@
       ]
     ]
   },
+  "keycodes": [],
   "vial": {}
 }

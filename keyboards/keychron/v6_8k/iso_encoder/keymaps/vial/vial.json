@@ -1,67 +1,12 @@
 {
   "name": "Keychron V6 8K ISO Knob",
-  "lighting": "vialrgb",
+  "lighting": {
+    "extends": "qmk_rgb_matrix"
+  },
   "matrix": {
     "rows": 6,
     "cols": 21
   },
-  "customKeycodes": [
-    {
-      "name": "Mission Control",
-      "title": "Mission Control on macOS",
-      "shortName": "MCtrl"
-    },
-    {
-      "name": "Launchpad",
-      "title": "Launchpad on macOS",
-      "shortName": "LPad"
-    },
-    {
-      "name": "Left Option",
-      "title": "Left Option on macOS",
-      "shortName": "LOpt"
-    },
-    {
-      "name": "Right Option",
-      "title": "Right Option on macOS",
-      "shortName": "ROpt"
-    },
-    {
-      "name": "Left Cmd",
-      "title": "Left Command on macOS",
-      "shortName": "LCmd"
-    },
-    {
-      "name": "Right Cmd",
-      "title": "Right Command on macOS",
-      "shortName": "RCmd"
-    },
-    {
-      "name": "Siri",
-      "title": "Siri on macOS",
-      "shortName": "Siri"
-    },
-    {
-      "name": "Task View",
-      "title": "Task View on Windows",
-      "shortName": "Task"
-    },
-    {
-      "name": "File Explorer",
-      "title": "File Explorer on Windows",
-      "shortName": "File"
-    },
-    {
-      "name": "Screen Shot",
-      "title": "Screenshot on macOS",
-      "shortName": "SShot"
-    },
-    {
-      "name": "Cortana",
-      "title": "Cortana on Windows 10",
-      "shortName": "Cortana"
-    }
-  ],
   "layouts": {
     "keymap": [
       [
@@ -97,7 +42,7 @@
           "x": 0.25,
           "c": "#aaaaaa"
         },
-        "0,13\n\n\n\n\n\n\n\n\ne0",
+        "0,13",
         {
           "x": 0.25
         },
@@ -111,7 +56,12 @@
         "0,17",
         "0,18",
         "0,19",
-        "0,20"
+        "0,20",
+        {
+          "x": 0.25
+        },
+        "0,0\n\n\n\n\n\n\n\n\ne",
+        "0,1\n\n\n\n\n\n\n\n\ne"
       ],
       [
         {
@@ -326,5 +276,67 @@
       ]
     ]
   },
+  "customKeycodes": [
+    {
+      "name": "Mission Control",
+      "title": "Mission Control on macOS",
+      "shortName": "MCtrl"
+    },
+    {
+      "name": "Launchpad",
+      "title": "Launchpad on macOS",
+      "shortName": "LPad"
+    },
+    {
+      "name": "Left Option",
+      "title": "Left Option on macOS",
+      "shortName": "LOpt"
+    },
+    {
+      "name": "Right Option",
+      "title": "Right Option on macOS",
+      "shortName": "ROpt"
+    },
+    {
+      "name": "Left Cmd",
+      "title": "Left Command on macOS",
+      "shortName": "LCmd"
+    },
+    {
+      "name": "Right Cmd",
+      "title": "Right Command on macOS",
+      "shortName": "RCmd"
+    },
+    {
+      "name": "Siri",
+      "title": "Siri on macOS",
+      "shortName": "Siri"
+    },
+    {
+      "name": "Task View",
+      "title": "Task View on Windows",
+      "shortName": "Task"
+    },
+    {
+      "name": "File Explorer",
+      "title": "File Explorer on Windows",
+      "shortName": "File"
+    },
+    {
+      "name": "Screen Shot",
+      "title": "Screenshot on macOS",
+      "shortName": "SShot"
+    },
+    {
+      "name": "Cortana",
+      "title": "Cortana on Windows 10",
+      "shortName": "Cortana"
+    },
+    {
+      "name": "OS Toggle",
+      "title": "Toggle between Windows and macOS",
+      "shortName": "OSTog"
+    }
+  ],
   "vial": {}
 }

@@ -1,97 +1,12 @@
 {
   "name": "Lemokey P3 HE ANSI",
-  "lighting": "vialrgb",
+  "lighting": {
+    "extends": "qmk_rgb_matrix"
+  },
   "matrix": {
     "rows": 6,
     "cols": 16
   },
-  "customKeycodes": [
-    {
-      "name": "Task View",
-      "title": "Task View on Windows",
-      "shortName": "Task"
-    },
-    {
-      "name": "File Explorer",
-      "title": "File Explorer on Windows",
-      "shortName": "File"
-    },
-    {
-      "name": "Lock Screen",
-      "title": "Lock Screenon Windows",
-      "shortName": "Lock"
-    },
-    {
-      "name": "Mission Control",
-      "title": "Mission Control on macOS",
-      "shortName": "MCtl"
-    },
-    {
-      "name": "Launchpad",
-      "title": "Launchpad on macOS",
-      "shortName": "LPad"
-    },
-    {
-      "name": "Left Option",
-      "title": "Left Option",
-      "shortName": "LOpt"
-    },
-    {
-      "name": "Right Option",
-      "title": "Right Option",
-      "shortName": "ROpt"
-    },
-    {
-      "name": "Left Cmd",
-      "title": "Left Command",
-      "shortName": "LCmd"
-    },
-    {
-      "name": "Right Cmd",
-      "title": "Right Command",
-      "shortName": "RCmd"
-    },
-    {
-      "name": "Bluetooth Host 1",
-      "title": "Bluetooth Host 1",
-      "shortName": "BTH1"
-    },
-    {
-      "name": "Bluetooth Host 2",
-      "title": "Bluetooth Host 2",
-      "shortName": "BTH2"
-    },
-    {
-      "name": "Bluetooth Host 3",
-      "title": "Bluetooth Host 3",
-      "shortName": "BTH3"
-    },
-    {
-      "name": "2.4G",
-      "title": "2.4G",
-      "shortName": "2.4G"
-    },
-    {
-      "name": "Battery Level",
-      "title": "Show battery level",
-      "shortName": "Batt"
-    },
-    {
-      "name": "Profile 1",
-      "title": "Profile 1",
-      "shortName": "PROF1"
-    },
-    {
-      "name": "Profile 2",
-      "title": "Profile 2",
-      "shortName": "PROF2"
-    },
-    {
-      "name": "Profile 3",
-      "title": "Profile 3",
-      "shortName": "PROF3"
-    }
-  ],
   "layouts": {
     "keymap": [
       [
@@ -297,5 +212,92 @@
       ]
     ]
   },
+  "customKeycodes": [
+    {
+      "name": "Task View",
+      "title": "Task View on Windows",
+      "shortName": "Task"
+    },
+    {
+      "name": "File Explorer",
+      "title": "File Explorer on Windows",
+      "shortName": "File"
+    },
+    {
+      "name": "Lock Screen",
+      "title": "Lock Screenon Windows",
+      "shortName": "Lock"
+    },
+    {
+      "name": "Mission Control",
+      "title": "Mission Control on macOS",
+      "shortName": "MCtl"
+    },
+    {
+      "name": "Launchpad",
+      "title": "Launchpad on macOS",
+      "shortName": "LPad"
+    },
+    {
+      "name": "Left Option",
+      "title": "Left Option",
+      "shortName": "LOpt"
+    },
+    {
+      "name": "Right Option",
+      "title": "Right Option",
+      "shortName": "ROpt"
+    },
+    {
+      "name": "Left Cmd",
+      "title": "Left Command",
+      "shortName": "LCmd"
+    },
+    {
+      "name": "Right Cmd",
+      "title": "Right Command",
+      "shortName": "RCmd"
+    },
+    {
+      "name": "Bluetooth Host 1",
+      "title": "Bluetooth Host 1",
+      "shortName": "BTH1"
+    },
+    {
+      "name": "Bluetooth Host 2",
+      "title": "Bluetooth Host 2",
+      "shortName": "BTH2"
+    },
+    {
+      "name": "Bluetooth Host 3",
+      "title": "Bluetooth Host 3",
+      "shortName": "BTH3"
+    },
+    {
+      "name": "2.4G",
+      "title": "2.4G",
+      "shortName": "2.4G"
+    },
+    {
+      "name": "Battery Level",
+      "title": "Show battery level",
+      "shortName": "Batt"
+    },
+    {
+      "name": "Profile 1",
+      "title": "Profile 1",
+      "shortName": "PROF1"
+    },
+    {
+      "name": "Profile 2",
+      "title": "Profile 2",
+      "shortName": "PROF2"
+    },
+    {
+      "name": "Profile 3",
+      "title": "Profile 3",
+      "shortName": "PROF3"
+    }
+  ],
   "vial": {}
 }

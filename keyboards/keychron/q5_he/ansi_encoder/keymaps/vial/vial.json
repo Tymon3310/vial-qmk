@@ -183,6 +183,21 @@
       "name": "Battery Level",
       "title": "Show battery level",
       "shortName": "Batt"
+    },
+    {
+      "name": "Profile 1",
+      "title": "Profile 1",
+      "shortName": "PROF1"
+    },
+    {
+      "name": "Profile 2",
+      "title": "Profile 2",
+      "shortName": "PROF2"
+    },
+    {
+      "name": "Profile 3",
+      "title": "Profile 3",
+      "shortName": "PROF3"
     }
   ],
   "layouts": {

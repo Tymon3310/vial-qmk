@@ -2,10 +2,9 @@
   "name": "Keychron K2 Version 3",
   "vendorId": "0x3434",
   "productId": "0x0D23",
-  "keycodes": [
-    "qmk_lighting"
-  ],
-  "menus": null,
+  "lighting": {
+    "extends": "qmk_backlight"
+  },
   "matrix": {
     "rows": 6,
     "cols": 17
@@ -142,5 +141,92 @@
         "5,15"
       ]
     ]
-  }
+  },
+  "customKeycodes": [
+    {
+      "name": "Left Option",
+      "title": "Left Option in macOS",
+      "shortName": "LOpt"
+    },
+    {
+      "name": "Right Option",
+      "title": "Right Option in macOS",
+      "shortName": "ROpt"
+    },
+    {
+      "name": "Left Cmd",
+      "title": "Left Command in macOS",
+      "shortName": "LCmd"
+    },
+    {
+      "name": "Right Cmd",
+      "title": "Right Command in macOS",
+      "shortName": "RCmd"
+    },
+    {
+      "name": "Mission Control",
+      "title": "Mission Control in macOS",
+      "shortName": "MCtl"
+    },
+    {
+      "name": "Launch Pad",
+      "title": "Launch Pad in macOS",
+      "shortName": "LPad"
+    },
+    {
+      "name": "Task View",
+      "title": "Task View in Windows",
+      "shortName": "Task"
+    },
+    {
+      "name": "File Explorer",
+      "title": "File Explorer in Windows",
+      "shortName": "File"
+    },
+    {
+      "name": "Screen Shot",
+      "title": "Screenshot in macOS",
+      "shortName": "SShot"
+    },
+    {
+      "name": "Cortana",
+      "title": "Cortana in Windows",
+      "shortName": "Cortana"
+    },
+    {
+      "name": "Siri",
+      "title": "Siri in macOS",
+      "shortName": "Siri"
+    },
+    {
+      "name": "Bluetooth Host 1",
+      "title": "Bluetooth Host 1",
+      "shortName": "BTH1"
+    },
+    {
+      "name": "Bluetooth Host 2",
+      "title": "Bluetooth Host 2",
+      "shortName": "BTH2"
+    },
+    {
+      "name": "Bluetooth Host 3",
+      "title": "Bluetooth Host 3",
+      "shortName": "BTH3"
+    },
+    {
+      "name": "Battery Level",
+      "title": "Show battery level",
+      "shortName": "Batt"
+    },
+    {
+      "name": "Effect Speed+",
+      "title": "BL_SPI",
+      "shortName": "BL_SPI"
+    },
+    {
+      "name": "Effect Speed-",
+      "title": "BL_SPD",
+      "shortName": "BL_SPD"
+    }
+  ]
 }

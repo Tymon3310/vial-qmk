@@ -2,93 +2,13 @@
   "name": "Keychron V1 MAX Ansi Encoder",
   "vendorId": "0x3434",
   "productId": "0x0913",
-  "lighting": "vialrgb",
+  "lighting": {
+    "extends": "qmk_rgb_matrix"
+  },
   "matrix": {
     "rows": 6,
     "cols": 16
   },
-  "customKeycodes": [
-    {
-      "name": "KC_LOPTN",
-      "title": "Left Option (macOS)",
-      "shortName": "LOpt"
-    },
-    {
-      "name": "KC_ROPTN",
-      "title": "Right Option (macOS)",
-      "shortName": "ROpt"
-    },
-    {
-      "name": "KC_LCMMD",
-      "title": "Left Command (macOS)",
-      "shortName": "LCmd"
-    },
-    {
-      "name": "KC_RCMMD",
-      "title": "Right Command (macOS)",
-      "shortName": "RCmd"
-    },
-    {
-      "name": "KC_MCTRL",
-      "title": "Mission Control (macOS)",
-      "shortName": "MCtrl"
-    },
-    {
-      "name": "KC_LNPAD",
-      "title": "Launchpad (macOS)",
-      "shortName": "LPad"
-    },
-    {
-      "name": "KC_TASK_VIEW",
-      "title": "Task View (Windows)",
-      "shortName": "Task"
-    },
-    {
-      "name": "KC_FILE_EXPLORER",
-      "title": "File Explorer (Windows)",
-      "shortName": "File"
-    },
-    {
-      "name": "KC_SCREEN_SHOT",
-      "title": "Screenshot (macOS)",
-      "shortName": "SShot"
-    },
-    {
-      "name": "KC_CORTANA",
-      "title": "Cortana (Windows)",
-      "shortName": "Cortana"
-    },
-    {
-      "name": "KC_SIRI",
-      "title": "Siri (macOS)",
-      "shortName": "Siri"
-    },
-    {
-      "name": "BT_HST1",
-      "title": "Bluetooth Host 1",
-      "shortName": "BT1"
-    },
-    {
-      "name": "BT_HST2",
-      "title": "Bluetooth Host 2",
-      "shortName": "BT2"
-    },
-    {
-      "name": "BT_HST3",
-      "title": "Bluetooth Host 3",
-      "shortName": "BT3"
-    },
-    {
-      "name": "P2P4G",
-      "title": "2.4G Dongle",
-      "shortName": "2.4G"
-    },
-    {
-      "name": "BAT_LVL",
-      "title": "Battery Level",
-      "shortName": "BAT"
-    }
-  ],
   "layouts": {
     "keymap": [
       [
@@ -293,5 +213,87 @@
         "5,15"
       ]
     ]
-  }
+  },
+  "customKeycodes": [
+    {
+      "name": "KC_LOPTN",
+      "title": "Left Option (macOS)",
+      "shortName": "LOpt"
+    },
+    {
+      "name": "KC_ROPTN",
+      "title": "Right Option (macOS)",
+      "shortName": "ROpt"
+    },
+    {
+      "name": "KC_LCMMD",
+      "title": "Left Command (macOS)",
+      "shortName": "LCmd"
+    },
+    {
+      "name": "KC_RCMMD",
+      "title": "Right Command (macOS)",
+      "shortName": "RCmd"
+    },
+    {
+      "name": "KC_MCTRL",
+      "title": "Mission Control (macOS)",
+      "shortName": "MCtrl"
+    },
+    {
+      "name": "KC_LNPAD",
+      "title": "Launchpad (macOS)",
+      "shortName": "LPad"
+    },
+    {
+      "name": "KC_TASK_VIEW",
+      "title": "Task View (Windows)",
+      "shortName": "Task"
+    },
+    {
+      "name": "KC_FILE_EXPLORER",
+      "title": "File Explorer (Windows)",
+      "shortName": "File"
+    },
+    {
+      "name": "KC_SCREEN_SHOT",
+      "title": "Screenshot (macOS)",
+      "shortName": "SShot"
+    },
+    {
+      "name": "KC_CORTANA",
+      "title": "Cortana (Windows)",
+      "shortName": "Cortana"
+    },
+    {
+      "name": "KC_SIRI",
+      "title": "Siri (macOS)",
+      "shortName": "Siri"
+    },
+    {
+      "name": "BT_HST1",
+      "title": "Bluetooth Host 1",
+      "shortName": "BT1"
+    },
+    {
+      "name": "BT_HST2",
+      "title": "Bluetooth Host 2",
+      "shortName": "BT2"
+    },
+    {
+      "name": "BT_HST3",
+      "title": "Bluetooth Host 3",
+      "shortName": "BT3"
+    },
+    {
+      "name": "P2P4G",
+      "title": "2.4G Dongle",
+      "shortName": "2.4G"
+    },
+    {
+      "name": "BAT_LVL",
+      "title": "Battery Level",
+      "shortName": "BAT"
+    }
+  ]
 }
