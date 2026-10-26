@@ -22,8 +22,8 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "GP10", "pin_b": "GP11", "resolution": 4},
-            {"pin_a": "GP12", "pin_b": "GP13", "resolution": 4}
+            {"pin_a": "GP11", "pin_b": "GP10", "resolution": 4},
+            {"pin_a": "GP13", "pin_b": "GP12", "resolution": 4}
         ]
     },
     "ws2812": {
@@ -36,6 +36,7 @@
         "scl_pin": "GP15"
     },
     "rgb_matrix": {
+        "sleep": true,
         "driver": "ws2812",
         "layout": [
             {"x": 76, "y": 0, "flags": 2},
