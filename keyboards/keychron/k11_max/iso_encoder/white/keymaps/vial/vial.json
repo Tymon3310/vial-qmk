@@ -2,9 +2,7 @@
   "name": "Keychron K11 Max ISO White Knob",
   "vendorId": "0x3434",
   "productId": "0x0ABA",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 5,
     "cols": 16

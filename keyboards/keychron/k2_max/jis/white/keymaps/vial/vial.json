@@ -2,9 +2,7 @@
   "name": "Keychron K2 Max JIS White",
   "vendorId": "0x3434",
   "productId": "0x0A25",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 16

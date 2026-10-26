@@ -2,9 +2,7 @@
   "name": "Keychron Q11 ISO Knob",
   "vendorId": "0x3434",
   "productId": "0x01E1",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 12,
     "cols": 9

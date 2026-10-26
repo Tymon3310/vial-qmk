@@ -2,9 +2,7 @@
   "name": "Keychron C2 Pro",
   "vendorId": "0x3434",
   "productId": "0x0523",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 20

@@ -2,9 +2,7 @@
   "name": "Keychron V2 BR Knob",
   "vendorId": "0x3434",
   "productId": "0x0327",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 5,
     "cols": 15

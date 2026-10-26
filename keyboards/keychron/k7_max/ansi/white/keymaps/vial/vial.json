@@ -2,9 +2,7 @@
   "name": "Keychron K7 Max ANSI White",
   "vendorId": "0x3434",
   "productId": "0x0A73",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 5,
     "cols": 16

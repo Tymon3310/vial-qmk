@@ -2,9 +2,7 @@
   "name": "Keychron K10 Max JIS White",
   "vendorId": "0x3434",
   "productId": "0x0AA5",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 20

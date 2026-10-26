@@ -1,8 +1,6 @@
 {
   "name": "Keychron V3 8K ISO Knob",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 6,
     "cols": 17

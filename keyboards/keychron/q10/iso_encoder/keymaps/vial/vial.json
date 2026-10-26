@@ -2,9 +2,7 @@
   "name": "Keychron Q10",
   "vendorId": "0x3434",
   "productId": "0x01A3",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 6,
     "cols": 16

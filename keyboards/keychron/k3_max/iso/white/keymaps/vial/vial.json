@@ -2,9 +2,7 @@
   "name": "Keychron K3 Max ISO White",
   "vendorId": "0x3434",
   "productId": "0x0A34",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 16

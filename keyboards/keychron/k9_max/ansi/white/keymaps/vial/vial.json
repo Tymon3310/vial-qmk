@@ -2,9 +2,7 @@
   "name": "Keychron K9 Max ANSI RGB",
   "vendorId": "0x3434",
   "productId": "0x0A90",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 5,
     "cols": 14

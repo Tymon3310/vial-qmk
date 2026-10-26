@@ -1,8 +1,6 @@
 {
   "name": "Keychron C100 8K",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 10,
     "cols": 10

@@ -2,9 +2,7 @@
   "name": "Keychron K1 Max ANSI White",
   "vendorId": "0x3434",
   "productId": "0x0A13",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 17

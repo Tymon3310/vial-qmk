@@ -2,9 +2,7 @@
   "name": "Keychron K15 Max ISO White Knob",
   "vendorId": "0x3434",
   "productId": "0x0AF4",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 16

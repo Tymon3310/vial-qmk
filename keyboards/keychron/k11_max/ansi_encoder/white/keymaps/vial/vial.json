@@ -2,9 +2,7 @@
   "name": "Keychron K11 Max ANSI White Knob",
   "vendorId": "0x3434",
   "productId": "0x0AB9",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 5,
     "cols": 16

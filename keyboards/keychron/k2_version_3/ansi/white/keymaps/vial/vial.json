@@ -2,9 +2,7 @@
   "name": "Keychron K2 Version 3",
   "vendorId": "0x3434",
   "productId": "0x0D23",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 16

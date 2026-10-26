@@ -2,9 +2,7 @@
   "name": "c1_pro_v2",
   "vendorId": "0x3434",
   "productId": "0x0519",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 17

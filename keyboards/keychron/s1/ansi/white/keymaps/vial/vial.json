@@ -2,9 +2,7 @@
   "name": "Keychron S1 ANSI RGB",
   "vendorId": "0x3434",
   "productId": "0x0411",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 15

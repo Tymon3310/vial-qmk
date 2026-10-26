@@ -1,8 +1,6 @@
 {
   "name": "Keychron Q9 Plus",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 4,
     "cols": 15

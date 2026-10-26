@@ -1,8 +1,6 @@
 {
   "name": "Lemokey P3 HE ANSI",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 6,
     "cols": 16

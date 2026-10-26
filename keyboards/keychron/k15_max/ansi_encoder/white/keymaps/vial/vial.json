@@ -2,9 +2,7 @@
   "name": "Keychron K15 Max ANSI Knob",
   "vendorId": "0x3434",
   "productId": "0x0AF3",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 16

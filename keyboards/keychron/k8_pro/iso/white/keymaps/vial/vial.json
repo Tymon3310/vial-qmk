@@ -2,9 +2,7 @@
   "name": "Keychron K8 Pro (Vial)",
   "vendorId": "0x3434",
   "productId": "0x0284",
-  "lighting": {
-    "extends": "qmk_backlight"
-  },
+  "lighting": "none",
   "matrix": {
     "rows": 6,
     "cols": 17

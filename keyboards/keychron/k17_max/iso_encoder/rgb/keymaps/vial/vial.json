@@ -2,9 +2,7 @@
   "name": "Keychron K17 Max ISO RGB",
   "vendorId": "0x3434",
   "productId": "0x0A01",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 6,
     "cols": 20

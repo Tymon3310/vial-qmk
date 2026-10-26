@@ -2,9 +2,7 @@
   "name": "Keychron V8",
   "vendorId": "0x3434",
   "productId": "0x0383",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 5,
     "cols": 15

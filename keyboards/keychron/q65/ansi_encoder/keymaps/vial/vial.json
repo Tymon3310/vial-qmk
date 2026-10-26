@@ -2,9 +2,7 @@
   "name": "Keychron Q65",
   "vendorId": "0x3434",
   "productId": "0x01b1",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 5,
     "cols": 16

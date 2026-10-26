@@ -1,8 +1,6 @@
 {
   "name": "Keychron R6 ANSI RGB",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 6,
     "cols": 21

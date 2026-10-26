@@ -2,9 +2,7 @@
   "name": "Keychron Q60",
   "vendorId": "0x3434",
   "productId": "0x01C0",
-  "lighting": {
-    "extends": "qmk_rgb_matrix"
-  },
+  "lighting": "vialrgb",
   "matrix": {
     "rows": 5,
     "cols": 14
