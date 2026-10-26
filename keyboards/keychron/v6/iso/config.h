@@ -16,6 +16,14 @@
 
 #pragma once
 
+/* Without the knob, cols 10 (A2) and 19 (C14) are GPIO pins and only
+ * cols 11-18 are on the shift register. v6/config.h sets 10-19 for the
+ * knob layouts. */
+#undef HC595_START_INDEX
+#undef HC595_END_INDEX
+#define HC595_START_INDEX 11
+#define HC595_END_INDEX 18
+
 /* Indications */
 #define CAPS_LOCK_LED_INDEX 60
 #define NUM_LOCK_LED_INDEX 37
