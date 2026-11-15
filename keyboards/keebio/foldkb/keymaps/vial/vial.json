@@ -8,19 +8,19 @@
     "rows": 10,
     "cols": 8
   },
-  "labels": [
-    "Split Backspace",
-    "1U Slash Pipe",
-    "Split Right Shift",
-    "Split Right Space",
-    [
-        "Left Bottom Row",
-        "2x 1.5U",
-        "3x 1U",
-        "1U + 2U"
-    ]
-  ],
   "layouts": {
+    "labels": [
+      "Split Backspace",
+      "1U Slash Pipe",
+      "Split Right Shift",
+      "Split Right Space",
+      [
+          "Left Bottom Row",
+          "2x 1.5U",
+          "3x 1U",
+          "1U + 2U"
+      ]
+    ],
     "keymap": [
         [
           {
